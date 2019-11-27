@@ -26,6 +26,7 @@ Here you will find the technical information required to help you run jobs on Oz
    1-getting_started/file-transfer
    1-getting_started/Swinburne-HPC
    1-getting_started/FAQ
+   1-getting_started/Support
 
 
 .. toctree::
