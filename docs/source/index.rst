@@ -42,7 +42,7 @@ Here you will find the technical information required to help you run jobs on Oz
 
    2-ozstar/Modules
    2-ozstar/Installing
-   2-ozstar/Singularity
+   2-ozstar/Apptainer
 
 .. toctree::
    :maxdepth: 1
