@@ -41,6 +41,7 @@ Here you will find the technical information required to help you run jobs on Oz
    :caption: Software
 
    2-ozstar/Modules
+   2-ozstar/Installing
    2-ozstar/Singularity
 
 .. toctree::
