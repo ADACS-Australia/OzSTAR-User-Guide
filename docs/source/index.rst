@@ -1,9 +1,4 @@
-.. OzSTAR User Guide documentation master file, created by
-   sphinx-quickstart on Wed Jan 24 10:10:13 2018.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to OzSTAR documentation!
+Welcome to the OzSTAR documentation!
 =============================================
 
 Here you will find the technical information required to help you run jobs on OzSTAR.
@@ -31,9 +26,9 @@ Here you will find the technical information required to help you run jobs on Oz
 
 .. toctree::
    :maxdepth: 1
-   :caption: OzSTAR vs Green II
+   :caption: Ngarrgu Tindebeek vs OzSTAR
 
-   1a-oz_g2/what-s-new
+   1a-nt_oz/what-s-new
 
 .. toctree::
    :maxdepth: 1
@@ -46,6 +41,7 @@ Here you will find the technical information required to help you run jobs on Oz
    :caption: Software
 
    2-ozstar/Modules
+   2-ozstar/Installing
    2-ozstar/Singularity
 
 .. toctree::
@@ -58,5 +54,3 @@ Here you will find the technical information required to help you run jobs on Oz
    2-ozstar/oz-slurm-create
    2-ozstar/oz-slurm-examples
    2-ozstar/torque-vs-slurm
-
-
