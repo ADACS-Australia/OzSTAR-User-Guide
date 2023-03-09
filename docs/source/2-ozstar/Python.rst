@@ -55,4 +55,24 @@ On the OzSTAR supercomputers, Conda can be used by loading the ``conda/latest`` 
 
 You may be familiar with the Anaconda distribution of Python, which contains a specific version of Python bundled with a large set of datascience packages. In contrast, the Conda module provides only the package manager, giving you the freedom to create your own environment with the exact versions of Python and packages that you need.
 
-See the `Conda documentation <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_ for instructions on how to manage environments.
+See the `Conda documentation <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_ for instructions on how to create and manage environments.
+
+By default, Conda places environments in the home directory in ``~/.conda``. As you create new environments, the home directory disk quota will be exhausted very quickly. To circumvent this issue, you can move your ``.conda`` directory into your project storage and then create a symlink from there, so that Conda still "sees" it in the home directory:
+
+::
+
+    mv ~/.conda /fred/oz000/username/.conda
+    ln -s /fred/oz000/username/.conda ~/.conda
+
+.. note::
+    The backups for the home directory does not follow symlinks, so your ``.conda`` directory will no longer be backed up. To create a "backup" of the environment, you can export a YAML file specifying all the packages and versions in the environment:
+
+    ::
+
+        conda env export > environment.yml
+
+    This YAML file can be stored in the home directory. To re-create the environment:
+
+    ::
+
+        conda env create -f environment.yml
