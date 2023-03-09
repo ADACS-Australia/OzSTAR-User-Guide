@@ -1,7 +1,7 @@
 Welcome to the OzSTAR documentation!
 =============================================
 
-Here you will find the technical information required to help you run jobs on OzSTAR.
+Here you will find the technical information required to help you run jobs on the Swinburne supercomputers, OzSTAR and Ngarrgu Tindebeek (NT).
 
 .. toctree::
    :hidden:
