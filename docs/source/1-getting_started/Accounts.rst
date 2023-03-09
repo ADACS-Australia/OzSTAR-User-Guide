@@ -6,13 +6,12 @@ Accounts
 Overview
 --------
 
-Accounts are available to Swinburne staff and students. Also to anyone working in the field of astronomy and space sciences and based at a publicly funded research institution within Australia. Every account must be linked to at least one project, whether that be a general access project that defines a research group or a project approved through a merit allocation scheme. International collaborators on approved projects may also apply for accounts but cannot be the lead on a research project.
+Accounts are available free of charge to Swinburne staff and students, and anyone working in the field of astronomy and space sciences and based at a publicly funded research institution within Australia. Every account must be linked to at least one project, whether that be a general access project that defines a research group or a project approved through a merit allocation scheme. International collaborators on approved projects may also apply for accounts but cannot be the lead on a research project.
 
 Manage your account
 --------------------
 
-If you already have an OzSTAR account and would like to update your contact details, reset your password, etc.
-you can go directly to the account management portal (`supercomputing.swin.edu.au/account-management <https://supercomputing.swin.edu.au/account-management/>`_).
+If you already have an account and would like to update your contact details, reset your password, etc. you can go directly to the account management portal (`supercomputing.swin.edu.au/account-management <https://supercomputing.swin.edu.au/account-management/>`_). Please note that OzSTAR accounts are completely separate to Swinburne logins.
 
 Getting a new account
 -----------------------------------
@@ -20,12 +19,13 @@ Getting a new account
 .. image:: ../_static/g2-Account.png
 
 - Step 1:
-    * If you already have a Green II account:
-        - Fill in the form on https://supercomputing.swin.edu.au/account-management/join_ozstar with your details to apply and activate your login details for OzSTAR.
-    * For new accounts:
-        - Fill in the form on https://supercomputing.swin.edu.au/account-management/new_account_request with your details.
+    * Fill in the form on https://supercomputing.swin.edu.au/account-management/new_account_request with your details.
 - Step 2:
-    * The system will send you an email to verify your email address.
+    * The system will send you an email to verify your email address. Please check your spam folder.
+
+.. note::
+    In the majority of cases where the verification email has not arrived, it is because it has been caught by the spam filter, or the email address has been entered incorrectly.
+
 - Step 3:
     * Your account request will be sent to our admin team for approval. This may take up to 48 hours. You will not be able to login to the account-management system until your account has been approved.
 - Step 4:
