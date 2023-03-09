@@ -9,7 +9,9 @@ Apptainer container and run.
 
 You can use Apptainer by loading the module
 
-`module load apptainer/latest`
+::
+
+    module load apptainer/latest
 
 
 Examples
