@@ -23,7 +23,7 @@ official documentation: https://apptainer.org/docs/user/latest/
 
 Binding the filesystem to a container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-To bind `/fred` from OzSTAR to `/fred` in your container:
+To bind ``/fred`` from OzSTAR to ``/fred`` in your container:
 
 ::
 
