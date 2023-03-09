@@ -3,15 +3,15 @@
 Guide for beta testers
 ======================
 
-Thank you for offering to test OzSTAR's latest supercomputer, Ngarrgu Tindebeek.
+Thank you for offering to test OzSTAR's latest supercomputer, Ngarrgu Tindebeek (NT).
 
 Goals
 -----
 We are interested in hearing as much feedback as you can give on areas such as:
 
-* The modules system
-* Performance comparisons between the new nodes and existing OzSTAR
-* Bugs and errors
+* The new modules system
+* Performance comparisons for your applications between the new nodes and existing OzSTAR
+* Bugs and errors you encounter
 
 Benefits
 --------
