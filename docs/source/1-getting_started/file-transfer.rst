@@ -3,19 +3,18 @@
 File Transfer
 ======================================================
 
-In order to transfer files to and from the supercomputer (OzSTAR), a ssh-based file transfer utility is required. There are a variety of Options that you can use.
+In order to transfer files to and from the supercomputer, an SSH-based file transfer utility is required. There are a variety of Options that you can use.
 
-+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Operating System | Terminal                                                                                                                                                                  |
-+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Mac              | `“scp” (secure copy) command <http://www.computerhope.com/unix/scp.htm>`_ can be used via the terminal or use `Cyberduck <https://cyberduck.io/>`_ as a GUI alternative   |
-+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Linux            | `“scp” (secure copy) command _` can be used via the terminal                                                                                                              |
-+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Windows          | The recommended software is `WinSCP <http://winscp.net/eng/index.php>`_                                                                                                   |
-+------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-As an alternative option, you can use a SFTP Client (e.g `FileZilla <https://filezilla-project.org/>`_ Client – more details about using the SFTP mode in FileZilla can be found on https://it.unh.edu/sftp/filezilla.html)
++------------------+---------------------------------------------------------------------------------------------------+
+| Operating System | Terminal                                                                                          |
++------------------+---------------------------------------------------------------------------------------------------+
+| Mac and Linux    | * `scp (secure copy) <http://www.computerhope.com/unix/scp.htm>`_, a simple file transfer tool    |
+|                  | * `rsync <https://linux.die.net/man/1/rsync>`_ a powerful tool for transferring multiple files,   |
+|                  |   with the ability to compare the source and destination and only send changes.                   |
+|                  |                                                                                                   |
++------------------+---------------------------------------------------------------------------------------------------+
+| Windows          | * `WinSCP <http://winscp.net/eng/index.php>`_ is a graphical interface for transferring files     |
++------------------+---------------------------------------------------------------------------------------------------+
 
 
 Copying a file or directory via SSH
@@ -23,21 +22,17 @@ Copying a file or directory via SSH
 
 The simplest way to copy a file to or from the supercomputer is to use the ``scp`` command.
 
-.. note::
-
-    In the following examples, we assume an ``ozstar`` alias set to ``[your-username]@ozstar.swin.edu.au``.
-
 **Copying a local file to the OzSTAR supercomputer**::
 
-    scp ./file.txt ozstar:destination/path/
+    scp ./file.txt username@nt.swin.edu.au:destination/path/
 
-You can also copy a file from the supercomputer to your local machine (e.g. **download**) as follows::
+You can also copy a file from the supercomputer to your local machine (i.e. **download**) as follows::
 
-    scp ozstar:path/to/file.txt .
+    scp username@nt.swin.edu.au:path/to/file.txt .
 
-**Copy a directory and its content** is done by using the ``-r`` option::
+**Copying a directory and its content** is done by using the ``-r`` option::
 
-    scp -r path/to/copy/ ozstar:destination/path/
+    scp -r path/to/copy/ username@nt.swin.edu.au:destination/path/
 
 The above command will initiate a connection from your local environment to OzSTAR directly.
 
@@ -46,18 +41,18 @@ Transferring a large number of small files
 
 Transferring lots of small files can take a long time with ``scp`` due to the overhead of copying each file individually. Instead, it is advised to package your files into a single ``tar`` file using the `tar <https://www.gnu.org/software/tar/manual/html_section/tar_22.html>`__ command to significantly reduce the transfer time. This is done by create a tar archive, copying it using ``scp``, and finally ``untar`` it to retrieve your individual files.
 
-.. Transferring large files
-    ----------------------------
+Transferring large files
+----------------------------
 
-    When transferring large files, it is often interesting to use the ``-C`` option of ``scp`` to first compress the file, send it, and then decompress it. Using it simply with
+    When transferring large files, it may be useful to use the ``-C`` option of ``scp`` to first compress the file, send it, and then decompress it.
 
     ::
 
-        scp -C ./large_file.txt ozstar:destination/path/
+        scp -C ./large_file.txt username@nt.swin.edu.au:destination/path/
 
 Transferring code
 ----------------------
-The best way to transfer code from one computer to another is to host the code in a *source code repository* using a *versioning system* such as `git <https://www.git-scm.com>`__ or `mercurial <https://www.mercurial-scm.org>`__ and clone the repository from your local computer, or a cloud service (e.g. bitbucket, github, ...), to the supercomputer.
+The best way to transfer code from one computer to another is to host the code in a *source code repository* using a *versioning system* such as `git <https://www.git-scm.com>`__ and clone the repository to the supercomputer.
 
 Resuming interrupted transfers
 --------------------------------
@@ -66,7 +61,7 @@ If a transfer is interrupted, you might end up with part of the files being tran
 
 ::
 
-    rsync -va ./source_dir ozstar:destination/path
+    rsync -va ./source_dir username@nt.swin.edu.au:destination/path
 
 .. warning::
 
@@ -81,7 +76,6 @@ Synchronising with a local directory
 --------------------------------------------
 If you want to keep two directories (one on your local computer, and one on the supercomputer) in sync, you can do that with rsync using its ``--delete`` option. But that is only one-way so you need to really think in what direction you do it, and it does not scale beyond two synchronized directory trees.
 
-Another potential option is to use `Unison <https://www.cis.upenn.edu/~bcpierce/unison/>`__, a piece of software that can detect and handle conflicts (incompatible changes made to the same file in the two directories that must be kept in sync.)
+Another potential option is to use `Unison <https://www.cis.upenn.edu/~bcpierce/unison/>`__, a program that can detect and handle conflicts (incompatible changes made to the same file in the two directories that must be kept in sync.)
 
-Please note that the supercomputer is **NOT** a place to use as a backup for your laptop or workstation's holiday snaps and emails.
-
+Please note that the supercomputer is **NOT** a place to use as a backup for your laptop or workstation. Storage on the Lustre file system is expensive to maintain, and must not be used for purposes unrelated to compute jobs.
