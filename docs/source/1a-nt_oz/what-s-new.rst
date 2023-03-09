@@ -1,6 +1,6 @@
 .. highlight:: rst
 
-What's new on OzSTAR?
+What's new?
 ==========================
 
 Access
@@ -36,10 +36,7 @@ throughput of 200 Gbps.
 Projects and filesystem
 ------------
 
-Ngarrgu Tindebeek and the existing OzSTAR cluster shares the same project
-management system and filesystem. An additional 14 PB of storage has been added
-to the existing Lustre file system (/fred), which is accessible on OzSTAR and
-Ngarrgu Tindebeek.
+Ngarrgu Tindebeek and the existing OzSTAR cluster shares the same project management system and filesystem. An additional 14 PB of storage has been added to the existing Lustre file system (/fred), which is accessible on OzSTAR and Ngarrgu Tindebeek.
 
 Limitations
 -----------
@@ -51,13 +48,9 @@ Limitations
 Queues
 -------
 
-As with with the OzSTAR cluster, you do not need to specify a Slurm queue. This
-is determined automatically by the node you are submitting from. Jobs
-submitted via ``tooarrana1/2`` will be sent to the new nodes.
+As with with the OzSTAR cluster, you do not need to specify a Slurm queue. This is determined automatically by the node you are submitting from. Jobs submitted via ``tooarrana1/2`` will be sent to the new nodes.
 
 Modules
 -----------
 
-Ngarrgu Tindebeek continues to use software modules, but contains a new
-software hierarchy and a fresh installation of the latest applications. See
-:doc:`../2-ozstar/Modules` for more information.
+Ngarrgu Tindebeek continues to use software modules, but contains a new software hierarchy and a fresh installation of the latest applications. See :doc:`../2-ozstar/Modules` for more information.

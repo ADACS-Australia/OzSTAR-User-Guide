@@ -56,7 +56,7 @@ These were all presented at a CUDA Easy workshop at Swinburne (thanks to Michael
 Another great starting point is to go to the `GPU Technology Conference <GPU Technology Conference>`_ website and search through past presentations using their On-Demand tool. You can search by field and/or topic, for example, and most likely someone in your field has already tackled what you are hoping to do.
 
 Why am I getting “Disk quota exceeded” message?
----------------------------------------------------
+-----------------------------------------------
 
 Type the following command on any node ::
 
@@ -81,3 +81,8 @@ The login nodes, Tooarrana, are named after a cute and furry Australian creature
 Most of the other components of the OzSTAR cluster are named in memory of the late satirist, actor, comedian, and writer `John Clarke <https://en.wikipedia.org/wiki/John_Clarke_(satirist)>`_.
 
 OzSTAR's login nodes are farnarkle. login node cgroups are grommet. The main filesysem is Dagg mounted at Fred. Lustre servers are arkle, warble, umlaut. The majority of compute nodes are called John, with high memory nodes being Bryan. NT's compute nodes are named Dave.
+
+Why am I getting a "permission denied" error when logging in?
+-------------------------------------------------------------
+
+If you were previously able to log in, and assuming you are using the correct password or SSH key, then most likely your account has expired. All accounts automatically expire 2 years after the creation date. Due to a current limitation in the account management system, users are not alerted prior to account expiration. If your account has expired and you would like us to renew it, or if you would like to find out your current expiry date, please contact us at hpc-support@swin.edu.au.
