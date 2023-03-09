@@ -9,7 +9,9 @@ Apptainer container and run.
 
 You can use Apptainer by loading the module
 
-`module load apptainer/latest`
+::
+
+    module load apptainer/latest
 
 
 Examples
@@ -21,7 +23,7 @@ official documentation: https://apptainer.org/docs/user/latest/
 
 Binding the filesystem to a container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-To bind `/fred` from OzSTAR to `/fred` in your container:
+To bind ``/fred`` from OzSTAR to ``/fred`` in your container:
 
 ::
 
