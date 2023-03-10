@@ -4,12 +4,12 @@ What's new?
 ==========================
 
 Access
--------
+------
 
 Entry point is now ``ozstar.swin.edu.au``.
 
 Hardware
-----------
+--------
 
 Ngarrgu Tindebeek has 11,648 CPU cores and 88 GPUs in total.
 
@@ -46,11 +46,15 @@ Limitations
 - Maximum GPUs **per project** is 100.
 
 Queues
--------
+------
 
 As with with the OzSTAR cluster, you do not need to specify a Slurm queue. This is determined automatically by the node you are submitting from. Jobs submitted via ``tooarrana1/2`` will be sent to the new nodes.
 
 Modules
------------
+-------
 
 Ngarrgu Tindebeek continues to use software modules, but contains a new software hierarchy and a fresh installation of the latest applications. See :doc:`../2-ozstar/Modules` for more information.
+
+Environment
+-----------
+* The default number of OpenMP threads is now set to 1 by default using the environment variable ``OMP_NUM_THREADS=1`` (previously not defined by default). Users must explicitly change this value if they wish to use more than 1 thread.
