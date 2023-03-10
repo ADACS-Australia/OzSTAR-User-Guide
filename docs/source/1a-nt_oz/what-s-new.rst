@@ -57,4 +57,4 @@ Ngarrgu Tindebeek continues to use software modules, but contains a new software
 
 Environment
 -----------
-* The default number of OpenMP threads is now set to 1 by default using the environment variable ``OMP_NUM_THREADS=1`` (previously not defined by default). Users must explicitly change this value if they wish to use more than 1 thread.
+* The default number of OpenMP threads is now set to 1 using the environment variable ``OMP_NUM_THREADS=1`` (previously not defined by default). Users must explicitly change this value if they wish to use more than 1 thread.
