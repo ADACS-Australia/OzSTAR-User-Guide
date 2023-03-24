@@ -65,10 +65,10 @@ A terminal is required to access OzSTAR via Secure Shell (SSH) and issue command
 +------------------+------------------------------------------------------------------------------------------------------------+
 | Linux            | Available by default                                                                                       |
 +------------------+------------------------------------------------------------------------------------------------------------+
-| Windows          | The recommended software is Putty. Windows users with updated                                              |
-|                  | versions of Windows 10 may use the Windows Subsystem for                                                   |
-|                  | Linux. More information available at the                                                                   |
-|                  | `Microsoft documentation <https://docs.microsoft.com/en-us/windows/wsl/install-win10>`__.                  |
+| Windows          | The recommended method is to use the Windows Subsystem for Linux (WSL). More information available at the  |
+|                  | `Microsoft documentation <https://docs.microsoft.com/en-us/windows/wsl/install-win10>`__. If you are using |
+|                  | an older version of Windows that does not provide WSL, you will need to install                            |
+|                  | `PuTTY <https://www.putty.org>`_.                                                                          |
 +------------------+------------------------------------------------------------------------------------------------------------+
 
 X11 Windows Forwarding
@@ -87,10 +87,12 @@ With Linux and MacOS this can be done by login from the command line Secure Shel
 
 For **MacOS** you will first need to install `XQuartz <https://www.xquartz.org/>`_.
 
-For **Windows** you will need to install an X11 Server implementation. The following options can be used:
+For modern **Windows** installations, you can use the Windows Subsystem for Linux (WSL), which provides a Linux command prompt. This is the recommended method. From there, the steps are the same as for Linux. Please refer to Microsoft's documentation on how to configure your system to run Linux GUI applications: https://learn.microsoft.com/en-us/windows/wsl/tutorials/gui-apps
 
-- `VcXsrv <https://sourceforge.net/projects/vcxsrv/>`_ (Recommended, frequently updated at time of writing)
-- `Cygwin/X <http://x.cygwin.com/>`_ (Difficult to set up for everyday users)
-- `Xming <http://sourceforge.net/projects/xming/files/Xming/>`_ (Not recommended, very old and no longer updated)
+For older **Windows** installations that do not provide WSL, you will need to install an X11 Server implementation. The following options can be used:
 
-You will need also enable X11 forward from Putty, before connecting, This can be done through **connection > SSH > X11** by selecting “**Enable X11 Forwarding**”.
+- `VcXsrv <https://sourceforge.net/projects/vcxsrv/>`_
+- `Cygwin/X <http://x.cygwin.com/>`_
+- `Xming <http://sourceforge.net/projects/xming/files/Xming/>`_
+
+If you are using PuTTY, you will also need to enable X11 forwarding before connecting, This can be done through **connection > SSH > X11** by selecting “**Enable X11 Forwarding**”.
