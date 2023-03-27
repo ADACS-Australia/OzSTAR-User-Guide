@@ -17,12 +17,20 @@ Access to the supercomputer is available through Secure Shell (SSH) to nt.swin.e
 
 From these nodes you can submit jobs to the queue nodes using `Slurm <https://slurm.schedmd.com>`__. You may also use the login nodes as interactive nodes to run short jobs directly, compile code, or test your application.
 
+.. note::
+    Do not use these login nodes to run long jobs or jobs with big computational requirements. Running such jobs in interactive mode can be done by requesting interactive nodes from the queue.
+
 From each of ``tooarrana1/2`` you can access the other with ``ssh t1`` or ``ssh t2``. ``tooarrana1/2`` are also available for direct login via eg. ``ssh [your-username]@tooarrana1.hpc.swin.edu.au``.
 
 From ``tooarrana1/2`` you can also SSH into ``farnarkle1/2``, the login nodes for the previous supercomputer OzSTAR.
 
+Direct access to ``farmarkle1/2`` is still available via
+::
+
+    ssh [your-username]@ozstar.swin.edu.au
+
 .. note::
-    Do not use these login nodes to run long jobs or jobs with big computational requirements. Running such jobs in interactive mode can be done by requesting interactive nodes from the queue.
+    Jobs submitted on ``tooarrana1/2`` will run on the new AMD Milan nodes, whereas  jobs submitted on ``farnarkle1/2`` will run on the older Intel Skylake nodes.
 
 .. tip::
     If you want to avoid having to type the rather long ``[your-username]@ozstar.swin.edu.au`` every time you want to connect to the supercomputer, you can set a shortcut in your `SSH config <https://linuxize.com/post/using-the-ssh-config-file/>`_.
