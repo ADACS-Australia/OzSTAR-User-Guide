@@ -6,7 +6,7 @@ What's new?
 Access
 ------
 
-Entry point is now ``ozstar.swin.edu.au``.
+There is a new direct entry point to NT via ``nt.swin.edu.au``. The existing login to the OzSTAR machine at ``ozstar.swin.edu.au`` remains accessible.
 
 Hardware
 --------

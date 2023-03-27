@@ -11,7 +11,7 @@ All Swinburne staff and students are eligible for accounts as are researchers in
 How do I access the facility?
 ------------------------------------------
 
-Access is via SSH only into the login nodes (``nt.swin.edu.au``). For more details, see the page :doc:`../1-getting_started/Access`.
+Access is via SSH only into the login nodes (``nt.swin.edu.au`` for NT or ``ozstar.swin.edu.au`` for OzSTAR). For more details, see the page :doc:`../1-getting_started/Access`.
 
 What operating system is used?
 ------------------------------------------
