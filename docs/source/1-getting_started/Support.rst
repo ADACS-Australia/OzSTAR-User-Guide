@@ -1,36 +1,41 @@
-User Support
-===
+.. highlight:: rst
 
-Do you:-
-* have a problem related to OzSTAR that you are having trouble solving? 
-* have some software you need installed? 
-* feel unsure about the best or preferred way to launch a job or use OzSTAR? 
-* have some code that is crashing or not working as expected (but has worked for you before or on other systems)?
-* are experiencing something mysterious that you don't fully understand?
+User Support
+============
+
+Do you:
+
+* Have a problem related to the OzSTAR supercomputers that you are having trouble solving?
+* Need help with installing your software?
+* Are about the best or preferred way to launch a job?
+* Have some code that is crashing or not working as expected (but has worked for you before or on other systems)?
+* Are experiencing something mysterious that you don't fully understand?
 
 Feel free to send a ticket through to our user support email address: hpc-support@swin.edu.au
 
-Our goal is to provide best effort support and to get back to you as quickly as possible. However, some requests will be out of scope and will be politely declined, e.g. don't ask us to rewrite your code for you.
+.. note::
+    OzSTAR supercomputing does not have dedicated support services. Support is provided on a best-effort basis by the HPC technical staff (a small team), and we will try to get back to you as soon as possible. Our resources are limited, so some requests will be out of scope and politely declined.
 
-Below are some templates that you can use when contacting us.
+Templates
+---------
+To assist us with solving your problem, please provide as much information as you can in your request.
 
 For a general or job related query:
-```
-1. The issue you're having
-    1a. The Job ID (where applicable)
-    1b. Your username
-2. Full list of steps to reproduce the issue
-3. Debug output for us:
-    3a. The output of `module list`
-    3b. The output of `printenv`
-4. The expected result
-5. The result you're actually getting
-```
 
-For a software installation request:
-```
-1. The name of the package you would like installed
-2. Where we can obtain the source code to build from or the installer
-3. How many people will be using this package
-4. Any other information you think is relevant
-```
+#. The issue you're having
+#. The Job ID (where applicable)
+#. Your username
+#. Full list of steps to reproduce the issue
+#. Debug output for us:
+    * The output of `module list`
+    * The output of `printenv`
+#. The expected result
+#. The result you're actually getting
+
+
+For a software installation, we generally encourage you to install your own software. See :ref:`Installing New Software`. If a software package is stable and widely used by several groups on the supercomputer, we may consider installing it as a module. If you would like us to consider installing a new module, please specify:
+
+#. The name of the package you would like installed
+#. Where we can obtain the source code to build from or the installer
+#. How many people will be using this package
+#. Any other information you think is relevant
