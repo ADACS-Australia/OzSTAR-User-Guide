@@ -3,6 +3,9 @@
 User Support
 ============
 
+.. note::
+    OzSTAR supercomputing does not have dedicated support services. Support is provided on a best-effort basis by the HPC technical staff (a small team), and we will try to get back to you as soon as possible. Our resources are limited, so some requests will be out of scope and politely declined.
+
 Do you:
 
 * Have a problem related to the OzSTAR supercomputers that you are having trouble solving?
@@ -14,7 +17,7 @@ Do you:
 Feel free to send a ticket through to our user support email address: hpc-support@swin.edu.au
 
 .. note::
-    OzSTAR supercomputing does not have dedicated support services. Support is provided on a best-effort basis by the HPC technical staff (a small team), and we will try to get back to you as soon as possible. Our resources are limited, so some requests will be out of scope and politely declined.
+    Our support ticketing system is provided through JIRA. After sending an email to the support email address, you may receive an email related to your login to the support web interface. Due to current limitations with the system, the web interface is only accessible via the Swinburne network or the VPN. Access to the web interface is not essential, and you will still have full access to your ticket via email.
 
 Templates
 ---------
@@ -27,8 +30,8 @@ For a general or job related query:
 #. Your username
 #. Full list of steps to reproduce the issue
 #. Debug output for us:
-    * The output of `module list`
-    * The output of `printenv`
+    * The output of ``module list``
+    * The output of ``printenv``
 #. The expected result
 #. The result you're actually getting
 
