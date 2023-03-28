@@ -51,7 +51,7 @@ Conda
 On the OzSTAR supercomputers, Conda can be used by loading the ``conda/latest`` module.
 
 .. note::
-    The conda module is actually an alias for `Mamba <https://github.com/mamba-org/mamba>`_ a reimplementation of conda in C++. The interface is the same, so users will not notice any difference aside from considerably improved performance when installing packages.
+    The conda module is actually an alias for `Mamba <https://github.com/mamba-org/mamba>`_ a reimplementation of conda in C++. The interface is the same, so users will not notice any difference. ``mamba install`` benefits from considerably improved performance when installing packages, whereas ``conda install`` still uses the old (slower) solver.
 
 You may be familiar with the Anaconda distribution of Python, which contains a specific version of Python bundled with a large set of datascience packages. In contrast, the Conda module provides only the package manager, giving you the freedom to create your own environment with the exact versions of Python and packages that you need.
 
