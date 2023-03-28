@@ -3,7 +3,7 @@
 File systems and I/O
 =====================
 
-The main filesystem is >25 Petabytes of diskspace in ``/fred``. This filesystem has more than 30 GB/s of aggregate bandwidth. It is a Lustre + ZFS filesystem with high performance, reliability, and redundancy.
+The main filesystem is 19 Petabytes of diskspace in ``/fred``. This filesystem has more than 30 GB/s of aggregate bandwidth. It is a Lustre + ZFS filesystem with high performance, reliability, and redundancy.
 
 There are a few other smaller filesystems in the cluster. Of these, ``/home`` is cluster-wide like ``/fred`` and ``$JOBFS`` is on SSDs in each compute node. ``/home`` is a Lustre + ZFS filesystem and ``$JOBFS`` is XFS.
 

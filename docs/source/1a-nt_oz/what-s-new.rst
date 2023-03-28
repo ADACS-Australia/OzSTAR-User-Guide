@@ -36,7 +36,7 @@ throughput of 200 Gbps.
 Projects and filesystem
 ------------
 
-Ngarrgu Tindebeek and the existing OzSTAR cluster shares the same project management system and filesystem. An additional 14 PB of storage has been added to the existing Lustre file system (/fred), which is accessible on OzSTAR and Ngarrgu Tindebeek.
+Ngarrgu Tindebeek and the existing OzSTAR cluster shares the same project management system and filesystem. The existing Lustre file system (/fred) will be upgraded to 19 PB, which is accessible on OzSTAR and Ngarrgu Tindebeek.
 
 Limitations
 -----------
