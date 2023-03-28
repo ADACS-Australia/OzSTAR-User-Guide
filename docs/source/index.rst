@@ -14,6 +14,7 @@ Here you will find the technical information required to help you run jobs on th
    :maxdepth: 1
    :caption: Getting Started
 
+   1-getting_started/Policies
    1-getting_started/Accounts
    1-getting_started/Access
    1-getting_started/Linux
