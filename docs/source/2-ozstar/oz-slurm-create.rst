@@ -74,6 +74,22 @@ In the Slurm context, a task represents a **process**; a multi-process program i
 
 Tasks are requested/created with the ``--ntasks`` option, while CPUs, for the multithreaded programs, are requested with the ``--cpus-per-task`` option. Tasks cannot be split across several compute nodes, so requesting several CPUs with the ``--cpus-per-task`` option will ensure all CPUs are allocated on the same compute node. By contrast, requesting the same amount of CPUs with the --ntasks option may lead to several CPUs being allocated on several, distinct compute nodes.
 
+When using OpenMP parallelisation, you will need to pass the number of OpenMP tasks through to the program by setting the environment variable ``OMP_NUM_THREADS``, for example
+
+::
+
+    export OMP_NUM_THREADS=16
+
+This can be combined with Slurm's environment variable which provides the number of CPUs per task to automatically set the number of OpenMP tasks based on the resources requested:
+
+::
+
+    export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+
+.. note::
+
+    The default value is ``OMP_NUM_THREADS=1``
+
 .. note::
 
     On OzSTAR, while a single node has 36-cores, usage is limited to 32-cores per node for a single job. This is due to the need for leaving cores free to communicate with GPUs.
