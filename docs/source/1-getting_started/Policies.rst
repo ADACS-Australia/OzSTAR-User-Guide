@@ -44,13 +44,13 @@ Acknowledgements
 
 It is a condition of use that the HPC facility be appropriately acknowledged in any related publications.
 
-For MAS projects on OzSTAR, i.e. those given time through ASTAC:
+For MAS projects on OzSTAR, i.e. those given time through ASTAC: ::
 
-``This work was supported by resources awarded under Astronomy Australia Ltd's ASTAC merit allocation scheme on the OzSTAR national facility at Swinburne University of Technology. The OzSTAR program receives funding in part from the Astronomy National Collaborative Research Infrastructure Strategy (NCRIS) allocation provided by the Australian Government, and from the Victorian Higher Education State Investment Fund (VHESIF) provided by the Victorian Government.``
+    This work was supported by resources awarded under Astronomy Australia Ltd's ASTAC merit allocation scheme on the OzSTAR national facility at Swinburne University of Technology. The OzSTAR program receives funding in part from the Astronomy National Collaborative Research Infrastructure Strategy (NCRIS) allocation provided by the Australian Government, and from the Victorian Higher Education State Investment Fund (VHESIF) provided by the Victorian Government.
 
-For general use on OzSTAR :
+For general use on OzSTAR : ::
 
-``This work was performed on the OzSTAR national facility at Swinburne University of Technology. The OzSTAR program receives funding in part from the Astronomy National Collaborative Research Infrastructure Strategy (NCRIS) allocation provided by the Australian Government, and from the Victorian Higher Education State Investment Fund (VHESIF) provided by the Victorian Government.``
+    This work was performed on the OzSTAR national facility at Swinburne University of Technology. The OzSTAR program receives funding in part from the Astronomy National Collaborative Research Infrastructure Strategy (NCRIS) allocation provided by the Australian Government, and from the Victorian Higher Education State Investment Fund (VHESIF) provided by the Victorian Government.
 
 **Reporting Requirements**
 
