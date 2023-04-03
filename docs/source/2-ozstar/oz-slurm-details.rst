@@ -1,6 +1,6 @@
 .. highlight:: rst
 
-Slurm: gathering information
+Slurm: Gathering information
 ==================================
 
 Slurm includes many commands to interact with the system. For example, the ``sinfo`` command provides an overview of the resources offered by the cluster, and the ``squeue`` command shows to which jobs those resources are currently allocated.

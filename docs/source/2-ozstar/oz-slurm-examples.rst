@@ -1,6 +1,6 @@
 .. highlight:: rst
 
-Slurm: script examples
+Slurm: Script examples
 ==================================
 
 Message passing example (MPI)
