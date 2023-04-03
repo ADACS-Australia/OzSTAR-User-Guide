@@ -57,7 +57,12 @@ You may be familiar with the Anaconda distribution of Python, which contains a s
 
 See the `Conda documentation <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_ for instructions on how to create and manage environments.
 
-By default, Conda places environments in the home directory in ``~/.conda``. As you create new environments, the home directory disk quota will be exhausted very quickly. To circumvent this issue, you can move your ``.conda`` directory into your project storage and then create a symlink from there, so that Conda still "sees" it in the home directory:
+By default, Conda places environments in the home directory in ``~/.conda``. As you create new environments, the home directory disk quota will be exhausted very quickly. To resolve this issue, we recommend changing where conda environments are created::
+
+    conda config --env --prepend envs_dirs /path/to/my/project/on/fred/.conda/envs
+    conda config --env --prepend pkgs_dirs /path/to/my/project/on/fred/.conda/pkgs
+
+Alternatively, you can move your ``.conda`` directory into your project storage and then create a symlink from there, so that Conda still "sees" it in the home directory:
 
 ::
 
