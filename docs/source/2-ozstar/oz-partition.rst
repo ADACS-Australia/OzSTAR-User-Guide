@@ -28,28 +28,28 @@ Memory is the most commonly overrequested because users generally don't know how
 Although each node has a specific amount of RAM installed physically, not all of it is available to Slurm jobs. This is primarily because the operating system itself requires memory. If you ask for more memory than this then your job will be automatically redirected one of the high-memory nodes which have more memory available. However there are only few high memory nodes so your job throughput will be low.
 
 +-----------------------------------+----------------------------------+----------+
-| Node                              | Maximum requestable memory (MB)  | (GiB)    |
+| Node                              | Maximum requestable memory (MiB) | (GiB)    |
 +===================================+==================================+==========+
-| Skylake (regular)                 | 191,000 MB                       | 187 GiB  |
+| Skylake (regular)                 | 191,000 MiB                      | 187 GiB  |
 +-----------------------------------+----------------------------------+----------+
-| Skylake (high-memory)             | 375,000 MB                       | 266 GiB  |
+| Skylake (high-memory)             | 375,000 MiB                      | 266 GiB  |
 +-----------------------------------+----------------------------------+----------+
-| Skylake (very-high-memory)        | 750,000 MB                       | 732 GiB  |
+| Skylake (very-high-memory)        | 750,000 MiB                      | 732 GiB  |
 +-----------------------------------+----------------------------------+----------+
-| Milan (regular)                   | 256,000 MB                       | 250 GiB  |
+| Milan (regular)                   | 256,000 MiB                      | 250 GiB  |
 +-----------------------------------+----------------------------------+----------+
-| Milan (high-memory)               | 1,024,000 MB                     | 1000 GiB |
+| Milan (high-memory)               | 1,024,000 MiB                    | 1000 GiB |
 +-----------------------------------+----------------------------------+----------+
-| Milan (GPU)                       | 512,000 MB                       | 500 GiB  |
+| Milan (GPU)                       | 512,000 MiB                      | 500 GiB  |
 +-----------------------------------+----------------------------------+----------+
-| Milan (GPU high-memory)           | 1,024,000 MB                     | 1000 GiB |
+| Milan (GPU high-memory)           | 1,024,000 MiB                    | 1000 GiB |
 +-----------------------------------+----------------------------------+----------+
-| Trevor (high-memory)              | 29,000 MB                        | 28 GiB   |
+| Trevor (high-memory)              | 29,000 MiB                       | 28 GiB   |
 +-----------------------------------+----------------------------------+----------+
 
 .. note::
 
-	The default units for the memory request is in MB. If you choose to specify "G" units, e.g. ``--mem=10G``, this is in units of GiB, equivalent to 1024 MB.
+	The default units for the memory request is in MiB. If you choose to specify "G" units, e.g. ``--mem=10G``, this is in units of GiB, equivalent to 1024 MiB.
 
 
 Requesting GPUs
