@@ -29,6 +29,9 @@ Ngarrgu Tindebeek is OzSTAR's flagship machine, featuring 11,648 CPU cores and 8
 
 Nodes are connected via NVIDIA Quantum-2 NDR InfiniBand switches with a data throughput of 200 Gbps.
 
+.. note::
+    Although the nodes have a specified amount of RAM installed (e.g. "256 GB"), not all of this RAM is available to Slurm jobs. Please refer to `Memory Requests`_.
+
 OzSTAR
 ----------------
 

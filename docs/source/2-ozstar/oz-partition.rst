@@ -15,14 +15,33 @@ Memory Requests
 ---------------
 You must request the amount of memory that your job needs.  The default allocation is ``100MB`` per CPU core requested which is unlikely to be enough to achieve much and is intended to encourage you to pick a good value.  The more accurate your estimate is, the more likely your job is to be scheduled quickly as Slurm will be better able to fill up available slots in its schedule with it. Note that you should only request the amount of memory that you are going to use.
 
-.. note::
-	Requesting more memory than you need will unnecessarily block other users' jobs (and your own) from running. Please be respectful of other users on the system.
-
 For instance if your job needs 2GB per node in total, then you would ask for ``--mem=2G``. If your job needs needs around 1GB per CPU core, then you would ask for ``--mem-per-cpu=1G``.
 
-The maximum memory request for regular NT nodes is 256 GB, and the maximum request for regular OzSTAR nodes is 186 GB. If you ask for more memory than this then your job will be automatically redirected one of the high-memory nodes which have more memory available. However there are only few high memory nodes so your job throughput will be low.
-
 Slurm enforces this memory request by using the Linux kernels ``cgroup`` support which will limit the memory it can use on the node. If your job exceeds that value then the kernel will kill a process which will usually lead to the failure of your job.
+
+Memory is the most commonly overrequested because users generally don't know how much memory their job requires. Although you may be able to make a good estimate for a self-authored code, we recommend determining memory usage via trial and error. Start with a generous request of 4 GB/core, and then check the actual usage on the `Job monitor <https://supercomputing.swin.edu.au/monitor/>`_. Once the true maximum usage has been determined, set the request to 125% of the maximum. This leeway will prevent your job from crashing if a change results in a slightly different memory usage.
+
+.. note::
+
+	Unlike some other supercomputing clusters, a single node on OzSTAR and NT may run jobs submitted by more than one user. This optimises the usage and throughput of the entire system, but it relies on everyone submitting accurate resource requests. Requesting more memory than you need will unnecessarily block other users' jobs (and your own) from running. Please be respectful of other users on the system.
+
+Although each node has a specific amount of RAM installed physically, not all of it is available to Slurm jobs. This is primarily because the operating system itself requires memory. If you ask for more memory than this then your job will be automatically redirected one of the high-memory nodes which have more memory available. However there are only few high memory nodes so your job throughput will be low.
+
++-----------------------------------+----------------------------------+
+| Node                              | Maximum requestable memory       |
++-----------------------------------+----------------------------------+
+| Skylake (regular)                 | 187 GB                           |
++-----------------------------------+----------------------------------+
+| Skylake (high-memory)             | 374 GB                           |
++-----------------------------------+----------------------------------+
+| Milan (regular/GPU)               | 250 GB                           |
++-----------------------------------+----------------------------------+
+| Milan (high-memory)               | 1000 GB                          |
++-----------------------------------+----------------------------------+
+| Trevor (high-memory)              | 28 GB                            |
++-----------------------------------+----------------------------------+
+
+
 
 Requesting GPUs
 ---------------
