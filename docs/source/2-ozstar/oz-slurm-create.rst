@@ -19,7 +19,7 @@ For instance, the following script, hypothetically named myjob.sh,
     #!/bin/bash
     #
     #SBATCH --job-name=test
-    #SBATCH --output=res.txt
+    #SBATCH --output=test_%j.txt
     #
     #SBATCH --ntasks=1
     #SBATCH --time=60:00
@@ -28,7 +28,10 @@ For instance, the following script, hypothetically named myjob.sh,
     srun hostname
     srun sleep 60
 
-would request one CPU for 60 minutes, and 200 MB of RAM, in the default queue. When started, the job would run a first job step ``srun hostname``, which will launch the UNIX command hostname on the node on which the requested CPU was allocated. Then, a second job step will start the ``sleep`` command. Note that the ``--job-name`` parameter lets give a meaningful name to the job and the ``--output`` parameter defines the file to which the output of the job must be sent.
+would request one CPU for 60 minutes, and 200 MB of RAM, in the default queue. When started, the job would run a first job step ``srun hostname``, which will launch the UNIX command hostname on the node on which the requested CPU was allocated. Then, a second job step will start the ``sleep`` command. Note that the ``--job-name`` parameter lets give a meaningful name to the job and the ``--output`` parameter defines the file to which the output of the job must be sent. ``%j`` is replaced by the Job ID.
+
+.. note::
+    If ``--output`` is not specified, the default file name is ``slurm-%j.out``. Including the Job ID in the output filename is useful because it prevents multiple simultaneous jobs from writing to the same output file. It is important not to allow multiple jobs to the same file because it produces garbage output, and creates an unnecessarily high load on the filesystem.
 
 Once the submission script is correct, you need to submit it to slurm through the ``sbatch`` command, which, upon success, responds with the ``jobid`` attributed to the job. (The ``%`` sign below is the shell prompt)
 

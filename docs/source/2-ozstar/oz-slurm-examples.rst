@@ -10,7 +10,6 @@ Message passing example (MPI)
     #!/bin/bash
     #
     #SBATCH --job-name=test_mpi
-    #SBATCH --output=res_mpi.txt
     #
     #SBATCH --ntasks=4
     #SBATCH --time=10:00
@@ -44,7 +43,6 @@ Shared memory example (OpenMP)
     #!/bin/bash
     #
     #SBATCH --job-name=test_omp
-    #SBATCH --output=res_omp.txt
     #
     #SBATCH --ntasks=1
     #SBATCH --cpus-per-task=4
@@ -81,7 +79,6 @@ Another typical use of this setting is **parameter sweep**. In this case the sam
     #!/bin/bash
     #
     #SBATCH --job-name=test_emb_arr
-    #SBATCH --output=res_emb_arr.txt
     #
     #SBATCH --ntasks=1
     #SBATCH --time=10:00
@@ -100,7 +97,6 @@ The same idea can be used to process several data files. To do so, we must pass 
     #!/bin/bash
     #
     #SBATCH --job-name=test_emb_arr
-    #SBATCH --output=res_emb_arr.txt
     #
     #SBATCH --ntasks=1
     #SBATCH --time=10:00
@@ -152,7 +148,7 @@ As an example, the following job submission script will ask Slurm for 8 CPUs, th
     done
     wait
 
-It is possible to replace the ``for``-loop with GNU ``parrallel`` if available:
+It is possible to replace the ``for``-loop with GNU ``parallel`` if available:
 
 ::
 
@@ -184,7 +180,6 @@ Master/slave program example
     #!/bin/bash
     #
     #SBATCH --job-name=test_ms
-    #SBATCH --output=res_ms.txt
     #
     #SBATCH --ntasks=4
     #SBATCH --time=10:00
@@ -281,14 +276,12 @@ A sample job file requesting a node with a GPU could look like this:
 Interactive jobs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Slurm jobs are normally batch jobs in the sense that they are run unattended. If you want to have a direct view on your job, for tests or debugging, you have two options.
+Slurm jobs are normally batch jobs in the sense that they are run unattended. If you want to have a direct view on your job, for tests or debugging, you can make a request for an interactive session using ``sinteractive``.
 
-If you need simply to have an interactive Bash session on a compute node, with the same environment set as the batch jobs, run the following command:
+For example, to request a 4-core interactive session for 20 minutes:
 
 ::
 
-    srun --pty bash
+    sinteractive --ntasks=4 --time=00:20:00
 
-Doing that, you are submitting a 1-CPU, default memory, default duration job that will return a Bash prompt when it starts.
-
-If you need more flexibility, you will need to use the `salloc <https://slurm.schedmd.com/salloc.html>`_ command. The ``salloc`` command accepts the same parameters as ``sbatch`` as far as resource requirement are concerned. Once the allocation is granted, you can use ``srun`` the same way you would in a submission script.
+Most of the usual Slurm resource requests can be made as command line arguments. See ``sinteractive --help`` for all of the available options.
