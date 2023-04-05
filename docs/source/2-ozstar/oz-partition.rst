@@ -13,7 +13,7 @@ Options to Slurm can be specified on the ``sbatch`` or ``srun`` command lines li
 
 Memory Requests
 ---------------
-You must request the amount of memory that your job needs.  The default allocation is ``100MB`` per CPU core requested which is unlikely to be enough to achieve much and is intended to encourage you to pick a good value.  The more accurate your estimate is, the more likely your job is to be scheduled quickly as Slurm will be better able to fill up available slots in its schedule with it. Note that you should only request the amount of memory that you are going to use.
+You must request the amount of memory that your job needs.  The default allocation is ``100M`` per CPU core requested which is unlikely to be enough to achieve much and is intended to encourage you to pick a good value.  The more accurate your estimate is, the more likely your job is to be scheduled quickly as Slurm will be better able to fill up available slots in its schedule with it. Note that you should only request the amount of memory that you are going to use.
 
 For instance if your job needs 2GB per node in total, then you would ask for ``--mem=2G``. If your job needs needs around 1GB per CPU core, then you would ask for ``--mem-per-cpu=1G``.
 
@@ -30,7 +30,7 @@ Although each node has a specific amount of RAM installed physically, not all of
 +-----------------------------------+----------------------------------+----------+
 | Node                              | Maximum requestable memory (MiB) | (GiB)    |
 +===================================+==================================+==========+
-| Skylake (regular)                 | 191,000 MiB                      | 187 GiB  |
+| Skylake (regular)                 | 191,000 MiB                      | 186 GiB  |
 +-----------------------------------+----------------------------------+----------+
 | Skylake (high-memory)             | 375,000 MiB                      | 266 GiB  |
 +-----------------------------------+----------------------------------+----------+
@@ -88,7 +88,7 @@ In both the above examples you can pass the ``--x11`` option to ``srun`` or ``si
 
 Requesting Local Scratch Space
 ------------------------------
-All jobs on OzStar get allocated their own private area on local disk which is pointed to by the environment variable ``$JOBFS``. These are cleaned up at the end of every job.  By default you get a ``100MB`` allocation of space, to request more you need to ask for it with the ``--tmp`` option to ``sbatch``, so for example to request 4GB of local scratch disk space you would use ``--tmp=4G``.
+All jobs on OzStar get allocated their own private area on local disk which is pointed to by the environment variable ``$JOBFS``. These are cleaned up at the end of every job.  By default you get a ``250M`` allocation of space, to request more you need to ask for it with the ``--tmp`` option to ``sbatch``, so for example to request 4GB of local scratch disk space you would use ``--tmp=4G``.
 
 
 Partitions
