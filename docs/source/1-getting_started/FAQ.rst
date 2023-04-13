@@ -74,7 +74,7 @@ The simple workaround is to run ``bash -l`` or ``tcsh -l`` in each screen window
 What is the meaning behind the machine names?
 ---------------------------------------------
 
-"Ngarrgu Tindebeek" means "Knowledge of the Void" in the local indigeneous language, a reflection on the astrophysical simulations run on the machine to further our knowledge of space.
+The name Ngarrgu Tindebeek was provided by Wurundjeri elders through the assistance of the Moondani Toombadool Centre at Swinburne. It translates as “Knowledge of the Void” in the local Woiwurrung language and represents the goal of harnessing the power of a supercomputer to enable researchers to explain the unknown, to push the boundaries of knowledge. Understanding black holes - how they come together within galaxies, collide and create gravitational waves - is a key use case and a prime example.
 
 The login nodes, Tooarrana, are named after a cute and furry Australian creature, which is currently endangered.
 
