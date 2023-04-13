@@ -51,7 +51,7 @@ Here is a step-by-step example on NT. In this example, we create a virtual envir
 ::
 
     # load python modules
-    ml spider python-scientific/3.10.4-foss-2022a
+    ml load python-scientific/3.10.4-foss-2022a
 
     # create a new python virtual environment
     python -m venv ~/foo
