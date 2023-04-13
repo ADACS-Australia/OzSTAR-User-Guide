@@ -81,7 +81,7 @@ Here is a step-by-step example on NT. In this example, we create a virtual envir
     # deactivate the venv with
     deactivate
 
-When you logout from the node and login again, and want to use this venv again then must load all the modules above, and then just
+When you logout from the node and login again, and want to use this venv again then you must first load all the modules above, and then just
 
 ::
 
