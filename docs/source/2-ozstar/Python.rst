@@ -46,7 +46,7 @@ Once you are in a virtual environment, you can use ``pip`` to install packages.
 
 Example
 ^^^^^^^
-Here is a step-by-step example on NT. In this example, we create a virtual environment called ``foo``, where we want to use the SciPy library. The SciPy library is provided by the ``python-scientific/3.10.4-foss-2022a`` toolchain (this can be verified using ``ml spider python-scientific/3.10.4-foss-2022a``). We install an additional Python package (the fictional ``my_extra_package``).
+Here is a step-by-step example on NT. In this example, we create a virtual environment called ``foo``, where we want to use the SciPy library. The SciPy library is provided by the ``python-scientific/3.10.4-foss-2022a`` toolchain (the inclusion of SciPy can be verified using ``ml spider python-scientific/3.10.4-foss-2022a``). We install an additional Python package (the fictional ``my_extra_package``).
 
 ::
 
