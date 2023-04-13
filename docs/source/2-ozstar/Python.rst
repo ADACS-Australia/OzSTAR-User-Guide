@@ -44,6 +44,54 @@ Once you are in a virtual environment, you can use ``pip`` to install packages.
 .. note::
     By default, users cannot install packages outside of a virtual environment (i.e. into their ``~/.local`` directory). Installations into ``~/.local`` can be enabled by setting the environment variable ``PIP_REQUIRE_VIRTUALENV=false``. This is very likely to lead to conflicts between your environments, and we do not provide support for such usage.
 
+Example
+^^^^^^^
+Here is a step-by-step example on NT. In this example, we create a virtual environment called ``foo``, where we want to use the SciPy library. The SciPy library is provided by the ``python-scientific/3.10.4-foss-2022a`` toolchain (this can be verified using ``ml spider python-scientific/3.10.4-foss-2022a``). We install an additional Python package (the fictional ``my_extra_package``).
+
+::
+
+    # load python modules
+    ml spider python-scientific/3.10.4-foss-2022a
+
+    # create a new python virtual environment
+    python -m venv ~/foo
+
+    # activate the venv
+    . ~/foo/bin/activate
+
+    # you now see a (foo) prompt indicating you are in a venv
+
+    # install your extras into the venv
+    pip install my_extra_package
+
+    # start IPython (which is provided by the toolchain)
+    ipython
+
+    # you now see a In [1]: prompt indicating you are in IPython
+    import scipy
+    import my_extra_package
+
+    # do your prototyping work here. ie. write python commands.
+
+    # use ^D to exit IPython
+
+    # you may also run your short python scripts
+    python my_script.py
+
+    # deactivate the venv with
+    deactivate
+
+When you logout from the node and login again, and want to use this venv again then must load all the modules above, and then just
+
+::
+
+    . ~/foo/bin/activate
+    ipython
+
+.. note::
+    You must load all of the required modules before activating your Python virtual environment.
+
+
 Conda
 -----
 `Conda <https://docs.conda.io/en/latest/>`_ is an open-source package manager typically used for (though not limited to) Python packages. It was originally developed by Anaconda Inc. to distribute their Python environment "Anaconda". It can be considered as a replacement for the pip package manager.
