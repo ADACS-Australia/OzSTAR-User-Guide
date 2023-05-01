@@ -106,7 +106,17 @@ You may be familiar with the Anaconda distribution of Python, which contains a s
 See the `Conda documentation <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_ for instructions on how to create and manage environments.
 
 .. note::
-    The default channel is ``conda-forge``
+    The default channel is set to ``conda-forge``. To use the channels that would normally come with conda, use
+
+    ::
+
+        mamba install -c defaults <package name>
+
+    If you require an environment with the Anaconda distribution of packages (https://docs.anaconda.com/free/anaconda/)
+
+    ::
+
+        mamba install -c defaults anaconda
 
 Conda and home directory quota
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
