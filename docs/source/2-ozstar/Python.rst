@@ -105,6 +105,12 @@ You may be familiar with the Anaconda distribution of Python, which contains a s
 
 See the `Conda documentation <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_ for instructions on how to create and manage environments.
 
+.. note::
+    The default channel is ``conda-forge``
+
+Conda and home directory quota
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 By default, Conda places environments in the home directory in ``~/.conda``. As you create new environments, the home directory disk quota will be exhausted very quickly. To resolve this issue, we recommend changing where conda environments are created::
 
     conda config --env --prepend envs_dirs /path/to/my/project/on/fred/.conda/envs
@@ -129,3 +135,13 @@ Alternatively, you can move your ``.conda`` directory into your project storage 
     ::
 
         conda env create -f environment.yml
+
+Using MPI libraries
+^^^^^^^^^^^^^^^^^^^
+The MPI libraries provided by the module system are optimised for high performance on the OzSTAR and NT hardware. Packages from conda with MPI dependencies will install MPI binaries built by conda-forge. This may run with reduced performance, or not work at all. This can be solved by installing a "dummy" MPI library on conda so that the target package links with the system's MPI library, while dependencies are still resolved correctly:
+
+::
+
+    conda install "openmpi=x.y.z=external_*"
+
+For more details, see: https://conda-forge.org/docs/user/tipsandtricks.html#using-external-message-passing-interface-mpi-libraries
