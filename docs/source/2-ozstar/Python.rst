@@ -96,7 +96,7 @@ Conda
 -----
 `Conda <https://docs.conda.io/en/latest/>`_ is an open-source package manager typically used for (though not limited to) Python packages. It was originally developed by Anaconda Inc. to distribute their Python environment "Anaconda". It can be considered as a replacement for the pip package manager.
 
-On the OzSTAR supercomputers, Conda can be used by loading the ``conda/latest`` module.
+On the OzSTAR supercomputers, Conda can be used by loading the ``conda`` module.
 
 .. note::
     The conda module is actually an alias for `Mamba <https://github.com/mamba-org/mamba>`_ a reimplementation of conda in C++. The interface is the same, so users will not notice any difference. ``mamba install`` benefits from considerably improved performance when installing packages, whereas ``conda install`` still uses the old (slower) solver.
