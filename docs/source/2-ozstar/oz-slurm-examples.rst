@@ -135,16 +135,26 @@ The ``srun`` command has the ``--exclusive`` argument that allows scheduling ind
 | *a mechanism for resource management to the job within it's allocation.*
 |
 
-As an example, the following job submission script will ask Slurm for 8 CPUs, then it will run the ``myprog`` program 1000 times with arguments passed from 1 to 1000. But with the ``-n1 --exclusive`` option, it will ensure that at any point in time, only 8 instances are effectively running, each being allocated one CPU.
+.. Note::
+
+    The following is provided as an example, but in 99% of cases, you should use a job array instead of packing jobs. Packed jobs can result in poor resource utilisation when the sub-tasks are not of equal length, or when the number of sub-tasks is not a multiple of the number of cores.
+
+As an example, the following job submission script will ask Slurm for 8 CPUs, then it will run the ``myprog`` program 1000 times with arguments passed from 1 to 1000. But with the ``-n1 --exclusive`` option, it will ensure that at any point in time, only 8 instances are effectively running, each being allocated one CPU. The ``--gres=tmp:100 --mem=250m`` option sets the maximum amount of temporary disk space and memory that can be used by each instance of ``myprog``.
+
+.. Warning::
+
+    If the resources for each ``srun`` are not specified, then they will launch with the default temporary disk space (small) and the full amount of memory available to the job, which will allow memory overuse and job failure. The ``--mem`` for each srun multiplied by ``--ntasks`` must be less than the total ``--mem`` for the job.
 
 ::
 
     #! /bin/bash
     #
     #SBATCH --ntasks=8
+    #SBATCH --mem=2g
+    #SBATCH --tmp=1g
     for i in {1..1000}
     do
-       srun -n1 --exclusive ./myprog $i &
+       srun -n1 --exclusive --gres=tmp:100 --mem=250m ./myprog $i &
     done
     wait
 
@@ -161,9 +171,11 @@ Similarly, many files can be processed with one job submission script. The follo
     #! /bin/bash
     #
     #SBATCH --ntasks=8
+    #SBATCH --mem=2g
+    #SBATCH --tmp=1g
     for file in /path/to/data/*
     do
-       srun -n1 --exclusive ./myprog $file &
+       srun -n1 --exclusive --gres=tmp:100 --mem=250m  ./myprog $file &
     done
     wait
 
