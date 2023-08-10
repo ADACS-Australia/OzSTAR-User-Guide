@@ -11,7 +11,7 @@ You can use Apptainer by loading the module
 
 ::
 
-    module load apptainer/latest
+    module load apptainer
 
 
 Examples
@@ -27,14 +27,14 @@ To bind ``/fred`` from OzSTAR to ``/fred`` in your container:
 
 ::
 
-    apptainer run -B /fred mycontainer.simg
+    apptainer run -B /fred mycontainer.sif
 
 To bind your project directory to a specific location in your container
 (In this case ``/fred/oz123`` from OzSTAR to ``/oz123`` inside the container):
 
 ::
 
-    apptainer run -B /fred/oz123:/oz123 mycontainer.simg
+    apptainer run -B /fred/oz123:/oz123 mycontainer.sif
 
 
 Using a GPU with a container
@@ -46,7 +46,7 @@ still need to have your own cuda installation in your container.
 
 ::
 
-    apptainer run --nv mycontainer.simg
+    apptainer run --nv mycontainer.sif
 
 
 Increasing the speed of your container on OzSTAR
@@ -64,6 +64,6 @@ For example, in your batch script:
     #!/bin/bash
     #SBATCH --tmp=10G
 
-    cp /path/to/my/container.simg $JOBFS/container.simg
+    cp /path/to/my/container.sif $JOBFS/container.sif
 
-    apptainer run $JOBFS/container.simg
+    apptainer run $JOBFS/container.sif
