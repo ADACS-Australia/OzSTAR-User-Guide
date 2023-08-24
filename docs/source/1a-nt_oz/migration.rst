@@ -7,14 +7,14 @@ Migrating to Ngarrgu Tindebeek
 Current configuration
 -------------------------------
 
-The Ngarrgu Tindebeek (NT) nodes (``tooarrana, ``dave``, and ``gina``), along with the internet-connected Trevor nodes (``trevor``) run the AlmaLinux 9 operating system. These nodes also have access to a new and improved set of modules.
+The Ngarrgu Tindebeek (NT) nodes (``tooarrana``, ``dave``, and ``gina``), along with the internet-connected Trevor nodes (``trevor``) run the AlmaLinux 9 operating system. These nodes also have access to a new and improved set of modules.
 
 In contrast, the OzSTAR nodes (``farnarkle``, ``john``, and ``bryan``) currently run the CentOS 7 operating system and have access to the old set of modules.
 
 Upcoming reboot of OzSTAR nodes
 -------------------------------
 
-On 26 September 2023, the OzSTAR nodes will be rebooted and upgraded to AlmaLinux 9. This will bring them in line with the NT nodes. The OzSTAR nodes will be unavailable for a few days during this time. This upgrade will enable them to access the new set of modules.
+On 26 September 2023, the OzSTAR nodes will be rebooted and upgraded to AlmaLinux 9. This will bring them in line with the NT nodes, streamlining support, maintenance, and security updates. The OzSTAR nodes will be unavailable for a few days during this time. This upgrade will enable them to access the new set of modules.
 
 .. note::
     Although the set of modules will appear to be the same on the OzSTAR, NT, and Trevor nodes, the underlying software will be different because each of these clusters have a different CPU architecture. This means that you will need to recompile your code for each cluster, even if you are using the same modules/compilers.
