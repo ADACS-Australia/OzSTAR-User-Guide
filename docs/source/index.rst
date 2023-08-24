@@ -30,6 +30,7 @@ Here you will find the technical information required to help you run jobs on th
    :caption: Ngarrgu Tindebeek vs OzSTAR
 
    1a-nt_oz/what-s-new
+   1a-nt_oz/migration
 
 .. toctree::
    :maxdepth: 1
