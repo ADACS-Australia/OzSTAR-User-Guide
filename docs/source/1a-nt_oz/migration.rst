@@ -17,7 +17,7 @@ Upcoming reboot of OzSTAR nodes
 On 26 September 2023, the OzSTAR nodes will be rebooted and upgraded to AlmaLinux 9. This will bring them in line with the NT nodes, streamlining support, maintenance, and security updates. The OzSTAR nodes will be unavailable for a few days during this time. This upgrade will enable them to access the new set of modules.
 
 .. note::
-    Although the set of modules will appear to be the same on the OzSTAR, NT, and Trevor nodes, the underlying software will be different because each of these clusters have a different CPU architecture. This means that you will need to recompile your code for each cluster, even if you are using the same modules/compilers.
+    Although the set of modules will appear to be the same on the OzSTAR, NT, and Trevor nodes, the underlying software will be different because each of these clusters have a different CPU architecture. It also means that you will need to recompile your code for each cluster, even if you are using the same modules/compilers.
 
 All workflows that currently use the OzSTAR nodes will stop working if they rely on the old set of modules or libraries in the operating system (99% of workflows). To minimise disruption, we recommend that you migrate your workflows to the NT nodes as soon as possible. This will give you time to test your workflows and make sure that they work on the new cluster before the OzSTAR cluster's operating system is upgraded.
 
