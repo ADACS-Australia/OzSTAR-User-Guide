@@ -54,3 +54,26 @@ Then, on the NT nodes, create a new conda environment and install the packages f
 ::
 
     conda env create -f environment.yml
+
+
+Submitting jobs
+---------------
+
+Jobs will be queued onto the cluster from which you are submitting the job (i.e. where you are running ``sbatch``).
+
+.. list-table:: Title
+   :widths: 25 25
+   :header-rows: 1
+
+   * - Submit node
+     - Job queued to cluster
+   * - ``farnarkle1/2``
+     - OzSTAR (``skylake`` partition)
+   * - ``tooarrana1/2``
+     - NT (``milan`` partition)
+   * - ``trevor``
+     - Trevor (``trevor`` partition)
+
+.. note::
+
+    Although Slurm allows you to specify the partition from within the batch script, we recommend that you do not do this. Instead, you should submit your jobs from the appropriate submit node. This will ensure that your jobs are queued to the correct cluster. The names of partitions may change at any time.
