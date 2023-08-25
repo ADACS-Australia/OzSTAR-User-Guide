@@ -61,7 +61,7 @@ Submitting jobs
 
 Jobs will be queued onto the cluster from which you are submitting the job (i.e. where you are running ``sbatch``).
 
-.. list-table:: Title
+.. list-table:: Mapping of submit nodes to clusters
    :widths: 25 25
    :header-rows: 1
 
