@@ -38,6 +38,7 @@ To bind your project directory to a specific location in your container
     apptainer run -B /fred/oz123:/oz123 mycontainer.sif
 
 By default, Apptainer also binds several other directories:
+
     - ``$HOME``
     - ``$PWD``
     - ``/sys``
