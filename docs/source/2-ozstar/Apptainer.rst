@@ -111,10 +111,11 @@ To build the image, simply do
 
 
 This will:
-* download the ``micromamba:1.4.6-jammy`` image from DockerHub
-* convert it to ``sif`` format
-* install Python v3.10, ``bilby``, and a few other python packages in to the base conda/mamba environment within the image
-* save the image to ``bilby.sif``
+
+    - download the ``micromamba:1.4.6-jammy`` image from DockerHub
+    - convert it to ``sif`` format
+    - install Python v3.10, ``bilby``, and a few other python packages in to the base conda/mamba environment within the image
+    - save the image to ``bilby.sif``
 
 Now you can execute commands within your containerised conda environment. For example, if you have a python script:
 
