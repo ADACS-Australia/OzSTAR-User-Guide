@@ -36,7 +36,6 @@ To bind your project directory to a specific location in your container
 By default, Apptainer also binds several other directories:
 
     - ``$HOME``
-    - ``$PWD``
     - ``/sys``
     - ``/proc``
     - ``/dev``
@@ -48,6 +47,9 @@ By default, Apptainer also binds several other directories:
     - ``/etc/hosts``
 
 (See https://apptainer.org/docs/user/latest/bind_paths_and_mounts.html)
+
+Apptainer also tries to bind mount ``$PWD``, however if the parent directories do not exist within the container image, then it will not be mounted, and the current working directory inside the container at run time will default to ``$HOME``.
+To make your life easier, you can just always bind mount ``/fred`` and ``/home``, which guarantees ``$PWD`` is also mounted.
 
 Using a GPU with a container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -93,7 +95,7 @@ Consider the following apptainer definition file, ``bilby.def``:
 .. note::
     We have chosen to bootstrap specifically from the ``micromamba:1.4.6-jammy`` image, since its glibc version most closely matches OzSTAR's system glibc (see :ref:`Fakeroot feature` below).
 
-To build the image, simply do
+Then, to build the image, do
 
 ::
 
@@ -107,7 +109,8 @@ This will:
     - install Python v3.10, ``bilby``, and a few other python packages in to the base conda/mamba environment within the image
     - save the image to ``bilby.sif``
 
-Now you can execute commands within your containerised conda environment. For example, if you have a python script:
+Now you can execute commands within your containerised conda environment.
+For example, to run a python script:
 
 ::
 
@@ -125,11 +128,13 @@ Or, if you need to add some bind mounts, you can do e.g.
 
 ::
 
-    apptainer run -B /fred bilby.sif python my-script.py
+    apptainer run -B /fred,/home bilby.sif python my-script.py
 
 
-Whatever comes after ``bilby.sif`` is the command that is executed within the container.
+In all cases, whatever comes after the sif file is the command to be executed inside the container.
 
+.. note::
+    Your script needs to exist within the container in order to be executed. In this instance, since ``my-script.py`` is in the current directory, it is available to the container, but only if ``$PWD`` is successfully mounted. (See :ref:`Binding the filesystem to a container` above).
 
 Running 32-bit applications inside a container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
