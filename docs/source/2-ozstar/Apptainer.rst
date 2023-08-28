@@ -9,7 +9,7 @@ Apptainer container and run.
 
 You can use Apptainer by loading the module
 
-.. code-block::
+::
 
     module load apptainer
 
@@ -26,14 +26,14 @@ When you run a container, the host file system becomes inaccessible. However, yo
 
 To bind ``/fred`` from OzSTAR to ``/fred`` in your container:
 
-.. code-block::
+::
 
     apptainer run -B /fred mycontainer.sif
 
 To bind your project directory to a specific location in your container
 (In this case ``/fred/oz123`` from OzSTAR to ``/oz123`` inside the container):
 
-.. code-block::
+::
 
     apptainer run -B /fred/oz123:/oz123 mycontainer.sif
 
@@ -59,7 +59,7 @@ your batch job, you can access the GPU's in your container using the ``--nv``
 switch. This will automatically bind the GPU's in to your container. You may
 still need to have your own cuda installation in your container.
 
-.. code-block::
+::
 
     apptainer run --nv mycontainer.sif
 
@@ -74,7 +74,7 @@ will crash.
 
 For example, in your batch script:
 
-.. code-block::
+::
 
     #!/bin/bash
     #SBATCH --tmp=10G
@@ -91,7 +91,7 @@ Here we will show you how to containerise a conda environment. We will use a Doc
 Apptainer images can be be built from plain text, 'definition' files, analogous to a ``Dockerfile``.
 Consider the following apptainer definition file, ``bilby.def``:
 
-.. code-block::
+::
 
     BootStrap: docker
     From: mambaorg/micromamba:1.4.6-jammy
@@ -105,7 +105,7 @@ Consider the following apptainer definition file, ``bilby.def``:
 
 To build the image, simply do
 
-.. code-block::
+::
 
     apptainer build bibly.sif bilby.def
 
@@ -118,21 +118,21 @@ This will:
 
 Now you can execute commands within your containerised conda environment. For example, if you have a python script:
 
-.. code-block::
+::
 
     ./bilby.sif python my-script.py
 
 
 If your python script is executable and has the shebang ``#!/usr/bin/env python``, then the command can be as simple as
 
-.. code-block::
+::
 
     ./bilby.sif my-script.py
 
 
 Or, if you need to add some bind mounts, you can do e.g.
 
-.. code-block::
+::
 
     apptainer run -B /fred bilby.sif python my-script.py
 
@@ -148,7 +148,7 @@ Our suggested strategy is to start with an existing image that has a GLIBC versi
 
 For example, consider the following definition file ``32bit.def``
 
-.. code-block::
+::
 
     BootStrap: docker
     From: almalinux:9
@@ -161,7 +161,7 @@ For example, consider the following definition file ``32bit.def``
 
 Building this in to an image with ``apptainer build 32bit.sif 32bit.def`` then allows you to run/compile 32-bit applications, e.g.
 
-.. code-block::
+::
 
     apptainer run -B /home,/fred 32bit.sif /path/to/my/32bit/binary
 
