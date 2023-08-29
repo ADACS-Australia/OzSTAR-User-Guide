@@ -48,8 +48,11 @@ By default, Apptainer also binds several other directories:
 
 (See https://apptainer.org/docs/user/latest/bind_paths_and_mounts.html)
 
-Apptainer also tries to bind mount ``$PWD``, however if the parent directories do not exist within the container image, then it will not be mounted, and the current working directory inside the container at run time will default to ``$HOME``.
-To make your life easier, you can just always bind mount ``/fred`` and ``/home``, which guarantees ``$PWD`` is also mounted.
+.. note::
+    Apptainer also tries to bind mount ``$PWD``, however if the parent directories for it do not exist inside the image, then it will not be mounted, and the current working directory inside the container at run time will default to ``$HOME``.
+    This behaviour is different than if you were to explicitly mount ``$PWD``, which also creates any missing parent directories inside the container.
+    To make your life simpler, we suggest just always explicitly mounting ``$PWD``. Or, since you will nearly always be working under ``/home`` and ``/fred``, always mount your project directory e.g. ``/fred/oz123/``.
+
 
 Using a GPU with a container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -107,7 +110,7 @@ This will:
     - download the ``micromamba:1.4.6-jammy`` image from DockerHub
     - convert it to ``sif`` format
     - install Python v3.10, ``bilby``, and a few other python packages in to the base conda/mamba environment within the image
-    - save the image to ``bilby.sif``
+    - save the image as ``bilby.sif``
 
 Now you can execute commands within your containerised conda environment.
 For example, to run a python script:
@@ -128,7 +131,7 @@ Or, if you need to add some bind mounts, you can do e.g.
 
 ::
 
-    apptainer run -B /fred,/home bilby.sif python my-script.py
+    apptainer run -B /fred/oz999,/some/other/path bilby.sif python my-script.py
 
 
 In all cases, whatever comes after the sif file is the command to be executed inside the container.
@@ -159,7 +162,7 @@ Building this in to an image with ``apptainer build 32bit.sif 32bit.def`` then a
 
 ::
 
-    apptainer run -B /home,/fred 32bit.sif /path/to/my/32bit/binary
+    apptainer run -B /fred/oz123 32bit.sif /path/to/my/32bit/binary
 
 
 Fakeroot feature
