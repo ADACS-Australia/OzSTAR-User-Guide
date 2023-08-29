@@ -16,69 +16,6 @@ Examples
 For comprehensive instructions on using Apptainer, please visit the official documentation: https://apptainer.org/docs/user/latest/
 
 
-Binding the filesystem to a container
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-When you run a container, the host file system becomes inaccessible. However, you may want to read and write files on the host system from within the container. To enable this functionality, you can 'bind' specific directories in to the container.
-
-To bind ``/fred`` from OzSTAR to ``/fred`` in your container:
-
-::
-
-    apptainer run -B /fred mycontainer.sif
-
-To bind your project directory to a specific location in your container
-(In this case ``/fred/oz123`` from OzSTAR to ``/oz123`` inside the container):
-
-::
-
-    apptainer run -B /fred/oz123:/oz123 mycontainer.sif
-
-By default, Apptainer also binds several other directories:
-
-    - ``$HOME``
-    - ``/sys``
-    - ``/proc``
-    - ``/dev``
-    - ``/tmp``
-    - ``/var/tmp``
-    - ``/etc/resolv.conf``
-    - ``/etc/passwd``
-    - ``/etc/localtime``
-    - ``/etc/hosts``
-
-(See https://apptainer.org/docs/user/latest/bind_paths_and_mounts.html)
-
-.. note::
-    Apptainer also tries to bind mount ``$PWD``, however if the parent directories for it do not exist inside the image, then it will not be mounted, and the current working directory inside the container at run time will default to ``$HOME``.
-    This behaviour is different than if you were to explicitly mount ``$PWD``, which also creates any missing parent directories inside the container.
-    To make your life simpler, we suggest just always explicitly mounting ``$PWD``. Or, since you will nearly always be working under ``/home`` and ``/fred``, always mount your project directory e.g. ``/fred/oz123/``.
-
-
-Using a GPU with a container
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-If you are on a login node, or you have requested one or more Nvidia GPU's in your batch job, you can access the GPU's in your container using the ``--nv`` switch. This will automatically bind the GPU's in to your container. You may still need to have your own cuda installation in your container.
-
-::
-
-    apptainer run --nv mycontainer.sif
-
-
-Increasing the speed of your container on OzSTAR
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Depending on your workload, it is often better to request ``--tmp`` storage and copy your image to there before you use your container. In many cases this will provide better performance. It is important that your requested ``--tmp`` size is bigger than your apptainer image, or ``--tmp`` will run out of space and your job will crash.
-
-For example, in your batch script:
-
-::
-
-    #!/bin/bash
-    #SBATCH --tmp=10G
-
-    cp /path/to/my/container.sif $JOBFS/container.sif
-
-    apptainer run $JOBFS/container.sif
-
-
 Building a containerised conda environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Here we will show you how to containerise a conda environment. We will use a Docker image as our starting point (https://hub.docker.com/r/mambaorg/micromamba).
@@ -137,7 +74,79 @@ Or, if you need to add some bind mounts, you can do e.g.
 In all cases, whatever comes after the sif file is the command to be executed inside the container.
 
 .. note::
-    Your script needs to exist within the container in order to be executed. In this instance, since ``my-script.py`` is in the current directory, it is available to the container, but only if ``$PWD`` is successfully mounted. (See :ref:`Binding the filesystem to a container` above).
+    Your script needs to exist within the container in order to be executed. In this instance, since ``my-script.py`` is in the current directory, it is available to the container, but only if ``$PWD`` is successfully mounted. (See :ref:`Binding the filesystem to a container` below).
+
+
+Binding the filesystem to a container
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+When you run a container, the host file system becomes inaccessible. However, you may want to read and write files on the host system from within the container. To enable this functionality, you can 'bind' specific directories in to the container.
+
+To bind ``/fred`` from OzSTAR to ``/fred`` in your container:
+
+::
+
+    apptainer run -B /fred mycontainer.sif
+
+To bind your project directory to a specific location in your container
+(In this case ``/fred/oz123`` from OzSTAR to ``/oz123`` inside the container):
+
+::
+
+    apptainer run -B /fred/oz123:/oz123 mycontainer.sif
+
+To bind multiple paths:
+
+::
+
+    apptainer run -B /fred/oz123,/some/other/path mycontainer.sif
+
+By default, Apptainer also implicitly binds several other directories:
+
+    - ``$HOME``
+    - ``/sys``
+    - ``/proc``
+    - ``/dev``
+    - ``/tmp``
+    - ``/var/tmp``
+    - ``/etc/resolv.conf``
+    - ``/etc/passwd``
+    - ``/etc/localtime``
+    - ``/etc/hosts``
+
+(See https://apptainer.org/docs/user/latest/bind_paths_and_mounts.html)
+
+.. note::
+    Apptainer also tries to bind mount ``$PWD``, however if the parent directories for it do not exist inside the image, then it will not be mounted, and the current working directory inside the container at run time will default to ``$HOME``.
+
+    This behaviour is different than if you were to explicitly mount ``$PWD``, which also creates any missing parent directories inside the container.
+
+    To make your life simpler, we suggest just always explicitly mounting ``$PWD``. Or, since you will nearly always be working under ``/home`` and ``/fred``, always mount your project directory e.g. ``/fred/oz123/``.
+
+
+Using a GPU with a container
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If you are on a login node, or you have requested one or more Nvidia GPU's in your batch job, you can access the GPU's in your container using the ``--nv`` switch. This will automatically bind the GPU's in to your container. You may still need to have your own cuda installation in your container.
+
+::
+
+    apptainer run --nv mycontainer.sif
+
+
+Increasing the speed of your container on OzSTAR
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Depending on your workload, it is often better to request ``--tmp`` storage and copy your image to there before you use your container. In many cases this will provide better performance. It is important that your requested ``--tmp`` size is bigger than your apptainer image, or ``--tmp`` will run out of space and your job will crash.
+
+For example, in your batch script:
+
+::
+
+    #!/bin/bash
+    #SBATCH --tmp=10G
+
+    cp /path/to/my/container.sif $JOBFS/container.sif
+
+    apptainer run $JOBFS/container.sif
+
 
 Running 32-bit applications inside a container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
