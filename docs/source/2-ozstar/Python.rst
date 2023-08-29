@@ -51,10 +51,13 @@ Here is a step-by-step example on NT. In this example, we create a virtual envir
 ::
 
     # load python modules
-    ml load python-scientific/3.10.4-foss-2022a
+    ml python-scientific/3.10.4-foss-2022a
+
+    # see what modules are loaded
+    module list
 
     # create a new python virtual environment
-    python -m venv ~/foo
+    python -m venv --system-site-packages ~/foo
 
     # activate the venv
     . ~/foo/bin/activate
@@ -90,6 +93,9 @@ When you logout from the node and login again, and want to use this venv again t
 
 .. note::
     You must load all of the required modules before activating your Python virtual environment.
+
+    Also note that we used the option ``--system-site-packages`` when creating the venv. This guarantees that any dependencies of module-loaded python packages are still accessible from inside the environment.
+    If you are not using any module-loaded python packages on top of your venv, then it is safe to omit this option.
 
 
 Conda
