@@ -39,7 +39,7 @@ Then, to build the image, do
 
 ::
 
-    apptainer build bibly.sif bilby.def
+    apptainer build bilby.sif bilby.def
 
 
 This will:
