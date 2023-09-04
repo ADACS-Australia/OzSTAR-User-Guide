@@ -36,14 +36,17 @@ The same information can be viewed via the command line interface on the login n
 To see the current jobs in the queue
 
 ::
+
     showq
 
 To see the available backfill slots
 
 ::
+
     showbf
 
 To see the allocation status of the resources
 
 ::
+
     qinfo -v
