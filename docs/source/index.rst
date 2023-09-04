@@ -58,3 +58,8 @@ Here you will find the technical information required to help you run jobs on th
    2-ozstar/oz-slurm-create
    2-ozstar/oz-slurm-basics
    2-ozstar/oz-slurm-examples
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Job Monitor
+   3-jobmon/monitoring
