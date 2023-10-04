@@ -3,6 +3,9 @@
 FAQ
 ============================
 
+.. contents:: Table of Contents
+    :depth: 2
+
 Who is eligible for an account on the facility?
 --------------------------------------------------------
 
