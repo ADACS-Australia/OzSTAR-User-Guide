@@ -47,6 +47,7 @@ Here you will find the technical information required to help you run jobs on th
    2-ozstar/Installing
    2-ozstar/Python
    2-ozstar/Apptainer
+   2-ozstar/apptainer-examples
    2-ozstar/Workflow
 
 .. toctree::

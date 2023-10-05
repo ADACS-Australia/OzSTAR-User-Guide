@@ -1,7 +1,9 @@
 Apptainer on OzSTAR
 ===================
 
-Apptainer (formerly Singularity) enables users to have full control of their environment. Apptainer containers can be used to package entire scientific workflows, software and libraries, and even data. This means that you don't have to ask your cluster admin to install anything for you - you can put it in a Apptainer container and run.
+Apptainer (formerly Singularity) enables users to have full control of their environment.
+Apptainer containers can be used to package entire scientific workflows, software and libraries, and even data.
+This means that you don't have to ask your cluster admin to install anything for you - you can put it in a Apptainer container and run.
 
 You can use Apptainer by loading the module
 
@@ -10,7 +12,7 @@ You can use Apptainer by loading the module
     module load apptainer
 
 
-Examples
+Usage
 --------
 
 For comprehensive instructions on using Apptainer, please visit the official documentation: https://apptainer.org/docs/user/latest/
