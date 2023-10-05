@@ -5,6 +5,18 @@ Apptainer Example Definition Files
     :depth: 2
 
 
+bilby.def
+---------
+
+::
+
+    BootStrap: docker
+    From: mambaorg/micromamba:1.4.6-jammy
+
+    %post
+        micromamba install -qy -n base -c conda-forge python=3.10 bilby gwpy python-lalsimulation
+
+
 astrometry.net.def
 ------------------
 
