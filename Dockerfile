@@ -1,17 +1,11 @@
-FROM alpine:3.5
+FROM debian:bookworm-slim as build
 
-MAINTAINER Loïc Pauletto <loic.pauletto@gmail.com>
-MAINTAINER Quentin de Longraye <quentin@dldl.fr>
+RUN apt update && apt install -y python3-venv
+RUN bash -c "python3 -m venv venv && source venv/bin/activate && pip install sphinx sphinx_rtd_theme"
 
-RUN apk add --no-cache --virtual --update bash py-pip make wget ca-certificates ttf-dejavu openjdk8-jre graphviz \
-    && pip install --upgrade pip \
-    && pip install sphinx sphinx_rtd_theme sphinxcontrib-plantuml sphinx_autobuild
+COPY docs /docs
 
-RUN wget http://downloads.sourceforge.net/project/plantuml/plantuml.jar -P /opt/ \
-    && echo -e '#!/bin/sh -e\njava -jar /opt/plantuml.jar "$@"' > /usr/local/bin/plantuml \
-    && chmod +x /usr/local/bin/plantuml
+RUN bash -c "source venv/bin/activate && sphinx-build docs/source /build/"
 
-COPY ./server.py /opt/sphinx-server/
-COPY ./.sphinx-server.yml /opt/sphinx-server/
-
-#WORKDIR /docs
+FROM nginx:latest as prod
+COPY --from=build /build/ /usr/share/nginx/html/

@@ -1,13 +1,10 @@
 version: "3"
 services:
   sphinx-server:
-    build: ./
-    container_name: sphinx-server
-    expose:
-      - 8002
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+      target: prod
+    container_name: ozstar-docs-server
     ports:
-      - "8002:8002"
-    volumes:
-      - ./docs/source:/source
-    command: python /opt/sphinx-server/server.py
-#bash -c "sphinx-build /source /build/docs/ && python /opt/sphinx-server/server.py"
+      - "8002:80"
