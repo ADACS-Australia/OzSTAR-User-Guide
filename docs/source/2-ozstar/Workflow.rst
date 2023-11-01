@@ -15,3 +15,22 @@ Always define your environment variables and setup in the batch script.
 
 .. warning::
     Many of the issues that users commonly encounter result from problems with their dotfiles.
+
+Common problems
+----------------
+
+X11 forwarding and VNC servers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Some modules, especially ones that provide X11 support, may set environment variables that interfere with other applications that use X11 forwarding.
+
+If you are encountering errors when using X11 forwarding, try removing all module loads from your dotfiles.
+
+Emacs
+~~~~~
+*"Emacs is delicate and sensitive like a little flower, and won't work if you mess with its libs".*
+
+Emacs depends on many system libraries. When other modules are also loaded, they may switch out those libraries to ones incompatible with Emacs.
+**The solution is to use Emacs in it's own window with no modules loaded**, and to load modules and run things in a separate window to the editor.
+Alternatively, you can fire up the editor, leave it up and running, and *then* load modules for other things.
+
+If you an encountering errors when using Emacs, try removing all module loads from your dotfiles.

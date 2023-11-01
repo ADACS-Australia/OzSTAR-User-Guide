@@ -89,11 +89,3 @@ Why am I getting a "permission denied" error when logging in?
 -------------------------------------------------------------
 
 If you were previously able to log in, and assuming you are using the correct password or SSH key, then most likely your account has expired. All accounts automatically expire 2 years after the creation date. Due to a current limitation in the account management system, users are not alerted prior to account expiration. If your account has expired and you would like us to renew it, or if you would like to find out your current expiry date, please contact us at hpc-support@swin.edu.au.
-
-Why is Emacs crashing?
-----------------------
-*"Emacs is delicate and sensitive like a little flower, and won't work if you mess with its libs".*
-
-Emacs depends on many system libraries. When other modules are also loaded, they may switch out those libraries to ones incompatible with Emacs.
-**The solution is to use Emacs in it's own window with no modules loaded**, and to load modules and run things in a separate window to the editor.
-Alternatively, you can fire up the editor, leave it up and running, and *then* load modules for other things.
