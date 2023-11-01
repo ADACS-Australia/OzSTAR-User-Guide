@@ -94,4 +94,4 @@ Why doesn't Emacs/X11/other program work?
 -----------------------------------------
 *"Emacs is delicate and sensitive like a little flower, and won't work if you mess with its libs".*
 
-See our page on `Workflows and Dotfiles <workflow.rst>`_ for more information.
+See our page on `Workflows and Dotfiles <../2-ozstar/Workflow.html>`_ for more information.
