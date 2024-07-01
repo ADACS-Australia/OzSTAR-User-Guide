@@ -13,13 +13,13 @@ Message passing example (MPI)
     #
     #SBATCH --ntasks=4
     #SBATCH --time=10:00
-    #SBATCH --mem-per-cpu=100
+    #SBATCH --mem-per-cpu=500
 
-    module load gcc/6.4.0
-    module load openmpi/3.0.0
+    module load gcc/12.3.0
+    module load openmpi/4.1.5
     srun hello.mpi
 
-Request four cores on the cluster for 10 minutes, using 100 MB of RAM per core. Assuming ``hello.mpi`` was compiled with MPI support, ``srun`` will create four instances of it, on the nodes allocated by Slurm.
+Request four cores on the cluster for 10 minutes, using 500 MB of RAM per core. Assuming ``hello.mpi`` was compiled with MPI support, ``srun`` will create four instances of it, on the nodes allocated by Slurm.
 
 You can try the above example by downloading the `example hello world program from Wikipedia <http://en.wikipedia.org/wiki/Message_Passing_Interface#Example_program>`_ (for example, you can name it wiki_mpi_example.c), and compiling it with
 ::
