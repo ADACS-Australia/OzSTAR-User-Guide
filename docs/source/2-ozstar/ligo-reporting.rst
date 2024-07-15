@@ -9,4 +9,4 @@ Adding the tag
 When submitting a job, include the following tag in your sbatch script's directives:
 ::
 
-    #SBATCH --comment="ligo.example.tag"
+    #SBATCH --comment=ligo.example.tag
