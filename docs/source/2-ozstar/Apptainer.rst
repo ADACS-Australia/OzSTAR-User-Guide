@@ -79,6 +79,7 @@ In all cases, whatever comes after the sif file is the command to be executed in
     Your script needs to exist within the container in order to be executed. In this instance, since ``my-script.py`` is in the current directory, it is available to the container, but only if ``$PWD`` is successfully mounted. (See :ref:`Binding the filesystem to a container` below).
 
 
+.. _binding-filesystems:
 Binding the filesystem to a container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 When you run a container, the host file system becomes inaccessible. However, you may want to read and write files on the host system from within the container. To enable this functionality, you can 'bind' specific directories in to the container.
@@ -125,9 +126,20 @@ By default, Apptainer also implicitly binds several other directories:
     To make your life simpler, we suggest just always explicitly mounting ``$PWD``. Or, since you will nearly always be working under ``/home`` and ``/fred``, always mount your project directory e.g. ``/fred/oz123/``.
 
 
+It is also possible to `bind in other filesystem images <https://apptainer.org/docs/user/main/bind_paths_and_mounts.html#image-mounts>`_.
+For example, if you have all your data in a read-only squashfs ``data.sqfs``, you can do
+
+::
+
+    apptainer run -B data.sqfs:/data:image-src=/ app.sif
+
+which will mount the ``/`` of your squashfs to ``/data`` in the container.
+If the mount point ``/data`` doesn't exist, it will be created.
+
+
 Using a GPU with a container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-If you are on a login node, or you have requested one or more Nvidia GPU's in your batch job, you can access the GPU's in your container using the ``--nv`` switch. This will automatically bind the GPU's in to your container. You may still need to have your own cuda installation in your container.
+If you have requested one or more Nvidia GPU's in your batch job, you can access the GPU's in your container using the ``--nv`` switch. This will automatically bind the GPU's in to your container. You may still need to have your own cuda installation in your container.
 
 ::
 

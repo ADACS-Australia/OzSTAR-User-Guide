@@ -115,3 +115,54 @@ Other things to avoid
 File lock bouncing is also an issue that can affect POSIX parallel file systems. This typically occurs when multiple nodes are appending to the same shared “log” file. By its very nature the order of the contents of such a file are undefined - it is really a “junk” file. However Lustre will valiantly attempt to interlace I/O from each appending node at the exact moment it writes, leading to a vast amount of “write lock bouncing” between all the appending nodes. This kills the performance of all the processes appending, and from the nodes doing the appending, and increases the load on the MDS greatly. Do not append to any shared files from multiple nodes.
 
 In general a good rule of thumb is to not write at all to the same file from multiple nodes unless it is via a library like MPI IO.
+
+
+Other tips
+***********
+Reading:
+""""""""
+If you cannot avoid the **reading** of many small files, then you can reduce the number of IOPS and inodes by containerising your code and/or data.
+This way the Lustre filesystem sees only a single large file (your container, which is just a read-only `SquashFS <https://docs.kernel.org/filesystems/squashfs.html>`_), even though underneath you're dealing with a large number of files.
+See the section :ref:`Apptainer on OzSTAR` for more information on how to create and run a container.
+
+If you only need to containerise your data, and not your code, then it's possible to manually create and mount a squashfs that holds just your data.
+This is faster, albeit slightly more complicated, than simply unpacking a tarball to ``$JOBFS``.
+
+For example, to create a squashfs from a large number of small files in a directory, you can do
+
+::
+
+    $ ls training-data/
+    file1 file2 file3 ... file9999
+
+    $ mksquashfs training-data/ data.sqfs
+
+Then, using `Linux namespaces <https://www.redhat.com/sysadmin/7-linux-namespaces>`_ and ``squashfuse`` you can mount the squashfs. The following is an example batch script that does this
+
+::
+
+    #!/bin/bash
+    #SBATCH --nodes=1
+    #SBATCH --ntasks-per-node=1
+    #SBATCH --cpus-per-task=1
+    #SBATCH --job-name=example
+    #SBATCH --time=0-00:00:30
+
+    # load some modules...
+
+    unshare --user --pid --map-root-user --fork --mount-proc <<EOF
+        squashfuse inputs.squashfs /my/preferred/mountpoint/
+        ls /my/preferred/mountpoint/
+        # you can now access all the files, read-only: file1 file2 file3 ... file9999
+
+        # run your code here...
+    EOF
+
+(You can shorten the unshare command to ``unshare -Uprf --mount-proc``).
+
+Alternatively, if your code is containerised, you can bind mount the squashfs directly into the container.
+See :ref:`Binding the filesystem to a container`.
+
+Writing:
+""""""""
+If you cannot avoid the **writing** of a large number of small files, we recommend using ``$JOBFS``, as mentioned above in the :ref:`Local Disks` section.
