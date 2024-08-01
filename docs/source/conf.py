@@ -20,7 +20,6 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
-import sphinx_rtd_theme
 
 # -- General configuration ------------------------------------------------
 
@@ -70,6 +69,7 @@ html_theme_options = {
     'logo_only': True,
     'display_version': False,
 }
+html_favicon = '_static/favicon.ico'
 
 html_show_copyright = False
 html_show_sphinx = False
