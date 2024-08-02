@@ -37,6 +37,7 @@ Here you will find the technical information required to help you run jobs on th
    :caption: Storage
 
    1-getting_started/Filesystems
+   1-getting_started/Optimising-Lustre
    1-getting_started/Datasets
 
 .. toctree::

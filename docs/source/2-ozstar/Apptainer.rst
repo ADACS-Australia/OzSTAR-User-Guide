@@ -79,7 +79,6 @@ In all cases, whatever comes after the sif file is the command to be executed in
     Your script needs to exist within the container in order to be executed. In this instance, since ``my-script.py`` is in the current directory, it is available to the container, but only if ``$PWD`` is successfully mounted. (See :ref:`Binding the filesystem to a container` below).
 
 
-.. _binding-filesystems:
 Binding the filesystem to a container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 When you run a container, the host file system becomes inaccessible. However, you may want to read and write files on the host system from within the container. To enable this functionality, you can 'bind' specific directories in to the container.
