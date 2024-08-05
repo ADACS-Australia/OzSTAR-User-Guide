@@ -23,7 +23,7 @@ X11 forwarding and VNC servers
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Some modules, especially ones that provide X11 support, may set environment variables that interfere with other applications that use X11 forwarding.
 
-If you are encountering errors when using X11 forwarding, try removing all module loads from your dotfiles.
+If you are encountering errors when using X11 forwarding or a VNC session, try removing all module loads from your dotfiles.
 
 Emacs
 ~~~~~

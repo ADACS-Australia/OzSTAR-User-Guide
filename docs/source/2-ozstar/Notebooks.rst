@@ -7,7 +7,7 @@ Working with Jupyter Notebooks
 
 If you wish you to view and work with Python notebooks on OzSTAR, you simply need to launch a Jupyter Notebook server from one of the login nodes, and then connect to it. We'll show you how to connect via a web browser using port forwarding, or via VS Code.
 
-Note that you'll need to connect to a specific login node e.g. ``user@tooarrana2.hpc.swin.edu.au``. You cannot rely on the generic ``ozstar`` or ``nt`` logins as a destination for remote persistent processes, since they are both round-robin addresses. You need to pick one of ``farnarkle1/2`` or ``tooarrana1/2`` and stick to it.
+Note that you'll need to connect to a specific login node e.g. ``user@tooarrana2.hpc.swin.edu.au``. You cannot rely on the generic ``ozstar`` or ``nt`` logins as a destination for remote persistent processes, since they are both round-robin addresses. You need to pick one of ``tooarrana1/2`` or ``farnarkle1/2`` and stick to it.
 
 Launching a Jupyter Notebook Server
 -----------------------------------
