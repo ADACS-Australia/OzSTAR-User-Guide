@@ -111,7 +111,7 @@ VNC Sessions
 In some instances, you may need to run a graphical application that requires a full desktop environment.
 In these cases, you can use a Virtual Network Computing (VNC) session.
 
-VNC is also more efficient than X11 forwarding, so it can be useful for X11 applications that are slow to forward, e.g. ``ds9``, especially over high-latency network connections.
+VNC is also more efficient than X11 forwarding, so it can be useful for X11 applications that are slow to forward, especially over high-latency network connections -- any applications that show detailed 2D images or 3D graphics will benefit from it.
 
 **1. Setup and launch a VNC server on OzSTAR**
 
@@ -150,7 +150,7 @@ From your local machine, setup up an SSH tunnel:
 
 ::
 
-    ssh -L 5901:localhost:5901 -N [username]@tooarrana1.hpc.swin.edu.au &
+    ssh -L 5901:localhost:5901 -N [username]@tooarrana1.hpc.swin.edu.au
 
 This will forward port 5901 on your local machine to port 5901 on the login node.
 If you started the VNC server on a different port, adjust the port number accordingly, e.g. for port ``:2`` use ``5902``.
@@ -163,11 +163,10 @@ You can use any VNC client to connect to the VNC server on the login node. Some 
     - `RealVNC <https://www.realvnc.com>`_
     - The inbuilt VNC client in MacOS. (You can make use of it via the "Screen Sharing" app, or via Finder -> Go -> Connect to Server, and enter ``vnc://localhost:5901``)
 
-In each client, connect to ``localhost:5901`` (or whichever port you forwarded) and enter the password you set up with ``vncpasswd``.
+In each client, you just simply connect to ``localhost:5901`` (or whichever port you forwarded) and enter the password you set up with ``vncpasswd``.
 
-You should now have a desktop window from the login node on your local machine.
+You should then have a desktop window from the login node on your local machine.
 You can run graphical applications from the terminal in this window.
-For example, you can run ``ds9`` to view FITS files.
 
 
 **4. Tidying up**
