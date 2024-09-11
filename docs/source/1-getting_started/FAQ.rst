@@ -50,7 +50,7 @@ If you created that file, ensure it has the correct permissions:
 How can I find out more about using GPUs?
 ---------------------------------------------
 
-If you would like to learn more about using graphics processing units (GPUs) in your research a good starting point is the `NVIDIA Developer Zone <https://developer.nvidia.com/category/zone/cuda-zone>`_ or our `HPC/GPU webinar series <https://supercomputing.swin.edu.au/hpcgpu-webinars/>`_.
+If you would like to learn more about using graphics processing units (GPUs) in your research, a good starting point is the `GPU programming guide by ENCCS <https://enccs.github.io/gpu-programming/>`_. For NVIDIA-specific information, you can visit the `NVIDIA Developer Zone <https://developer.nvidia.com/category/zone/cuda-zone>`_.
 
 You can also look through slides on `Getting Started <http://astronomy.swin.edu.au/supercomputing/Swin_Getting_Started_with_CUDA_static.pdf>`_ with the CUDA programming language for GPUs, an introduction to the `OpenACC <http://astronomy.swin.edu.au/supercomputing/Swin_Intro_to_OpenACC_static.pdf>`_ directives for accelerating code with GPUs and the `Thrust <http://astronomy.swin.edu.au/supercomputing/thrust.pdf>`_ acceleration library.
 
