@@ -50,13 +50,13 @@ If you created that file, ensure it has the correct permissions:
 How can I find out more about using GPUs?
 ---------------------------------------------
 
-If you would like to learn more about using graphics programming units (GPUs) in your research a good starting point is the `NVIDIA Developer Zone <https://developer.nvidia.com/category/zone/cuda-zone>`_ or our `HPC/GPU webinar series <https://supercomputing.swin.edu.au/hpcgpu-webinars/>`_.
+If you would like to learn more about using graphics processing units (GPUs) in your research a good starting point is the `NVIDIA Developer Zone <https://developer.nvidia.com/category/zone/cuda-zone>`_ or our `HPC/GPU webinar series <https://supercomputing.swin.edu.au/hpcgpu-webinars/>`_.
 
 You can also look through slides on `Getting Started <http://astronomy.swin.edu.au/supercomputing/Swin_Getting_Started_with_CUDA_static.pdf>`_ with the CUDA programming language for GPUs, an introduction to the `OpenACC <http://astronomy.swin.edu.au/supercomputing/Swin_Intro_to_OpenACC_static.pdf>`_ directives for accelerating code with GPUs and the `Thrust <http://astronomy.swin.edu.au/supercomputing/thrust.pdf>`_ acceleration library.
 
 These were all presented at a CUDA Easy workshop at Swinburne (thanks to Michael Wang, Paul Mignone, Amr Hassan and Luke Hodkinson).
 
-Another great starting point is to go to the `GPU Technology Conference <GPU Technology Conference>`_ website and search through past presentations using their On-Demand tool. You can search by field and/or topic, for example, and most likely someone in your field has already tackled what you are hoping to do.
+Another great starting point is to go to the `GPU Technology Conference <https://www.nvidia.com/gtc/training/>`_ website and search through past presentations using their On-Demand tool. You can search by field and/or topic, for example, and most likely someone in your field has already tackled what you are hoping to do.
 
 Why am I getting “Disk quota exceeded” message?
 -----------------------------------------------
