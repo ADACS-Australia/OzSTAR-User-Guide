@@ -8,7 +8,7 @@ Slurm: Cheatsheet / Summary
 - Request interactive job sessions: through ``sinteractive``.
 - Launch/running a job: ``srun``.
 - Nodes info and cluster status: ``sinfo``.
-- Currenly running job detailed status: ``sstat``.
+- Currently running job detailed status: ``sstat`` and ``sjob``.
 - Job and job steps accounting data: ``sacct``.
 - Cancel a job: ``scancel jobid``.
     * Cancel all your jobs: ``scancel -u username``.
