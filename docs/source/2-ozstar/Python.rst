@@ -107,18 +107,19 @@ On the OzSTAR supercomputers, Conda can be used by loading the ``conda`` module.
 .. note::
     The conda module is actually an alias for `Mamba <https://github.com/mamba-org/mamba>`_ a reimplementation of conda in C++. The interface is the same, so users will not notice any difference. ``mamba install`` benefits from considerably improved performance when installing packages, whereas ``conda install`` still uses the old (slower) solver.
 
-You may be familiar with the Anaconda distribution of Python, which contains a specific version of Python bundled with a large set of datascience packages. In contrast, the Conda module provides only the package manager, giving you the freedom to create your own environment with the exact versions of Python and packages that you need.
+    You may have also heard of Miniconda, Miniforge, Mambaforge and Micromamba. You can find a quick summary of the differences here:
+    `"What’s the difference between Anaconda, conda, Miniconda, mamba, Mambaforge, micromamba?" <https://bioconda.github.io/faqs.html#what-s-the-difference-between-anaconda-conda-miniconda-mamba-mambaforge-micromamba>`_, but from a user perspective they can all be considered "the same".
 
 See the `Conda documentation <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html>`_ for instructions on how to create and manage environments.
 
 .. note::
-    The default channel is set to ``conda-forge``. To use the channels that would normally come with conda, use
+    The default channel is set to `conda-forge <https://conda-forge.org/docs/user/introduction/>`_. To use the channels that would normally come with conda, use
 
     ::
 
         mamba install -c defaults <package name>
 
-    If you require an environment with the Anaconda distribution of packages (https://docs.anaconda.com/free/anaconda/)
+    If you require an environment with the `Anaconda <https://docs.anaconda.com/free/anaconda/>`_ distribution of packages
 
     ::
 
