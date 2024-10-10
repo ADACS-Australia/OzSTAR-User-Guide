@@ -161,3 +161,41 @@ The MPI libraries provided by the module system are optimised for high performan
     conda install "openmpi=x.y.z=external_*"
 
 For more details, see: https://conda-forge.org/docs/user/tipsandtricks.html#using-external-message-passing-interface-mpi-libraries
+
+
+Using CUDA/GPU enabled packages
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Some packages that are CUDA enabled (e.g. TensorFlow) will only install the CUDA/GPU enabled version if conda detects a display driver. This is controlled by the ``__cuda`` `virtual package <https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-virtual.html>`_, which corresponds to the maximum version of CUDA supported by the display driver.
+You can list what virtual packages are detected by conda with:
+
+::
+
+    conda info
+
+The NT login nodes ``tooarrana1/2``, unlike the old ``farnarkle1/2`` login nodes, do not have GPUs so there is no display driver detected. In order to install the CUDA/GPU enabled version of a package, you can either build your environment on one of the ``farnarkle`` login nodes, or you can override the virtual package manually using the ``CONDA_OVERRIDE_CUDA`` environment variable. You should set this to the maximum version of CUDA supported by the display driver, which you can determine by running ``nvidia-smi`` on a GPU node.
+
+As of writing, the maximum version of CUDA supported by the display driver is 12.4.
+
+::
+
+    $ nvidia-smi
+    Thu Oct 10 11:59:17 2024
+    +-----------------------------------------------------------------------------------------+
+    | NVIDIA-SMI 550.90.07              Driver Version: 550.90.07      CUDA Version: 12.4     |
+    |-----------------------------------------+------------------------+----------------------+
+    | GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+    | Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+    |                                         |                        |               MIG M. |
+    |=========================================+========================+======================|
+    |   0  Tesla P100-PCIE-12GB           On  |   00000000:D8:00.0 Off |                    0 |
+    | N/A   39C    P0             29W /  250W |     603MiB /  12288MiB |      0%      Default |
+    |                                         |                        |                  N/A |
+    +-----------------------------------------+------------------------+----------------------+
+
+So, to install the CUDA/GPU enabled version of e.g. TensorFlow on ``tooarrana1/2`` you would run:
+
+::
+
+    CONDA_OVERRIDE_CUDA=12.4 mamba install tensorflow
+
+Fore more information, see: https://conda-forge.org/blog/2021/11/03/tensorflow-gpu/
