@@ -9,7 +9,13 @@ The basic goal of a queue system is to maximize utilisation of the supercomputer
 
 Slurm Options
 -------------
-Options to Slurm can be specified on the ``sbatch`` or ``srun`` command lines like ``sbatch --time=1:00:00 ...`` or in lines at the top of the batch script as ``#SBATCH --time=1:00:00``. In the examples below, we mostly use the command line versions for brevity, but typically these options will all be written into the top of your batch script. Your batch script is then submitted to Slurm with ``sbatch my_script``.
+Options to Slurm can be specified on the ``sbatch`` or ``srun`` command lines like
+
+::
+
+    sbatch --time=1:00:00 ...
+
+or in lines at the top of the batch script as ``#SBATCH --time=1:00:00``. In the examples below, we mostly use the command line versions for brevity, but typically these options will all be written into the top of your batch script. Your batch script is then submitted to Slurm with ``sbatch my_script``.
 
 Memory Requests
 ---------------
@@ -63,7 +69,9 @@ Interactive Jobs - Running a program on a compute node but with output on the lo
 
 If you need to run a program on a compute node that will ask questions, or you would like to watch its output in real time, then you can use the ``srun`` command to achieve this, in the same way you would use it to launch an MPI program from within a Slurm batch script.  To run an MPI program interactively you could do:
 
-	``srun --time=4:0:0 --cpus-per-task=4 --ntasks=4 --mem-per-cpu=2G ./my-interactive-mpi-program``
+::
+
+    srun --time=4:0:0 --cpus-per-task=4 --ntasks=4 --mem-per-cpu=2G ./my-interactive-mpi-program
 
 You would then have to wait until the job started and then be able to interact with it as if you were running it on the login node.
 
@@ -74,7 +82,9 @@ Interactive Jobs - Getting a shell prompt on a compute node
 -----------------------------------------------------------
 OzStar has no dedicated interactive nodes, instead you can request them using the ``sinteractive`` command which will give you a shell on a compute node as part of a job.  It takes all the usual options that the Slurm ``srun`` command takes to allow you to specify the run time of your job, how much memory it needs and how many cores it needs on the node. Again you will need to wait until the job this generates starts before being able to do anything.
 
-	``sinteractive --time=1:0:0 --mem=4g --cpus-per-task=4``
+::
+
+    sinteractive --time=1:0:0 --mem=4g --cpus-per-task=4
 
 .. note::
 	Similarly to using ``srun``, Because NT and OzSTAR have different CPU architectures, ``sinteractive`` must be invoked from a login node with a matching architecture.
