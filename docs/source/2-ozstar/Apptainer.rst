@@ -78,6 +78,7 @@ In all cases, whatever comes after the sif file is the command to be executed in
 .. note::
     Your script needs to exist within the container in order to be executed. In this instance, since ``my-script.py`` is in the current directory, it is available to the container, but only if ``$PWD`` is successfully mounted. (See :ref:`Binding the filesystem to a container` below).
 
+For a similar example, but instead using the official Python Docker image and ``pip``, see :ref:`Python Apptainer Example`.
 
 Binding the filesystem to a container
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

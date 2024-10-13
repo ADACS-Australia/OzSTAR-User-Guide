@@ -3,18 +3,15 @@
 Using Python on a supercomputer
 ===============================
 
-There are 2 ways to use Python on the OzSTAR supercomputers:
+There are 3 ways to use Python on the OzSTAR supercomputers:
 
 #. Python module and virtual environments (recommended for beginners)
 #. conda package manager (recommended if you need a precise version of Python and packages)
+#. In a container using Apptainer (recommended for optimising Lustre I/O)
 
 .. note::
 
-    You may also use Apptainer to manage your Python environment as part of a more complex workflow. This approach, however, is not recommended for the typical user.
-
-.. note::
-
-    Although the operating system provides Python at ``/usr/bin/python``, we do not recommend using it. Choosing one of the two recommended methods ensures your Python environments are managed in a sensible way.
+    Although the operating system provides Python at ``/usr/bin/python``, we do not recommend using it. Choosing one of the three recommended methods ensures your Python environments are managed in a sensible way.
 
 Python modules
 --------------
@@ -200,3 +197,47 @@ So, to install the CUDA/GPU enabled version of e.g. TensorFlow on ``tooarrana1/2
     CONDA_OVERRIDE_CUDA=12.4 mamba install tensorflow
 
 Fore more information, see: https://conda-forge.org/blog/2021/11/03/tensorflow-gpu/
+
+Apptainer
+---------
+.. note::
+
+    See the :doc:`Apptainer` page for getting started with Apptainer.
+
+In the context of Python environments, Apptainer has two main benefits:
+
+#. Ensuring reproducibility and portability across different systems
+#. :doc:`../1-getting_started/Optimising-Lustre`
+
+Large, complex Python environments on Lustre can often be slow to load/create and, at worst, may even cause a loss of filesystem performance for ALL users on the cluster. You can mitigate this by containerising your Python environment. This way, the Lustre filesystem sees only a single large file (your container, which is just a read-only `SquashFS <https://docs.kernel.org/filesystems/squashfs.html>`_), even though underneath you may be dealing with a large number of small files.
+
+
+Python Apptainer Example
+^^^^^^^^^^^^^^^^^^^^^^^^
+A simple definition file ``my_container.def`` might look like this:
+
+::
+
+    BootStrap: docker
+    From: python:3.12.7-bookworm
+
+    %post
+        pip install wheel tensorflow[and-cuda] tensorflow-datasets pandas
+
+This uses the official Python 3.12.7 image from DockerHub as a base, into which it installs the TensorFlow library with CUDA support, and a few other packages, using pip.
+
+To build the container image ``my_container.sif`` from the definition file, run:
+
+::
+
+    apptainer build my_container.sif my_container.def
+
+Then you can run a TensorFlow script using the Python environment within the container:
+
+::
+
+    apptainer run --nv my_container.sif python my_tensorflow_script.py
+
+Note that ``my_tensorflow_script.py`` does not exist in the container, but is assumed to be in the current directory, which is automatically mounted. We specify the ``--nv`` flag to enable GPU support in the container.
+
+For a similar example, but instead using Micromamba in the container, see :ref:`Building a containerised conda environment`.
