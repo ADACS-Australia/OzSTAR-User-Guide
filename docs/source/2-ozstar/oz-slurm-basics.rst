@@ -3,21 +3,23 @@
 Slurm: Cheatsheet / Summary
 ==================================
 
-- Job control and monitoring:  ``scontrol`` and ``squeue`` and ``showq``.
-- Submit batch jobs: ``sbatch yourJobScript``.
-- Request interactive job sessions: through ``sinteractive``.
-- Launch/running a job: ``srun``.
-- Nodes info and cluster status: ``sinfo``.
+- Submit batch jobs: ``sbatch``.
+- Run/launch a parallel job: ``srun``.
+- Request interactive job sessions: ``sinteractive``.
+- Cancelling jobs:
+    - Cancel a single job: ``scancel jobid`` or ``scancel -n jobname``.
+    - Cancel all your jobs: ``scancel -u username``.
+    - Cancel all your pending jobs:``scancel -t PD``.
+- Job control and monitoring:  ``scontrol``, ``squeue`` and ``showq``.
 - Currently running job detailed status: ``sstat`` and ``sjob``.
+- Job usage summary: ``jobreport``.
+- Nodes info and cluster status: ``sinfo``, ``showbf`` and ``qinfo -v``.
 - Job and job steps accounting data: ``sacct``.
-- Cancel a job: ``scancel jobid``.
-    * Cancel all your jobs: ``scancel -u username``.
-    * Cancel all your pending jobs:``scancel -t PD``.
 
 Slurm keywords
 --------------------
 
-**Some common sbatch Options/Directives**
+Some common sbatch Options/Directives
 
 +------------------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Short Format           | Long Format                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
@@ -48,3 +50,5 @@ Slurm keywords
 +------------------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | -D directory_name      | --workdir=directory_name               | Set the working directory of the batch script to directory_name before it is executed. The path can be specified as full path or relative path to the directory where the sbatch command is executed.                                                                                                                                                                                                                                                                                                                                                                                                                       |
 +------------------------+----------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+See https://slurm.schedmd.com/sbatch.html for more information.
