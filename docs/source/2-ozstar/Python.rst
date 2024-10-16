@@ -196,7 +196,10 @@ So, to install the CUDA/GPU enabled version of e.g. TensorFlow on ``tooarrana1/2
 
     CONDA_OVERRIDE_CUDA=12.4 mamba install tensorflow
 
-Fore more information, see: https://conda-forge.org/blog/2021/11/03/tensorflow-gpu/
+Fore more information, see:
+
+- https://conda-forge.org/docs/user/tipsandtricks/#installing-cuda-enabled-packages-like-tensorflow-and-pytorch
+- https://conda-forge.org/blog/2021/11/03/tensorflow-gpu/#installation
 
 Apptainer
 ---------
