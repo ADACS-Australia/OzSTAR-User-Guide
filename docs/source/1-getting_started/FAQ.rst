@@ -95,3 +95,10 @@ Why doesn't Emacs/X11/other program work?
 *"Emacs is delicate and sensitive like a little flower, and won't work if you mess with its libs".*
 
 See our page on `Workflows and Dotfiles <../2-ozstar/Workflow.html>`_ for more information.
+
+Why don't the compute nodes have internet access or access to external networks?
+--------------------------------------------------------------------------------
+
+The compute nodes on our facility are dedicated exclusively to computation and data processing. By design, they are isolated from external networks to ensure reliable, uninterrupted performance. Allowing internet access would risk delays due to network issues, slow or unreliable external servers, and potentially introduce security concerns.
+
+For workflows that require external data, we recommend transferring necessary files to your home or project directory in advance. If automated file transfers from external sources are needed, we recommend using the internet-enabled trevor nodes for these tasks. You can set up file transfers on trevor nodes as part of your workflow, then chain Slurm jobs together with dependencies to automate data movement and processing.
