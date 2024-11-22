@@ -58,4 +58,4 @@ In addition to any reporting requirements set under merit allocation schemes for
 
 **Usage Cost**
 
-The facility is intended for academic usage for which there is no direct cost. For the purposes of documenting in-kind contributions on grant proposals, or otherwise, the value of the resource for academic use is set at $0.07 per (CPU) processor hour.
+The facility is intended for academic usage for which there is no direct cost. For the purposes of documenting in-kind contributions on grant proposals, or otherwise, the value of the resource for academic use is set at $0.05 per CPU core hour, and $0.80 per GPU hour.
