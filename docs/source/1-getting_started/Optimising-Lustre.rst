@@ -36,6 +36,10 @@ If you cannot avoid the **reading** of many small files, then you can reduce the
 This way the Lustre filesystem sees only a single large file (your container, which is just a read-only `SquashFS <https://docs.kernel.org/filesystems/squashfs.html>`_), even though underneath you're dealing with a large number of files.
 See the section :ref:`Apptainer on OzSTAR` for more information on how to create and run a container.
 
+.. note::
+    Using Apptainer in "sandbox" mode completely negates all its benefits (in terms of Lustre I/O).
+    You should only use sandbox mode for development and testing, **not for production runs**.
+
 If you only need to containerise your data, and not your code, then it's possible to manually create and mount a squashfs that holds just your data.
 This is faster, albeit slightly more complicated, than simply unpacking a tarball to ``$JOBFS`` (see :ref:`Local disks`).
 

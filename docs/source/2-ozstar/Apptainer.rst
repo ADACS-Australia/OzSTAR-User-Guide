@@ -196,3 +196,12 @@ Fakeroot feature
     This is useful for avoiding errors when building containers; the combination of a root-mapped user namespace with the fakeroot command allows most package installations to work. However, the fakeroot command is bound in from the host, so if the host libc library is of a very different vintage than the corresponding container the fakeroot command can fail with errors about a missing GLIBC version.
 
     If that situation happens (and you insist on using a container with an incompatible GLIBC) the easiest solution is to first run a container with an operating system matching the target glibc version, install Apptainer unprivileged there, and do the build nested inside that container.
+
+Sandbox mode
+------------
+Apptainer's `"sandbox" <https://apptainer.org/docs/user/main/quick_start.html#building-images-from-scratch>`_ mode allows you to build and run a container that is unpacked to a directory on the host system, rather than a single SIF image.
+Combined with the ``--writable`` flag, it can be useful during development and testing by allowing you to iterate and make changes to your container without having to rebuild the entire container each time.
+
+.. warning::
+    However, sandbox mode **should not be used for production runs**, as it completely negates all the benefits of using Apptainer in terms of Lustre I/O.
+    Once you are happy with your container, you should convert it into a SIF image and use that for your production runs.
