@@ -244,3 +244,18 @@ Then you can run a TensorFlow script using the Python environment within the con
 Note that ``my_tensorflow_script.py`` does not exist in the container, but is assumed to be in the current directory, which is automatically mounted. We specify the ``--nv`` flag to enable GPU support in the container.
 
 For a similar example, but instead using Micromamba in the container, see :ref:`Building a containerised conda environment`.
+
+.. note::
+    Remember, the ``.sif`` container is an immutable SquashFS (i.e. **read-only**).
+    Once you have built your containerised environment, you cannot modify it -- you must rebuild it to make changes.
+
+.. warning::
+    **You may be fooled into thinking that you can write to your container**.
+    For example, the following command may return without error ``apptainer run my_container.sif pip install xyz``.
+
+    However, looking at the output carefully you will notice the following warning: *"Defaulting to user installation because normal site-packages is not writeable"*.
+
+    In this case, the ``xyz`` package was installed into your ``~/.local``, and not into the container.
+    Note that this is in **your actual home directory** on the host, since it is implictly bind mounted at runtime (but not at build time).
+
+    **This is a trap for the unwary and will almost certainly lead to confusion and conflicts. Avoid it all costs.**
