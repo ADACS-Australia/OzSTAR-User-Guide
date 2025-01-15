@@ -31,7 +31,16 @@ How do I change my login password?
 How can I change my login shell?
 ------------------------------------------
 
-You can change your login shell, just type ``changeShell`` in your terminal. This information will take a few minutes to propagate, and you will have to login again for it to take effect.
+On this system, user accounts are managed via LDAP, so the standard chsh command is not available. Instead, you can change your default login shell by using the changeShell command.
+
+To change your shell, type ``changeShell``, then follow the prompts to select your desired shell. Changes will take a few minutes to propagate, and you will need to log out and log back in for the change to take effect.
+
+The available shells include:
+* csh
+* tcsh
+* bash
+* zsh
+* ksh
 
 How can I avoid session timeouts?
 ------------------------------------------
