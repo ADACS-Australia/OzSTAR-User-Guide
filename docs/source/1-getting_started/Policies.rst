@@ -4,7 +4,7 @@ Policies
 ========
 All users of the Swinburne HPC facilities must agree to abide by the `Swinburne IT Systems Acceptable Use <https://www.swinburne.edu.au/about/leadership-governance/policies-regulations/procedures-guidelines/acceptable-use-guidelines/>`_ policy.
 
-It is not permitted to share login details or let others know your password for systems access. It is also the responsibility of individuals to ensure that their contact details are kept up-to-date as part of their account information. The principal avenue of communication of important system information will be via the email address linked by the user to their account — it is not the responsibility of Swinburne to take additional steps to contact individuals. Failure to maintain accurate contact details or respond to communications may result in account deactivation.
+It is not permitted to share login details or let others know your password for systems access. It is also the responsibility of individuals to ensure that their contact details are kept up-to-date as part of their account information. The principal avenue of communication of important system information will be via the email address linked by the user to their account — it is not the responsibility of Swinburne to take additional steps to contact individuals. Failure to maintain accurate contact details or respond to communications may result in restrictions on usage or account deactivation.
 
 All users should be aware that information about the level of activity of their account on the system may be observable by other users and that Swinburne HPC staff may monitor the contents of files on the system (such as job scripts).
 
