@@ -26,7 +26,7 @@ How do I change my login password?
 
 - You can change your password when you are logged on via SSH, just type ``passwd`` in the terminal. You can find more details on `passwd manual page <http://man7.org/linux/man-pages/man1/passwd.1.html>`_.
 
-- You can reset your password from `supercomputing.swin.edu.au/account-management/new_account_request <https://supercomputing.swin.edu.au/account-management/new_account_request>`__. There is a Login/Reset Password link on the left hand pane.
+- You can reset your password `here <https://supercomputing.swin.edu.au/account-management/forget_password>`__.
 
 How can I change my login shell?
 ------------------------------------------
