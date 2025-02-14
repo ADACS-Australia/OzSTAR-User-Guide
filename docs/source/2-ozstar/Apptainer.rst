@@ -106,6 +106,7 @@ To bind multiple paths:
 By default, Apptainer also implicitly binds several other directories:
 
     - ``$HOME``
+    - ``$PWD``
     - ``/sys``
     - ``/proc``
     - ``/dev``
@@ -119,11 +120,7 @@ By default, Apptainer also implicitly binds several other directories:
 (See https://apptainer.org/docs/user/latest/bind_paths_and_mounts.html)
 
 .. note::
-    Apptainer also tries to bind mount ``$PWD``, however if the parent directories for it do not exist inside the image, then it will not be mounted, and the current working directory inside the container at run time will default to ``$HOME``.
-
-    This behaviour is different than if you were to explicitly mount ``$PWD``, which also creates any missing parent directories inside the container.
-
-    To make your life simpler, we suggest just always explicitly mounting ``$PWD``. Or, since you will nearly always be working under ``/home`` and ``/fred``, always mount your project directory e.g. ``/fred/oz123/``.
+    Apptainer binds ``$PWD`` by default, which is the current working directory when you run the command. If the directory does not exist inside the container, it will be automatically created. As a result, the behaviour of the apptainer command can be different depending on where you run it from.
 
 
 It is also possible to `bind in other filesystem images <https://apptainer.org/docs/user/main/bind_paths_and_mounts.html#image-mounts>`_.
