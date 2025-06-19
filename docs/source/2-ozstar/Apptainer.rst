@@ -15,7 +15,7 @@ You can use Apptainer by loading the module
 Usage
 --------
 
-For comprehensive instructions on using Apptainer, please visit the official documentation: https://apptainer.org/docs/user/latest/
+For comprehensive instructions on using Apptainer, please visit the official documentation: https://apptainer.org/docs/user/main/
 
 
 Building a containerised conda environment
@@ -116,7 +116,7 @@ By default, Apptainer also implicitly binds several other directories:
     - ``/etc/localtime``
     - ``/etc/hosts``
 
-(See https://apptainer.org/docs/user/latest/bind_paths_and_mounts.html)
+(See https://apptainer.org/docs/user/main/bind_paths_and_mounts.html)
 
 .. note::
     Apptainer also tries to bind mount ``$PWD``, however if the parent directories for it do not exist inside the image, then it will not be mounted, and the current working directory inside the container at run time will default to ``$HOME``.
@@ -187,6 +187,42 @@ Building this in to an image with ``apptainer build 32bit.sif 32bit.def`` then a
 
     apptainer run -B /fred/oz123 32bit.sif /path/to/my/32bit/binary
 
+
+Using MPI with a container
+--------------------------
+Please read through the Apptainer documentation on `using Apptainer with MPI applications <https://apptainer.org/docs/user/main/mpi.html>`_ before attempting to run your application.
+
+We recommend following the `hybrid model <https://apptainer.org/docs/user/main/mpi.html#hybrid-model>`_, which involves running the MPI launcher outside the container and having a comptatible MPI library inside the container -- they should be of the same implementation and the same major version.
+
+On OzSTAR we only support and provide OpenMPI, so you need to have OpenMPI installed in your container. It is typically sufficient to install it from the system package manager, but in order to make use of the **high speed Infiniband network** you also need to ensure you have a few other packages installed.
+
+For RHEL based distros (e.g. Rocky Linux, AlmaLinux), make sure to install
+
+::
+
+    dnf install -y openmpi openmpi-devel ucx ucx-cma ucx-ib ucx-rdmacm
+    dnf group install -y "InfiniBand Support"
+
+For Debian based distros (e.g. Debian, Ubuntu), make sure to install
+
+::
+
+    apt-get install openmpi-bin libopenmpi-dev infiniband-diags ucx-utils
+
+For a conda-forge environment inside of a container, follow the relevant instructions above and then install the :ref:`dummy conda-forge OpenMPI package <Using MPI libraries>`. This will allow your conda environment to use the container's system OpenMPI libraries, which will communicate correctly with the host OpenMPI library on OzSTAR.
+
+Once you have your container set up, all you have to do is load a comptatible version of OpenMPI and run your MPI application. For example, if your container has OpenMPI 4.1.4, you should load at least the same version of OpenMPI or higher, but still within the same major version (i.e. 4.1.4 <= x.y.z < 5.0.0).
+You can then run your MPI application like this:
+
+::
+
+    module load gcc/12.3.0 openmpi/4.1.5
+    mpirun -n 4 apptainer run --sharens -B /fred/oz123 mycontainer.sif /path/in/container/to/application
+
+To ensure intranode communication is as fast as possible, remember to use the ``--sharens`` `flag <https://apptainer.org/docs/user/main/mpi.html#using-sharens-mode>`_. This ensures that all processes on the same node share the same user namespace, and thus don't run into issues when attempting to leverage intranode communication transports.
+
+.. warning::
+    The instructions above should work in most cases, however MPI with high-speed interconnect fabrics can be tricky to tune. The exact transports used depend on the OpenMPI configuration and environment variables. OzSTAR has two different high-speed fabrics (Mellanox on Milan nodes and OPA on Skylake nodes) which require different transports for optimal performance. While we have environment variables that should pass through and ensure correct transport selection, issues can still arise depending on what's available in the container's OpenMPI installation. If you notice poor performance or errors when running MPI applications, please :ref:`contact the OzSTAR support team <User Support>` for assistance.
 
 Fakeroot feature
 ----------------

@@ -158,7 +158,10 @@ The MPI libraries provided by the module system are optimised for high performan
 
     conda install "openmpi=x.y.z=external_*"
 
-For more details, see: https://conda-forge.org/docs/user/tipsandtricks.html#using-external-message-passing-interface-mpi-libraries
+For more details, see:
+
+- https://conda-forge.org/docs/user/tipsandtricks.html#using-external-message-passing-interface-mpi-libraries
+- https://mpi4py.readthedocs.io/en/stable/install.html#using-conda
 
 
 Using CUDA/GPU enabled packages
