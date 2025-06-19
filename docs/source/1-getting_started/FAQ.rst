@@ -26,12 +26,22 @@ How do I change my login password?
 
 - You can change your password when you are logged on via SSH, just type ``passwd`` in the terminal. You can find more details on `passwd manual page <http://man7.org/linux/man-pages/man1/passwd.1.html>`_.
 
-- You can reset your password from `supercomputing.swin.edu.au/account-management/new_account_request <https://supercomputing.swin.edu.au/account-management/new_account_request>`__. There is a Login/Reset Password link on the left hand pane.
+- You can reset your password `here <https://supercomputing.swin.edu.au/account-management/forget_password>`__.
 
 How can I change my login shell?
 ------------------------------------------
 
-You can change your login shell, just type ``changeShell`` in your terminal. This information will take a few minutes to propagate, and you will have to login again for it to take effect.
+On this system, user accounts are managed via LDAP, so the standard chsh command is not available. Instead, you can change your default login shell by using the changeShell command.
+
+To change your shell, type ``changeShell``, then follow the prompts to select your desired shell. Changes will take a few minutes to propagate, and you will need to log out and log back in for the change to take effect.
+
+The available shells include:
+
+* csh
+* tcsh
+* bash
+* zsh
+* ksh
 
 How can I avoid session timeouts?
 ------------------------------------------

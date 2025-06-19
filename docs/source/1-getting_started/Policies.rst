@@ -4,7 +4,12 @@ Policies
 ========
 All users of the Swinburne HPC facilities must agree to abide by the `Swinburne IT Systems Acceptable Use <https://www.swinburne.edu.au/about/leadership-governance/policies-regulations/procedures-guidelines/acceptable-use-guidelines/>`_ policy.
 
-It is not permitted to share login details or let others know your password for systems access. It is also the responsibility of individuals to ensure that their contact details are kept up-to-date as part of their account information. The principal avenue of communication of important system information will be via the email address linked by the user to their account — it is not the responsibility of Swinburne to take additional steps to contact individuals. All users should be aware that information about the level of activity of their account on the system may be observable by other users and that Swinburne HPC staff may monitor the contents of files on the system (such as job scripts).
+It is not permitted to share login details or let others know your password for systems access. It is also the responsibility of individuals to ensure that their contact details are kept up-to-date as part of their account information. The principal avenue of communication of important system information will be via the email address linked by the user to their account — it is not the responsibility of Swinburne to take additional steps to contact individuals. Failure to maintain accurate contact details or respond to communications may result in restrictions on usage or account deactivation.
+
+All users should be aware that information about the level of activity of their account on the system may be observable by other users and that Swinburne HPC staff may monitor the contents of files on the system (such as job scripts).
+
+Use of insecure credentials, such as SSH private keys that are not protected by a passphrase, passwords or passphrases suspected of being compromised, or any other practice that risks unauthorised access, such as weak passwords or passphrases, sharing credentials, or unnecessarily storing private keys on the system, is strictly prohibited.
+
 
 In addition, all users agree to abide by the following usage policies.
 

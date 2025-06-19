@@ -261,4 +261,4 @@ For a similar example, but instead using Micromamba in the container, see :ref:`
     In this case, the ``xyz`` package was installed into your ``~/.local``, and not into the container.
     Note that this is in **your actual home directory** on the host, since it is implictly bind mounted at runtime (but not at build time).
 
-    **This is a trap for the unwary and will almost certainly lead to confusion and conflicts. Avoid it all costs.**
+    **This is a trap for the unwary and will almost certainly lead to confusion and conflicts. Avoid it at all costs.**
