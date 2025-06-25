@@ -221,6 +221,28 @@ To ensure intranode communication is as fast as possible, remember to use the ``
 .. warning::
     The instructions above should work in most cases, however MPI with high-speed interconnect fabrics can be tricky to tune. The exact transports used depend on the OpenMPI configuration and environment variables. OzSTAR has two different high-speed fabrics (Mellanox on Milan nodes and OPA on Skylake nodes) which require different transports for optimal performance. While we have environment variables that should pass through and ensure correct transport selection, issues can still arise depending on what's available in the container's OpenMPI installation. If you notice poor performance or errors when running MPI applications, please :ref:`contact the OzSTAR support team <User Support>` for assistance.
 
+MPI performance: container vs bare metal
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The performance overhead in running MPI applications inside a container on OzSTAR is typically negligible. See the plots below for a comparison of the performance of the `OSU MPI benchmarks <https://mvapich.cse.ohio-state.edu/benchmarks/>`_ in a Debian 12 container with GCC 12.2.0 and OpenMPI 4.1.4, and the same OSU benchmarks run on bare metal (also with GCC 12.2.0 and OpenMPI 4.1.4).
+
+.. figure:: /_static/OSU-MPI-Bandwidth.png
+   :alt: OSU MPI Bandwidth Benchmark
+   :align: center
+
+|
+
+.. figure:: /_static/OSU-MPI-Latency.png
+   :alt: OSU MPI Latency Benchmark
+   :align: center
+
+|
+
+.. figure:: /_static/OSU-MPI-Allgather.png
+   :alt: OSU MPI Allgather Benchmark
+   :align: center
+
+|
+
 Fakeroot feature
 ----------------
 .. note::
