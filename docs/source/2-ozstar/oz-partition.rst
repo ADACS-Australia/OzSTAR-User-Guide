@@ -25,7 +25,7 @@ For instance if your job needs 2GB per node in total, then you would ask for ``-
 
 Slurm enforces this memory request by using the Linux kernels ``cgroup`` support which will limit the memory it can use on the node. If your job exceeds that value then the kernel will kill a process which will usually lead to the failure of your job.
 
-Memory is the most commonly overrequested because users generally don't know how much memory their job requires. Although you may be able to make a good estimate for a self-authored code, we recommend determining memory usage via trial and error. Start with a generous request of 4 GB/core, and then check the actual usage on the `Job monitor <https://supercomputing.swin.edu.au/monitor/>`_. Once the true maximum usage has been determined, set the request to 125% of the maximum. This leeway will prevent your job from crashing if a change results in a slightly different memory usage.
+Memory is the most commonly overrequested because users generally don't know how much memory their job requires. Although you may be able to make a good estimate for a self-authored code, we recommend determining memory usage via trial and error. Start with a generous request of 4000M/core, and then check the actual usage on the `Job monitor <https://supercomputing.swin.edu.au/monitor/>`_. Once the true maximum usage has been determined, set the request to 125% of the maximum. This leeway will prevent your job from crashing if a change results in a slightly different memory usage.
 
 .. note::
 
