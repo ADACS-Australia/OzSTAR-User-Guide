@@ -20,14 +20,34 @@ From these nodes you can submit jobs to the queue nodes using `Slurm <https://sl
 .. note::
     Do not use these login nodes to run long jobs or jobs with big computational requirements. Running such jobs in interactive mode can be done by requesting interactive nodes from the queue.
 
-From each of ``tooarrana1/2`` you can access the other with ``ssh t1`` or ``ssh t2``. ``tooarrana1/2`` are also available for direct login via eg. ``ssh [your-username]@tooarrana1.hpc.swin.edu.au``.
+Each login node is also available directly
+::
+  ssh [your-username]@tooarrana1.hpc.swin.edu.au
+  ssh [your-username]@tooarrana2.hpc.swin.edu.au
 
-From ``tooarrana1/2`` you can also SSH into ``farnarkle1/2``, the login nodes for the previous supercomputer OzSTAR, with ``ssh f1`` or ``ssh f2``.
 
-Direct access to ``farmarkle1/2`` is still available via
+The login nodes for the previous, older, supercomputer OzSTAR (``farnarkle1/2``) are also still available via the round-robin address
 ::
 
     ssh [your-username]@ozstar.swin.edu.au
+
+or directly
+::
+
+    ssh [your-username]@farnarkle1.hpc.swin.edu.au
+    ssh [your-username]@farnarkle2.hpc.swin.edu.au
+
+It is also possible to jump from any login node to any other login node using the hostnames ``t1``, ``t2``, ``f1``, and ``f2``.
+For example,
+::
+    # From tooarrana1 to tooarrana2
+    [tooarrana1]$ ssh t2
+    [tooarrana2]$
+
+    # From tooarrana2 to farnarkle1
+    [tooarrana2]$ ssh f1
+    [farnarkle1]$
+
 
 .. note::
     Jobs submitted on ``tooarrana1/2`` will run on the new AMD Milan nodes, whereas  jobs submitted on ``farnarkle1/2`` will run on the older Intel Skylake nodes.
