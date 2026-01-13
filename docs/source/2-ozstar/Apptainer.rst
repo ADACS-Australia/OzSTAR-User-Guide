@@ -245,12 +245,21 @@ The performance overhead in running MPI applications inside a container on OzSTA
 
 Fakeroot feature
 ----------------
+
+Apptainer on OzSTAR uses the ``fakeroot`` command in addition to a root-mapped user namespace to allow an unprivileged user to run a container with the appearance of running as root. (See option 3 at https://apptainer.org/docs/user/main/fakeroot.html).
+
+This is useful for avoiding errors when building containers; the combination of a root-mapped user namespace with the fakeroot command allows most package installations to work.
+However, the fakeroot command is bound in from the host, so if the host libc library is of a very different vintage than the corresponding container the fakeroot command can fail with errors about a missing GLIBC version.
+
+The error you might see in that situation will look something like:
+
+/.singularity.d/libs/faked: /lib64/libc.so.6: version `GLIBC_2.33' not found (required by /.singularity.d/libs/faked)
+
+If that happens, try the following bootstrap script for installing a GLIBC compatible fakeroot inside your container: https://github.com/dliptai/fakeroot-bootstrap.
+This fakeroot binary can then be used in subsequent steps in your ``%post`` section of your definition file for package installations that were failing previously.
+
 .. note::
-    Apptainer on OzSTAR uses the ``fakeroot`` command in addition to a root-mapped user namespace to allow an unprivileged user to run a container with the appearance of running as root. (See option 3 https://apptainer.org/docs/user/main/fakeroot.html).
-
-    This is useful for avoiding errors when building containers; the combination of a root-mapped user namespace with the fakeroot command allows most package installations to work. However, the fakeroot command is bound in from the host, so if the host libc library is of a very different vintage than the corresponding container the fakeroot command can fail with errors about a missing GLIBC version.
-
-    If that situation happens (and you insist on using a container with an incompatible GLIBC) the easiest solution is to first run a container with an operating system matching the target glibc version, install Apptainer unprivileged there, and do the build nested inside that container.
+    See the Apptainer documentation on `this topic <https://apptainer.org/docs/user/main/fakeroot.html#using-fakeroot-command-inside-definition-file>`_
 
 Sandbox mode
 ------------
