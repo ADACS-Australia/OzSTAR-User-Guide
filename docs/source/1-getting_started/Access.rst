@@ -6,7 +6,7 @@ Access to the supercomputer
 Access Ngarrgu Tindebeek
 ------------------------
 
-Access to the supercomputer is available through Secure Shell (SSH) to nt.swin.edu.au for all users. i.e:
+Access to the :ref:`supercomputer<Ngarrgu Tindebeek>` is available through Secure Shell (SSH) to nt.swin.edu.au for all users. i.e:
 ::
 
     ssh [your-username]@nt.swin.edu.au
@@ -25,8 +25,9 @@ Each login node is also available directly
   ssh [your-username]@tooarrana1.hpc.swin.edu.au
   ssh [your-username]@tooarrana2.hpc.swin.edu.au
 
-
-The login nodes for the previous, older, supercomputer OzSTAR (``farnarkle1/2``) are also still available via the round-robin address
+Access OzSTAR
+-------------
+The login nodes for the :ref:`previous, older, supercomputer OzSTAR<OzSTAR>` (``farnarkle1/2``) are also still available via the round-robin address
 ::
 
     ssh [your-username]@ozstar.swin.edu.au
@@ -49,8 +50,35 @@ For example,
     [farnarkle1]$
 
 
+Access Trevor
+-------------
+The login node for the cloud-based :ref:`trevor cluster<Trevor>` is only accessible by jumping from one of the other login nodes.
+e.g.
+::
+    # From tooarrana1 to trevor
+    [tooarrana1]$ ssh trevor
+    [trevor]$
+
+
 .. note::
-    Jobs submitted on ``tooarrana1/2`` will run on the new AMD Milan nodes, whereas  jobs submitted on ``farnarkle1/2`` will run on the older Intel Skylake nodes.
+    Jobs submitted on ``tooarrana1/2`` will run on the new AMD Milan nodes, whereas jobs submitted on ``farnarkle1/2`` will run on the older Intel Skylake nodes. Jobs submitted on ``trevor`` will run on the cloud-based trevor nodes.
+
+
+Access data-mover nodes
+-----------------------
+The :ref:`data-mover nodes<Data-movers>` can be accessed directly or via the login nodes. e.g.
+::
+    # From local machine to data-mover01
+    ssh [your-username]@data-mover01.hpc.swin.edu.au
+
+    # From tooarrana1 to data-mover02
+    [tooarrana1]$ ssh data-mover02
+    [data-mover02]$
+
+    # From farnarkle1 to data-mover03
+    [farnarkle1]$ ssh dm3
+    [data-mover03]$
+
 
 .. tip::
     If you want to avoid having to type the rather long ``[your-username]@ozstar.swin.edu.au`` every time you want to connect to the supercomputer, you can set a shortcut in your `SSH config <https://linuxize.com/post/using-the-ssh-config-file/>`_.

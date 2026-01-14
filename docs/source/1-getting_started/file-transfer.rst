@@ -21,7 +21,7 @@ In order to transfer files to and from the supercomputer, an SSH-based file tran
 
 
 Copying a file or directory via SSH
----------------------------------------
+-----------------------------------
 
 The best way to copy a file to or from the supercomputer is to use the ``rsync`` command. ``rsync`` is preferred over ``scp`` because it designed to handle multiple files, and because it preserves permissions on directories.
 

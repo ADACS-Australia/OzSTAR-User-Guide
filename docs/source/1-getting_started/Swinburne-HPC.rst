@@ -33,7 +33,7 @@ Nodes are connected via NVIDIA Quantum-2 NDR InfiniBand switches with a data thr
     Although the nodes have a specified amount of RAM installed (e.g. "256 GB"), not all of this RAM is available to Slurm jobs. Please refer to :ref:`Memory Requests`.
 
 OzSTAR
-----------------
+------
 
 Installed in 2018, "OzSTAR" is the previous supercomputer, featuring 4140 CPU cores and 230 GPUS in total.
 
@@ -62,3 +62,8 @@ Since the cluster is based in the cloud, the number of nodes is variable and can
 * 12-core Intel CPUs (Haswell architecture)
 * 30 GB RAM
 * 10 GB SSD
+
+Data-movers
+-----------
+A small set of data-mover nodes are also available specifically for data transfer to and from the supercomputer.
+See :ref:`file transfers<Copying a file or directory via SSH>`.
