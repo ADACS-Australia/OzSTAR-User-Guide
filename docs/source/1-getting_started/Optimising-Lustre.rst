@@ -10,7 +10,7 @@ For Lustre, reads and writes of >4MB are ideal. 10 MB and above is best. Small (
 
 The best way to get high I/O performance from large parallel codes (eg. a checkpoint) is generally to read or write one large O(GB) file per process, or if the number of processes is very large, then one large file per node. This will send I/O to all or many of the Object Storage Targets (OSTs) that make up the ``/fred`` filesystem and can run at over 30 GB/s (not including speed-ups from transparent filesystem compression).
 
-Each of the individual OSTs in the ``/fred`` filesystem is composed of 4 large raidz3's in a ZFS pool and is capable of several GB/s. Because each OST is large and fast there is no advantage in using Lustre striping.
+Each of the individual OSTs in the ``/fred`` filesystem is composed of 4 large raidz3's in a ZFS pool and is capable of several GB/s. Because each OST is large and fast there is no advantage in using :ref:`Lustre striping`.
 
 What are IOPS?
 --------------

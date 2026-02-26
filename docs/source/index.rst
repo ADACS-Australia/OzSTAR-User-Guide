@@ -38,6 +38,7 @@ Here you will find the technical information required to help you run jobs on th
 
    1-getting_started/Filesystems
    1-getting_started/Optimising-Lustre
+   1-getting_started/Lustre-Striping
    1-getting_started/Datasets
 
 .. toctree::
