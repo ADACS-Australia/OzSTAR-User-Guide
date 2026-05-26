@@ -41,7 +41,7 @@ Installed in 2018, "OzSTAR" is the previous supercomputer, featuring 4140 CPU co
 
 * 2x 18-core Intel Gold 6140 GPUs
 * 192 GB RAM
-* 400 GB SSDs
+* 400 GB SSD
 * 2x NVIDIA P100 12 GB GPUs
 
 8 high-memory compute nodes:
