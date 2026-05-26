@@ -7,7 +7,7 @@ The main filesystem is 19 Petabytes of diskspace in ``/fred``. This filesystem h
 
 There are a few other smaller filesystems in the cluster. Of these, ``/home`` is cluster-wide like ``/fred`` and ``$JOBFS`` is on SSDs in each compute node. ``/home`` is a Lustre + ZFS filesystem and ``$JOBFS`` is XFS. 
 
-Recently we have added a new cluster-wide scratch filesystem designed for I/O-intensive workloads, available at ``/scratch-3month/<username>``.
+We have recently added a new cluster-wide filesystem designed for I/O-intensive workloads, available at ``/aphid/scratch-3month/<username>``.
 
 Local disks
 -----------
@@ -27,7 +27,7 @@ On OzSTAR, the three main cluster-wide directories are: ::
 
     /home/<username>
 
-    /scratch-3month/<username>
+    /aphid/scratch-3month/<username>
 
 and ::
 
@@ -44,7 +44,7 @@ and ::
 
 Typically project leaders will create directories for each of their members inside ``/fred/<project_id>`` (e.g. ``/fred/<project_id>/<username>``). If a user is a member of multiple projects then they will have access to multiple areas in ``/fred``.
 
-``/scratch-3month`` is designed for temporary, I/O-intensive workloads. It is not backed up, and data is subject to an expiry policy (see *Scratch file expiration* below). The recommended workflow is to (i) run jobs on /scratch-3month, (ii) copy any valuable outputs to ``/home`` or ``/fred``, and (iii) remove intermediate or unnecessary data (or allow it to expire).
+``/aphid/scratch-3month`` is designed for temporary, I/O-intensive workloads. It is not backed up, and data is subject to an expiry policy (see *scratch file expiration* below). The recommended workflow on ``/aphid/scratch-3month`` is to run jobs, copy any valuable outputs to ``/home`` or ``/fred``, and then remove unnecessary intermediate data (or allow it to expire).
 
 Quota
 ^^^^^
@@ -55,7 +55,7 @@ Disk quotas are enabled on OzSTAR.
 
 ``/fred`` has a default per-project limit of 10TB blocks and 1M files. If you require additional storage, please contact hpc-support@swin.edu.au
 
-``/scratch-3month`` currently has no enforced quota. This may be revisited if storage usage becomes imbalanced, or the filesystem is not used in accordance with its intended purpose.
+``/aphid/scratch-3month`` currently has no enforced quota. This may be revisited if storage usage becomes imbalanced, or the filesystem is not used in accordance with its intended purpose.
 
 .. note::
     Because of filesystem compression (see below), it is common to store more data than this and remain under quota. This is because quotas count only actual blocks used on disk.
@@ -67,22 +67,19 @@ To check your quota on any node, type: ::
 Scratch file expiration
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Data stored under ``/scratch-3month/<username>`` is subject to a 90-day expiry policy, based on the last access time of each file. Files that have not been accessed within this period may be automatically removed without notice. Users are responsible for ensuring that any important data is copied to long-term storage (e.g. ``/home``, which is backed up, or ``/fred`` not backed up) before expiry.
+Data stored under ``/aphid/scratch-3month/<username>`` is subject to a 90-day expiry policy, based on the last access time of each file. Users are responsible for ensuring that any important data is copied to long-term storage (e.g. ``/home``, which is backed up, or ``/fred`` not backed up) before expiry.
 
-You can monitor files approaching expiry using the nightly report, available from the command line:
+A summary of files approaching expiry will be displayed on the welcome node at login. Users can also monitor expiry periods using the nightly report, available from the command line: :: 
 
-::
-% scratch-report
+    scratch-report
 
-Reports are retained for seven days. To view available reports or inspect a specific one:
+Reports are only generated for users with files on ``/aphid/scratch-3month/<username>``, and they are retained for seven days. To view those available: ::
 
-::
-% scratch-report list
-% scratch-report show <report_file>
+    scratch-report list
 
-The report highlights files nearing expiry and provides a storage summary of your directory, including inode usage, total storage consumption, and a breakdown of file sizes across defined buckets.
+And to inspect a specific report: ::
 
-A summary of files approaching expiry is also displayed on the welcome node at login.
+    scratch-report show <report_file>
 
 Transparent Compression
 ^^^^^^^^^^^^^^^^^^^^^^^
