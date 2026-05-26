@@ -47,7 +47,7 @@ Quota
 
 Disk quotas are enabled on OzSTAR.
 
-``/home`` has a per-user limit of 10GB blocks and 100,000 files. This cannot be increased. These numbers are set so that backups are feasible.
+``/home`` has a per-user limit of 20GB blocks and 200,000 files. This cannot be increased. These numbers are set so that backups are feasible.
 
 ``/fred`` has a default per-project limit of 10TB blocks and 1M files. If you require additional storage, please contact hpc-support@swin.edu.au
 
