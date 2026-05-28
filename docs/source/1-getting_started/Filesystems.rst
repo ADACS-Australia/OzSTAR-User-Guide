@@ -10,7 +10,7 @@ There are a few other smaller filesystems in the cluster. Of these, ``/home`` is
 We have recently added a new cluster-wide filesystem designed for I/O-intensive workloads, available at ``/aphid/scratch-3month/<username>``. 
 
 .. warning::
-    Aphid is built from repurposed NT hardware. Although we have configured the filesystem for maximum resilience, users should be aware that long-term reliability may be lower than for the primary production filesystems.
+    ``/aphid`` is built from repurposed NT hardware. Although we have configured the filesystem for maximum resilience, users should be aware that long-term reliability may be lower than for the primary production filesystems.
 
 Local disks
 -----------
