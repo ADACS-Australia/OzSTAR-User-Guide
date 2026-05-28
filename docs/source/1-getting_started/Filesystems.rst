@@ -18,7 +18,7 @@ The ``$JOBFS`` environment variable in each job points at a per-job directory on
 
 A typical workflow that uses local disks would be to copy tar files from ``/fred`` to ``$JOBFS``, untar, do processing on many small files using many IOPS, tar up the output, copy results back to ``fred``.
 
-Alternativley, you may use it to write a large number of small files during your job, which you then pack into a tarball and copy back to ``/fred`` at the end of your job (See :ref:`optimizing writing <Writing>`).
+Alternatively, you may use it to write a large number of small files during your job, which you then pack into a tarball and copy back to ``/fred`` at the end of your job (See :ref:`optimizing writing <Writing>`).
 
 Lustre
 ------
@@ -84,7 +84,7 @@ And to inspect a specific report: ::
 Transparent Compression
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``/fred`` and ``/home`` filesystems have transparent compression turned on. This means that all files (regardless of type) are internally compressed by the filesystem before being stored on disk, and are automatically uncompressed by the filesystem as they are read.
+The ``/fred``, ``/aphid/scratch-3month`` and ``/home`` filesystems have transparent compression turned on. This means that all files (regardless of type) are internally compressed by the filesystem before being stored on disk, and are automatically uncompressed by the filesystem as they are read.
 
 .. note::
     This means that you will not save diskspace if you gzip your files, because they are already compressed.
