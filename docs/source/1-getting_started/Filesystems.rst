@@ -7,7 +7,10 @@ The main filesystem is 19 Petabytes of diskspace in ``/fred``. This filesystem h
 
 There are a few other smaller filesystems in the cluster. Of these, ``/home`` is cluster-wide like ``/fred`` and ``$JOBFS`` is on SSDs in each compute node. ``/home`` is a Lustre + ZFS filesystem and ``$JOBFS`` is XFS.
 
-We have recently added a new cluster-wide filesystem designed for I/O-intensive workloads, available at ``/aphid/scratch-3month/<username>``. Aphid has been built using repurposed hardware from NT. We have configured the filesystem for maximum resilience, including RAIDZ3 redundancy. However, as the underlying disks are older, users should be aware that long-term reliability may be lower than for the primary production filesystems.
+We have recently added a new cluster-wide filesystem designed for I/O-intensive workloads, available at ``/aphid/scratch-3month/<username>``. 
+
+.. warning::
+    Aphid is built from repurposed NT hardware. Although we have configured the filesystem for maximum resilience, users should be aware that long-term reliability may be lower than for the primary production filesystems.
 
 Local disks
 -----------
@@ -70,7 +73,7 @@ Scratch file expiration
 Data stored under ``/aphid/scratch-3month/<username>`` is subject to a 90-day expiry policy, based on the last access time of each file. Users are responsible for ensuring that any important data is copied to long-term storage (e.g. ``/home``, which is backed up, or ``/fred`` not backed up) before expiry.
 
 .. warning::
-    Do not modify file timestamps or otherwise attempt to circumvent the three-month retention policy. Retaining unnecessary data on the older ``/aphid`` hardware increases the risk of data loss and impacts the reliability of the filesystem for all users.
+    It is policy that users must not modify file timestamps or otherwise attempt to circumvent the three-month retention policy. Retaining unnecessary data on the older ``/aphid`` hardware increases the risk of data loss and impacts the reliability of the filesystem for all users.
 
 A summary of files approaching expiry will be displayed on the welcome node at login. Users can also monitor expiry periods using the nightly report, available from the command line: :: 
 
