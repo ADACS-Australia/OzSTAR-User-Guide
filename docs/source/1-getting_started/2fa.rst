@@ -48,6 +48,10 @@ Replace ``your-username`` with your OzSTAR username. Complete any password
 or SSH-key passphrase prompts, then enter your current six-digit app code
 when you see ``OzSTAR 2FA code:``.
 
+Each 2FA code can only be used once. If you are prompted for a code again
+in quick succession (for example, when opening another connection), wait
+for your authenticator app to generate the next code.
+
 To avoid repeated code prompts, see
 :ref:`Reusing SSH connections (multiplexing)`.
 
