@@ -34,8 +34,10 @@ Emergency recovery codes
     Keep them in a secure password manager or a safe place on paper.
     Do not email them to yourself or store them in an unencrypted file.
 
-Each recovery code can be used once. If you cannot use your authenticator
-app, enter an unused recovery code at the ``OzSTAR 2FA code:`` prompt.
+Each recovery code can be used once. Recovery codes are only accepted
+by the accounts portal to reset or reconfigure your authenticator app
+if you lose access to your device. Recovery codes cannot be used directly
+at the SSH login prompt.
 
 Logging in with 2FA
 -------------------
@@ -69,8 +71,8 @@ hostname or IP address, the command to run, and the workflow's purpose.
 Lost devices and troubleshooting
 --------------------------------
 
-If you lose access to your authenticator, use an unused recovery code
-and reset your authenticator through the accounts portal.
+If you lose access to your authenticator app, sign in to the accounts
+portal using an unused recovery code to reset your authenticator.
 If you have lost both your authenticator and recovery codes, email
 ``hpc-support@swin.edu.au`` with your OzSTAR username for help.
 Do not send passwords, setup keys, or recovery codes in email.
