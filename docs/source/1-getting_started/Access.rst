@@ -126,7 +126,7 @@ Linux, macOS, and Windows with WSL
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 On Windows, run these steps inside the Windows Subsystem for Linux (WSL).
-Native Windows OpenSSH and PuTTY do not share connections with WSL.
+Native Windows OpenSSH and PuTTY do not support connection multiplexing.
 
 Run these commands on your computer (inside WSL if you use Windows)::
 
