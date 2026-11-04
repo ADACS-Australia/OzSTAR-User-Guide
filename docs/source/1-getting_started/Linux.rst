@@ -9,4 +9,4 @@ Recommended Linux Resources
 ---------------------------
 - `30 Days of Linux: A Complete Guide for Beginners <https://www.geeksforgeeks.org/30-days-of-linux/>`_
 - `UNIX Tutorial for Beginners <http://www.ee.surrey.ac.uk/Teaching/Unix/>`_
-- `Linux Survival (interative tutorial) <https://linuxsurvival.com/>`_
+- `Linux Survival (interactive tutorial) <https://linuxsurvival.com/>`_

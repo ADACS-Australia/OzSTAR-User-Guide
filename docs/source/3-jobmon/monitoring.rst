@@ -7,11 +7,11 @@ https://supercomputing.swin.edu.au/monitor/
 
 The Job Monitor provides a web graphical interface to view the resource usage of your jobs in real time. We recommend checking the Job Monitor regularly to ensure that your jobs are running efficiently, especially if you are running a new workflow for the first time.
 
-.. warning ::
+.. warning::
     Please do not run the ``squeue`` command at a high frequency (e.g. using the ``watch`` command. This incurs a high performance penalty on the scheduler. The Job Monitor provides in realtime the same information (whether your job has started yet or finished yet) without the performance penalty.
 
-Usage
------
+Using the Job Monitor
+---------------------
 
 #. Select your username (abbreviated to the first 3 letters) from the list on the left.
 #. A list of your jobs will appear in the center column, showing the Job ID, name, and elapsed time. Select a job to view its resource usage.

@@ -93,7 +93,7 @@ The login nodes, Tooarrana, are named after a cute and furry Australian creature
 
 Most of the other components of the OzSTAR cluster are named in memory of the late satirist, actor, comedian, and writer `John Clarke <https://en.wikipedia.org/wiki/John_Clarke_(satirist)>`_.
 
-OzSTAR's login nodes are farnarkle. login node cgroups are grommet. The main filesysem is Dagg mounted at Fred. Lustre servers are arkle, warble, umlaut. The majority of compute nodes are called John, with high memory nodes being Bryan. NT's compute nodes are named Dave.
+OzSTAR's login nodes are farnarkle. login node cgroups are grommet. The main filesystem is Dagg mounted at Fred. Lustre servers are arkle, warble, umlaut. The majority of compute nodes are called John, with high memory nodes being Bryan. NT's compute nodes are named Dave.
 
 Why am I getting a "permission denied" error when logging in?
 -------------------------------------------------------------
@@ -104,7 +104,7 @@ Why doesn't Emacs/X11/other program work?
 -----------------------------------------
 *"Emacs is delicate and sensitive like a little flower, and won't work if you mess with its libs".*
 
-See our page on `Workflows and Dotfiles <../2-ozstar/Workflow.html>`_ for more information.
+See our page on :doc:`../2-ozstar/Workflow` for more information.
 
 Why don't the compute nodes have internet access or access to external networks?
 --------------------------------------------------------------------------------

@@ -48,7 +48,7 @@ Note that an account can be linked to more than one project, e.g. a default rese
 Create New Project
 ^^^^^^^^^^^^^^^^^^^^^^
 - Step 1: submit a new project request via the account-management system.
-- Step 2: your project request will be sent to our admin team for approval. The apporval process may take up to 48 hours.
+- Step 2: your project request will be sent to our admin team for approval. The approval process may take up to 48 hours.
 - Step 3: you will receive an email when your project is created. You will find a new project space created on ``/fred/your-project-id``
 
 Join Existing Project

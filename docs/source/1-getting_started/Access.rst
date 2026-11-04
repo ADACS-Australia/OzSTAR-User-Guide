@@ -21,9 +21,11 @@ From these nodes you can submit jobs to the queue nodes using `Slurm <https://sl
     Do not use these login nodes to run long jobs or jobs with big computational requirements. Running such jobs in interactive mode can be done by requesting interactive nodes from the queue.
 
 Each login node is also available directly
+
 ::
-  ssh [your-username]@tooarrana1.hpc.swin.edu.au
-  ssh [your-username]@tooarrana2.hpc.swin.edu.au
+
+    ssh [your-username]@tooarrana1.hpc.swin.edu.au
+    ssh [your-username]@tooarrana2.hpc.swin.edu.au
 
 Access OzSTAR
 -------------
@@ -40,7 +42,9 @@ or directly
 
 It is also possible to jump from any login node to any other login node using the hostnames ``t1``, ``t2``, ``f1``, and ``f2``.
 For example,
+
 ::
+
     # From tooarrana1 to tooarrana2
     [tooarrana1]$ ssh t2
     [tooarrana2]$
@@ -54,7 +58,9 @@ Access Trevor
 -------------
 The login node for the cloud-based :ref:`trevor cluster<Trevor>` is only accessible by jumping from one of the other login nodes.
 e.g.
+
 ::
+
     # From tooarrana1 to trevor
     [tooarrana1]$ ssh trevor
     [trevor]$
@@ -67,7 +73,9 @@ e.g.
 Access data-mover nodes
 -----------------------
 The :ref:`data-mover nodes<Data-movers>` can be accessed directly or via the login nodes. e.g.
+
 ::
+
     # From local machine to data-mover01
     ssh [your-username]@data-mover01.hpc.swin.edu.au
 

@@ -31,7 +31,6 @@
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
     'sphinx.ext.mathjax',
     'sphinx.ext.autosectionlabel',
 ]
@@ -67,7 +66,6 @@ html_show_sourcelink = False
 html_logo = '_static/OzStar-FA-Mono-KEYLINE.png'
 html_theme_options = {
     'logo_only': True,
-    'display_version': False,
 }
 html_favicon = '_static/favicon.ico'
 

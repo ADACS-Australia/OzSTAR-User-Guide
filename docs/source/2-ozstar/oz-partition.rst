@@ -21,7 +21,7 @@ Memory Requests
 ---------------
 You must request the amount of memory that your job needs.  The default allocation is ``100M`` per CPU core requested which is unlikely to be enough to achieve much and is intended to encourage you to pick a good value.  The more accurate your estimate is, the more likely your job is to be scheduled quickly as Slurm will be better able to fill up available slots in its schedule with it. Note that you should only request the amount of memory that you are going to use.
 
-For instance if your job needs 2GB per node in total, then you would ask for ``--mem=2G``. If your job needs needs around 1GB per CPU core, then you would ask for ``--mem-per-cpu=1G``.
+For instance if your job needs 2GB per node in total, then you would ask for ``--mem=2G``. If your job needs around 1GB per CPU core, then you would ask for ``--mem-per-cpu=1G``.
 
 Slurm enforces this memory request by using the Linux kernels ``cgroup`` support which will limit the memory it can use on the node. If your job exceeds that value then the kernel will kill a process which will usually lead to the failure of your job.
 

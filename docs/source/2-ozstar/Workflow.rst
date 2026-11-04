@@ -30,7 +30,7 @@ Emacs
 *"Emacs is delicate and sensitive like a little flower, and won't work if you mess with its libs".*
 
 Emacs depends on many system libraries. When other modules are also loaded, they may switch out those libraries to ones incompatible with Emacs.
-**The solution is to use Emacs in it's own window with no modules loaded**, and to load modules and run things in a separate window to the editor.
+**The solution is to use Emacs in its own window with no modules loaded**, and to load modules and run things in a separate window to the editor.
 Alternatively, you can fire up the editor, leave it up and running, and *then* load modules for other things.
 
 If you an encountering errors when using Emacs, try removing all module loads from your dotfiles.
