@@ -6,6 +6,8 @@ Access to the supercomputer
 Access Ngarrgu Tindebeek
 ------------------------
 
+Before connecting, set up :doc:`2fa` in the account management portal.
+
 Access to the :ref:`supercomputer<Ngarrgu Tindebeek>` is available through Secure Shell (SSH) to nt.swin.edu.au for all users. i.e:
 ::
 
@@ -112,6 +114,68 @@ The :ref:`data-mover nodes<Data-movers>` can be accessed directly or via the log
         scp myfile.txt [your-username]@nt.swin.edu.au:path/to/location/
 
         scp myfile.txt nt:path/to/location/
+
+
+Reusing SSH connections (multiplexing)
+--------------------------------------
+
+Enter your 2FA code once, then reuse that connection for other terminals
+and transfers to the same destination without entering another code.
+
+Linux, macOS, and Windows with WSL
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+On Windows, run these steps inside the Windows Subsystem for Linux (WSL).
+Native Windows OpenSSH and PuTTY do not share connections with WSL.
+
+Run these commands on your computer (inside WSL if you use Windows)::
+
+    mkdir -p ~/.ssh/sockets
+    chmod 700 ~/.ssh/sockets
+
+Add this block to ``~/.ssh/config``::
+
+    Host nt ozstar nt.swin.edu.au ozstar.swin.edu.au *.hpc.swin.edu.au
+        ControlMaster auto
+        ControlPath ~/.ssh/sockets/%C
+        ControlPersist 300
+
+Connect using your usual SSH command and enter your 2FA code. Subsequent
+connections using the same SSH client, destination, username, and port
+will reuse the connection instantly. Different login nodes and data-movers
+each establish their own connection.
+
+The connection remains available for 300 seconds (5 minutes) after the
+last session closes. If you connect again within 5 minutes, you will not
+be asked for a 2FA code.
+
+.. tip::
+
+    You can increase ``ControlPersist`` to ``10m`` (10 minutes) or ``1h``
+    (1 hour) if you want the connection to stay open longer between tasks.
+
+.. warning::
+
+    While a shared connection is active, any process running under your
+    local user account can connect through it without a 2FA code. Lock
+    your computer when leaving it unattended.
+
+Checking and closing a shared connection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To check if a connection is currently active::
+
+    ssh -O check nt
+
+To close the shared connection (note: this will close all active sessions
+sharing that connection)::
+
+    ssh -O exit nt
+
+Here ``nt`` is the shortcut host name configured above. If you connected using
+a full hostname instead, specify the full destination (e.g.
+``ssh -O exit your-username@nt.swin.edu.au``). If a connection stops responding
+after a network change, close it and reconnect.
 
 
 Client Requirements

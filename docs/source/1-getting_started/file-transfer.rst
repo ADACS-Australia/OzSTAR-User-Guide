@@ -29,6 +29,15 @@ The best way to copy a file to or from the supercomputer is to use the ``rsync``
 
     Please use the data-mover nodes (``data-mover[01-04]``) instead of the login nodes for file transfers. The login nodes are shared between all users, who may be running tests or compiling code, whereas the data-movers are dedicated to file transfers. You can access the data-mover nodes externally by their addresses: data-mover[01-04].hpc.swin.edu.au
 
+.. tip::
+
+    To avoid repeated 2FA prompts when transferring files, configure
+    :ref:`Reusing SSH connections (multiplexing)` for the data-mover you use.
+    Transfers to the same destination will share your active connection.
+
+    For automated or unattended transfers, see
+    :ref:`Automated and unattended workflows`.
+
 **Copying a local file to the OzSTAR supercomputer**::
 
     rsync -avPxH --no-g --chmod=Dg+s <local files and dirs> username@data-mover01.hpc.swin.edu.au:/fred/<project dir>/<somewhere>/

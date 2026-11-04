@@ -13,6 +13,8 @@ Manage your account
 
 If you already have an account and would like to update your contact details, reset your password, etc. you can go directly to the account management portal (`supercomputing.swin.edu.au/account-management <https://supercomputing.swin.edu.au/account-management/>`_). Please note that OzSTAR accounts are completely separate to Swinburne logins.
 
+Use the portal to set up :doc:`2fa` before logging in via SSH.
+
 Getting a new account
 -----------------------------------
 
@@ -30,6 +32,7 @@ Getting a new account
     * Your account request will be sent to our admin team for approval. This may take up to 48 hours. You will not be able to login to the account-management system until your account has been approved.
 - Step 4:
     * If our admin team approves your account, the system will send you an email with your username.
+    * Before logging in to the supercomputer for the first time, log in to the `account management portal <https://supercomputing.swin.edu.au/account-management/>`_ to configure :doc:`2fa`.
 
 Projects
 -------------
