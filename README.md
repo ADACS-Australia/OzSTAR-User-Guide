@@ -1,5 +1,15 @@
 # OzSTAR User Guide and Documentation
 
+## Local Preview
+
+To build and preview the documentation locally:
+
+```bash
+python3 -m venv venv && source venv/bin/activate
+pip install sphinx==9.1.1 sphinx_rtd_theme==3.0.2
+sphinx-build -b html docs/source build/
+```
+
 ## How to deploy:
 
 * Change directory to the `/var/www/user-guide/` on the `web` VM
