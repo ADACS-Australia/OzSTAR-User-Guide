@@ -253,7 +253,9 @@ However, the fakeroot command is bound in from the host, so if the host libc lib
 
 The error you might see in that situation will look something like:
 
-/.singularity.d/libs/faked: /lib64/libc.so.6: version `GLIBC_2.33' not found (required by /.singularity.d/libs/faked)
+::
+
+    /.singularity.d/libs/faked: /lib64/libc.so.6: version `GLIBC_2.33' not found (required by /.singularity.d/libs/faked)
 
 If that happens, try the following bootstrap script for installing a GLIBC compatible fakeroot inside your container: https://github.com/dliptai/fakeroot-bootstrap.
 This fakeroot binary can then be used in subsequent steps in your ``%post`` section of your definition file for package installations that were failing previously.

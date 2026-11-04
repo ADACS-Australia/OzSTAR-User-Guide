@@ -48,7 +48,7 @@ Limitations
 Queues
 ------
 
-As with with the OzSTAR cluster, you do not need to specify a Slurm queue. This is determined automatically by the node you are submitting from. Jobs submitted via ``tooarrana1/2`` will be sent to the new nodes.
+As with the OzSTAR cluster, you do not need to specify a Slurm queue. This is determined automatically by the node you are submitting from. Jobs submitted via ``tooarrana1/2`` will be sent to the new nodes.
 
 Modules
 -------
