@@ -22,7 +22,7 @@ Enrolling in 2FA
    with your OzSTAR username and password.
 2. Open **Two-Factor Authentication**.
 3. In your authenticator app (such as Google Authenticator, Microsoft
-   Authenticator, or 1Password), scan the QR code or enter the setup key.
+   Authenticator, or 1Password) [#]_, scan the QR code or enter the setup key.
 4. Enter the app's six-digit code in the portal to finish setup.
 
 Emergency recovery codes
@@ -76,3 +76,7 @@ portal using an unused recovery code to reset your authenticator.
 If you have lost both your authenticator and recovery codes, email
 ``hpc-support@swin.edu.au`` with your OzSTAR username for help.
 Do not send passwords, setup keys, or recovery codes in email.
+
+.. rubric:: Footnotes
+
+.. [#] Some hardware authenticators (such as certain YubiKey models) can store and generate standard time-based (TOTP) codes using companion software like the `Yubico Authenticator <https://support.yubico.com/s/article/Using-your-YubiKey-with-authenticator-codes>`_. Not all hardware keys or YubiKey versions support TOTP, and compatibility is entirely device-dependent; it is up to the user to identify whether their hardware device supports generating TOTP codes.
