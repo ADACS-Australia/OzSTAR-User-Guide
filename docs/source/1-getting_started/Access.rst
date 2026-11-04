@@ -6,7 +6,7 @@ Access to the supercomputer
 Access Ngarrgu Tindebeek
 ------------------------
 
-Before connecting, set up :doc:`2fa` in the account management portal.
+Before connecting, set up :doc:`2fa` in the accounts portal.
 
 Access to the :ref:`supercomputer<Ngarrgu Tindebeek>` is available through Secure Shell (SSH) to nt.swin.edu.au for all users. i.e:
 ::

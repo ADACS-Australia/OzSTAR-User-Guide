@@ -101,12 +101,12 @@ Why am I getting a "permission denied" error when logging in?
 Check these in order:
 
 1. **2FA setup:** If you have not enrolled, SSH returns ``Permission denied``
-   without asking for a 2FA code. Set up :doc:`2fa` in the `account management portal
+   without asking for a 2FA code. Set up :doc:`2fa` in the `accounts portal
    <https://supercomputing.swin.edu.au/account-management/>`_.
 2. **Login details:** Ensure you are using your OzSTAR username and password or
    the correct SSH key. OzSTAR accounts are separate from Swinburne logins.
 3. **Account status:** Your account may have expired. Accounts are valid for 2 years.
-   Log in to the `account management portal
+   Log in to the `accounts portal
    <https://supercomputing.swin.edu.au/account-management/>`_ to check your expiry date
    or request renewal, or email ``hpc-support@swin.edu.au`` if you need assistance.
 

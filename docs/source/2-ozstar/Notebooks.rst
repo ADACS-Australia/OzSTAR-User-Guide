@@ -11,7 +11,7 @@ Note that you'll need to connect to a specific login node e.g. ``user@tooarrana2
 
 Launching a Jupyter Notebook Server
 -----------------------------------
-First, activate your `Python environment <../2-ozstar/Python.html>`_ that you wish to work in and ensure you have ``jupyter`` installed in it.
+First, activate your :doc:`Python environment <Python>` that you wish to work in and ensure you have ``jupyter`` installed in it.
 
 Then, navigate to the directory where you want to serve notebooks from, and launch a Jupyter Notebook server
 

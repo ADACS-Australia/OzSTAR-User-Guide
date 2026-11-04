@@ -12,12 +12,12 @@ Enrolling in 2FA
 
 .. important::
 
-    Enroll in the account management portal before logging in via SSH.
+    Enroll in the accounts portal before logging in via SSH.
     If you have not enrolled, SSH returns ``Permission denied`` without
     asking for a 2FA code. This is expected and simply means you must
     complete enrollment in the portal first.
 
-1. Log in to the `account management portal
+1. Log in to the `accounts portal
    <https://supercomputing.swin.edu.au/account-management/>`_
    with your OzSTAR username and password.
 2. Open **Two-Factor Authentication**.
@@ -66,7 +66,7 @@ Lost devices and troubleshooting
 --------------------------------
 
 If you lose access to your authenticator, use an unused recovery code
-and reset your authenticator through the account management portal.
+and reset your authenticator through the accounts portal.
 If you have lost both your authenticator and recovery codes, email
 ``hpc-support@swin.edu.au`` with your OzSTAR username for help.
 Do not send passwords, setup keys, or recovery codes in email.
