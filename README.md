@@ -6,7 +6,7 @@ To build and preview the documentation locally:
 
 ```bash
 python3 -m venv venv && source venv/bin/activate
-pip install sphinx==9.1.1 sphinx_rtd_theme==3.0.2
+pip install sphinx==9.0.4 sphinx_rtd_theme==3.1.0
 sphinx-build -b html docs/source build/
 ```
 

@@ -1,7 +1,7 @@
 FROM debian:bookworm-slim as build
 
 RUN apt update && apt install -y python3-venv
-RUN bash -c "python3 -m venv venv && source venv/bin/activate && pip install sphinx==9.1.1 sphinx_rtd_theme==3.0.2"
+RUN bash -c "python3 -m venv venv && source venv/bin/activate && pip install sphinx==9.0.4 sphinx_rtd_theme==3.1.0"
 
 COPY docs /docs
 
