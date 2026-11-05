@@ -160,6 +160,39 @@ be asked for a 2FA code.
     local user account can connect through it without a 2FA code. Lock
     your computer when leaving it unattended.
 
+Approving each use of the connection (optional, Linux)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+With ``ControlMaster auto``, programs on your computer can use your shared
+connection without you noticing, including scripts and AI coding assistants.
+If you use Linux with a graphical desktop, you can approve each use
+yourself instead.
+
+1. In the block you added to ``~/.ssh/config``, change ``auto`` to
+   ``autoask``::
+
+       ControlMaster autoask
+
+2. Install the pop-up helper. On Ubuntu or Debian::
+
+       sudo apt install ssh-askpass
+
+Now, whenever something connects to the supercomputer through the shared
+connection (including your own first login), a small window asks whether to
+allow the shared connection.
+
+* Click **OK** if you have just started that connection yourself.
+* Click **Cancel** if you have not. That program then has to log in from
+  scratch and will be asked for a new 2FA code.
+
+Closing the connection with ``ssh -O exit nt`` also asks you to confirm.
+
+On macOS and Windows (WSL), keep using ``auto``.
+
+If your login fails with ``Failed to connect to new control master``, the
+pop-up could not be shown. Change ``autoask`` back to ``auto`` and connect
+again.
+
 Checking and closing a shared connection
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
