@@ -6,6 +6,8 @@ Access to the supercomputer
 Access Ngarrgu Tindebeek
 ------------------------
 
+Before connecting, set up :doc:`2fa` in the accounts portal.
+
 Access to the :ref:`supercomputer<Ngarrgu Tindebeek>` is available through Secure Shell (SSH) to nt.swin.edu.au for all users. i.e:
 ::
 
@@ -112,6 +114,101 @@ The :ref:`data-mover nodes<Data-movers>` can be accessed directly or via the log
         scp myfile.txt [your-username]@nt.swin.edu.au:path/to/location/
 
         scp myfile.txt nt:path/to/location/
+
+
+Reusing SSH connections (multiplexing)
+--------------------------------------
+
+Enter your 2FA code once, then reuse that connection for other terminals
+and transfers to the same destination without entering another code.
+
+This works on Linux, macOS, and Windows with the Windows Subsystem for Linux
+(WSL). On Windows, run every command below inside WSL. Native Windows OpenSSH
+and PuTTY do not support connection multiplexing.
+
+Set up multiplexing
+^^^^^^^^^^^^^^^^^^^
+
+1. On your computer, create a folder for shared connections::
+
+       mkdir -p ~/.ssh/sockets
+       chmod 700 ~/.ssh/sockets
+
+2. Add the block for your system to ``~/.ssh/config``.
+
+   **Linux with a graphical desktop (recommended).** This setting asks you
+   to approve every use of the connection. First install the pop-up helper.
+   On Ubuntu or Debian::
+
+       sudo apt install ssh-askpass
+
+   Then add::
+
+       Host nt ozstar nt.swin.edu.au ozstar.swin.edu.au *.hpc.swin.edu.au
+           ControlMaster autoask
+           ControlPath ~/.ssh/sockets/%C
+           ControlPersist 300
+
+   **macOS, Windows (WSL), or Linux without a desktop.** Add::
+
+       Host nt ozstar nt.swin.edu.au ozstar.swin.edu.au *.hpc.swin.edu.au
+           ControlMaster auto
+           ControlPath ~/.ssh/sockets/%C
+           ControlPersist 300
+
+Using a shared connection
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Connect using your usual SSH command and enter your 2FA code. Later
+connections using the same SSH client, destination, username, and port
+reuse that connection instantly. Different login nodes and data-movers
+each establish their own connection.
+
+With ``autoask``, a small window asks whether to allow the shared connection
+each time something uses it, including your own first login:
+
+* Click **OK** if you have just started that connection yourself.
+* Click **Cancel** if you have not. That program then has to log in from
+  scratch and will be asked for a new 2FA code.
+
+.. warning::
+
+    While a shared connection is open, any program running under your
+    local user account can use it without a 2FA code, including scripts
+    and AI coding assistants. With ``auto`` this happens without any
+    prompt. Lock your computer when leaving it unattended.
+
+The connection stays open for 300 seconds (5 minutes) after the last
+session closes. If you connect again within 5 minutes, you will not be
+asked for a 2FA code.
+
+.. tip::
+
+    You can increase ``ControlPersist`` to ``10m`` (10 minutes) or ``1h``
+    (1 hour) if you want the connection to stay open longer between tasks.
+
+If your login fails with ``Failed to connect to new control master``, the
+pop-up could not be shown. Change ``autoask`` to ``auto`` in
+``~/.ssh/config`` and connect again.
+
+Checking and closing a shared connection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+To check if a connection is currently active::
+
+    ssh -O check nt
+
+To close the shared connection (note: this will close all active sessions
+sharing that connection)::
+
+    ssh -O exit nt
+
+With ``autoask``, you are asked to confirm before it closes.
+
+Here ``nt`` is the shortcut host name configured above. If you connected using
+a full hostname instead, specify the full destination (e.g.
+``ssh -O exit your-username@nt.swin.edu.au``). If a connection stops responding
+after a network change, close it and reconnect.
 
 
 Client Requirements

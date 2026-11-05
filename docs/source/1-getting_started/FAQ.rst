@@ -98,7 +98,17 @@ OzSTAR's login nodes are farnarkle. login node cgroups are grommet. The main fil
 Why am I getting a "permission denied" error when logging in?
 -------------------------------------------------------------
 
-If you were previously able to log in, and assuming you are using the correct password or SSH key, then most likely your account has expired. All accounts automatically expire 2 years after the creation date. Due to a current limitation in the account management system, users are not alerted prior to account expiration. If your account has expired and you would like us to renew it, or if you would like to find out your current expiry date, please contact us at hpc-support@swin.edu.au.
+Check these in order:
+
+1. **2FA setup:** If you have not enrolled, SSH returns ``Permission denied``
+   without asking for a 2FA code. Set up :doc:`2fa` in the `accounts portal
+   <https://supercomputing.swin.edu.au/account-management/>`_.
+2. **Login details:** Ensure you are using your OzSTAR username and password or
+   the correct SSH key. OzSTAR accounts are separate from Swinburne logins.
+3. **Account status:** Your account may have expired. Accounts are valid for 2 years.
+   Log in to the `accounts portal
+   <https://supercomputing.swin.edu.au/account-management/>`_ to check your expiry date
+   or request renewal, or email ``hpc-support@swin.edu.au`` if you need assistance.
 
 Why doesn't Emacs/X11/other program work?
 -----------------------------------------
