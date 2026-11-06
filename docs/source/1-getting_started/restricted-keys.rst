@@ -94,15 +94,19 @@ For a job that runs a script::
     restrict,from="SOURCE",command="/home/USER/bin/nightly-check" ssh-ed25519 AAAA... comment
 
 Your account must be able to execute the script, and other users shouldn't be
-able to modify it. It runs with no arguments and shouldn't read arguments from
-the client.
+able to modify it. It runs with no arguments and shouldn't parse
+``SSH_ORIGINAL_COMMAND``.
 
 Passing arguments
 ^^^^^^^^^^^^^^^^^
 
 ``ssh host 'cmd --flag'`` doesn't pass ``--flag``. ``command=`` is the whole
-invocation, so put the arguments in the entry or inside the script. Avoid
-passing client input to a shell, which gives that control back.
+invocation, so put the arguments in the entry or inside the script.
+
+The command the client sent is still visible to the forced command as
+``SSH_ORIGINAL_COMMAND``. Parsing it safely is harder than it looks: quoting,
+shell metacharacters and path traversal are all easy to get wrong, so we're less
+likely to approve an entry that depends on it.
 
 .. note::
 
