@@ -35,8 +35,7 @@ The best way to copy a file to or from the supercomputer is to use the ``rsync``
     :ref:`Reusing SSH connections (multiplexing)` for the data-mover you use.
     Transfers to the same destination will share your active connection.
 
-    For automated or unattended transfers, see
-    :ref:`Automated and unattended workflows`.
+    For automated or unattended transfers, see :doc:`restricted-keys`.
 
 **Copying a local file to the OzSTAR supercomputer**::
 
