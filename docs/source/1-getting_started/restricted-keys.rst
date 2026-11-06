@@ -62,8 +62,7 @@ existing entries. Use the public key printed in Step 1 in place of
 
 Each entry must be **one physical line**, even if your editor displays it
 across the screen. sshd rejects an entry split by a newline, and the client
-sees ``Permission denied``. On the cluster the full text is
-``Permission denied (publickey,keyboard-interactive,hostbased)``.
+sees ``Permission denied``.
 Do not paste the examples unchanged.
 
 Pulling data with a restricted key
@@ -187,10 +186,9 @@ Common failures
   through a ``-no-del`` entry. Remove ``--delete``.
 * ``option -L has been disabled on this server.`` means the client supplied ``-L`` or
   ``--copy-links``. Remove that option.
-* ``Permission denied``, with a method list such as
-  ``(publickey,keyboard-interactive,hostbased)``, can mean a source-address
-  mismatch, a malformed entry or a key that is not installed. Check the source
-  address, the entry itself, the selected key and approval.
+* ``Permission denied`` can mean a source-address mismatch, a malformed entry
+  or a key that is not installed. Check the source address, the entry itself,
+  the selected key and approval.
 
 What the restriction does and does not protect
 ----------------------------------------------
