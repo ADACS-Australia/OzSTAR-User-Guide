@@ -11,11 +11,13 @@ login key stays as it is. For interactive reuse, see
 What we can and cannot approve
 ------------------------------
 
-We can't exempt a key that isn't restricted. A key that can open a shell, or
-that isn't tied to one command or one directory, won't be approved.
+We can't exempt a key that isn't restricted. An exempt key can't open a shell,
+runs only its approved command, and, for ``rrsync``, is confined to the approved
+directory.
 
-We check the restricted entries in ``authorized_keys`` from time to time. If an
-entry stops matching what was approved, we may remove the exemption.
+We may review the restricted entries in ``authorized_keys`` at any time without
+notice. If an entry no longer matches the approved restriction, we may remove
+the exemption.
 
 Before you start
 ----------------
@@ -39,8 +41,9 @@ On the machine that runs the job, create a key for this job only::
     ssh-keygen -t ed25519 -f ~/.ssh/automation -N '' -C unattended-job
     cat ~/.ssh/automation.pub
 
-The key has no passphrase, so it can run unattended. Pick a name that doesn't
-already exist. Never send the private key to anyone.
+The key has no passphrase, so it can run unattended. Choose a filename that
+isn't already in use, and send support only the ``.pub`` file, not the private
+key.
 
 Step 2: Add the key to authorized_keys
 --------------------------------------
@@ -94,8 +97,9 @@ For a job that runs a script::
     restrict,from="SOURCE",command="/home/USER/bin/nightly-check" ssh-ed25519 AAAA... comment
 
 Your account must be able to execute the script, and other users shouldn't be
-able to modify it. It runs with no arguments and shouldn't parse
-``SSH_ORIGINAL_COMMAND``.
+able to modify it. This example passes no arguments. Avoid interpreting
+``SSH_ORIGINAL_COMMAND`` unless the script is designed and reviewed to validate
+it safely.
 
 Passing arguments
 ^^^^^^^^^^^^^^^^^
@@ -104,9 +108,9 @@ Passing arguments
 invocation, so put the arguments in the entry or inside the script.
 
 The command the client sent is still visible to the forced command as
-``SSH_ORIGINAL_COMMAND``. Parsing it safely is harder than it looks: quoting,
-shell metacharacters and path traversal are all easy to get wrong, so we're less
-likely to approve an entry that depends on it.
+``SSH_ORIGINAL_COMMAND``. A wrapper that reads it has to validate the command
+syntax and any paths, and keep untrusted text away from a shell. That is easy to
+get wrong, so we're less likely to approve a wrapper that depends on it.
 
 .. note::
 
