@@ -64,9 +64,8 @@ Transfers and logins you run interactively yourself do not need an exemption;
 they work with standard 2FA or connection reuse.
 
 Unattended scripts (such as automated nightly transfers or pipelines) cannot
-enter 2FA codes. Email ``hpc-support@swin.edu.au`` to request assessment for a
-command-restricted SSH key. Include your OzSTAR username, the source
-hostname or IP address, the command to run, and the workflow's purpose.
+enter 2FA codes. They need a key restricted to the job's command and exempted
+from 2FA. See :doc:`restricted-keys` to set one up and request the exemption.
 
 Lost devices and troubleshooting
 --------------------------------

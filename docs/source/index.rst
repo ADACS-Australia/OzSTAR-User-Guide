@@ -17,6 +17,7 @@ Here you will find the technical information required to help you run jobs on th
    1-getting_started/Policies
    1-getting_started/Accounts
    1-getting_started/2fa
+   1-getting_started/restricted-keys
    1-getting_started/Access
    1-getting_started/Linux
    1-getting_started/manual
