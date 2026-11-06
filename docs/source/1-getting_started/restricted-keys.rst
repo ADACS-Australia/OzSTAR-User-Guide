@@ -25,8 +25,9 @@ Before you start
 Complete enrollment in :doc:`2fa` and check that your interactive login works.
 You need access to the project's data and the address the job connects from.
 
-Examples connect to ``nt.swin.edu.au``. Use ``ozstar.swin.edu.au`` if the job
-runs there.
+Send and receive data through a data-mover rather than a login node. The
+examples connect to ``data-mover03.hpc.swin.edu.au``; see :doc:`file-transfer`
+for the other data-movers.
 
 Replace ``USER`` with your username, ``PROJECT`` with your project directory,
 and ``SOURCE`` with the address the job connects from, or a range such as
@@ -133,39 +134,34 @@ An exemption applies to the approved key, not to every login on your account.
 Step 4: Test it
 ---------------
 
-Run the test from the machine and network that will run the job.
-``BatchMode=yes`` stops a password or code prompt from hiding a failure,
-``ControlPath=none`` stops an existing connection from being reused, and
-``IdentitiesOnly=yes`` selects this key.
+Test from the machine and network that will run the job.
 
-Read-only::
+The key works before the exemption is approved, but 2FA still applies. Confirm
+the key is installed by logging in with it to the host the job uses; for an
+rsync job that is a data-mover::
 
-    rsync -av --dry-run -e 'ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o BatchMode=yes -o ControlPath=none' USER@nt.swin.edu.au:/fred/PROJECT/data/DIR/ dest/
+    ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o ControlPath=none USER@data-mover03.hpc.swin.edu.au
 
-Write-only::
+Enter your code when asked. Reaching the prompt means the key was accepted.
+After the code, an rsync entry refuses with ``Not invoked via sshd`` and a
+fixed-command entry prints its output. Either means the key works and only the
+exemption is missing, which is the part an unattended job cannot supply.
 
-    rsync -av --dry-run -e 'ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o BatchMode=yes -o ControlPath=none' local/ USER@nt.swin.edu.au:/fred/PROJECT/incoming/
+Once the exemption is confirmed, the same connection runs without a code. Add
+``BatchMode=yes`` so a prompt cannot hide a failure, and check the job's command::
 
-Fixed command::
+    rsync -av --dry-run -e 'ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o BatchMode=yes -o ControlPath=none' USER@data-mover03.hpc.swin.edu.au:/fred/PROJECT/data/DIR/ dest/
 
-    ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o BatchMode=yes -o ControlPath=none USER@nt.swin.edu.au
+For an upload, swap the arguments::
 
-The first two list files without copying. The third prints the fixed output and
-never a shell. For an rsync entry the third command should refuse with
-``Not invoked via sshd``. None should ask for a code; if one does, the exemption
-isn't in place yet.
+    rsync -av --dry-run -e 'ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o BatchMode=yes -o ControlPath=none' local/ USER@data-mover03.hpc.swin.edu.au:/fred/PROJECT/incoming/
 
-Common failures
----------------
+A fixed command runs on the host that job connects to, usually a login node::
 
-* ``post-realpath open failed``: an absolute path is used without ``-absolute``.
-* ``do not use .. in arg``: the transfer path contains ``..``.
-* ``sending to read-only server is not allowed``: an upload used a ``-ro`` entry.
-* ``reading from write-only server is not allowed``: a download used a ``-wo`` entry.
-* ``option --delete has been disabled``: the job asked for deletion through a
-  ``-no-del`` entry.
-* ``Permission denied``: the address, the entry or the key doesn't match what was
-  approved. Check all three.
+    ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o BatchMode=yes -o ControlPath=none USER@ozstar.swin.edu.au
+
+The first two list files without copying. The last prints the fixed output and
+never a shell.
 
 What the restriction does not do
 --------------------------------
