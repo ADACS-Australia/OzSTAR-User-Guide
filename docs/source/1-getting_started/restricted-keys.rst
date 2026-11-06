@@ -11,6 +11,17 @@ without someone entering a 2FA code. Support must approve an exemption;
 creating a key alone does not bypass 2FA. Keep your normal login separate.
 For interactive reuse, see :ref:`Reusing SSH connections (multiplexing)`.
 
+What we will and will not approve
+---------------------------------
+
+We do not approve an exemption for a key that is not restricted, under any
+circumstances. A key that can open a shell, or that is not fixed to one
+command or one ``rrsync`` directory, will be refused.
+
+We may check the restricted entries in your ``authorized_keys`` at any time,
+without notice. If an entry no longer matches what was approved, we may remove
+the exemption.
+
 Before you start
 ----------------
 
