@@ -44,12 +44,9 @@ Step 2: Install the rsync wrapper
 
 For an rsync job, log in interactively to NT and run::
 
-    rpm -ql rsync | grep rrsync
     mkdir -p ~/bin
     cp /usr/share/doc/rsync/support/rrsync ~/bin/rrsync
 
-The first command should show ``/usr/share/doc/rsync/support/rrsync``.
-If it does not, stop and ask support rather than guessing a replacement.
 The examples call the copy with ``/usr/bin/python3`` explicitly, so they
 do not depend on which Python your shell environment selects.
 Skip this step if your job runs a fixed command rather than rsync.
