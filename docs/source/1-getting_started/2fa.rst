@@ -22,7 +22,8 @@ Enrolling in 2FA
    with your OzSTAR username and password.
 2. Open **Two-Factor Authentication**.
 3. In your authenticator app (such as Google Authenticator, Microsoft
-   Authenticator, or 1Password) [#]_, scan the QR code or enter the setup key.
+   Authenticator, 1Password, or Apple Passwords) [#]_, scan the QR code or
+   enter the setup key.
 4. Enter the app's six-digit code in the portal to finish setup.
 
 Emergency recovery codes
