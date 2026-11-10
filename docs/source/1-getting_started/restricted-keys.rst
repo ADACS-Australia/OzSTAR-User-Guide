@@ -147,21 +147,25 @@ After the code, an rsync entry refuses with ``Not invoked via sshd`` and a
 fixed-command entry prints its output. Either means the key works and only the
 exemption is missing, which is the part an unattended job cannot supply.
 
-Once the exemption is confirmed, the same connection runs without a code. Add
-``BatchMode=yes`` so a prompt cannot hide a failure, and check the job's command::
+Once the exemption is confirmed, the same connection runs without asking for a
+code. Run the job's command from the same machine::
 
-    rsync -av --dry-run -e 'ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o BatchMode=yes -o ControlPath=none' USER@data-mover03.hpc.swin.edu.au:/fred/PROJECT/data/DIR/ dest/
+    rsync -av --dry-run -e 'ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o ControlPath=none' USER@data-mover03.hpc.swin.edu.au:/fred/PROJECT/data/DIR/ dest/
 
 For an upload, swap the arguments::
 
-    rsync -av --dry-run -e 'ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o BatchMode=yes -o ControlPath=none' local/ USER@data-mover03.hpc.swin.edu.au:/fred/PROJECT/incoming/
+    rsync -av --dry-run -e 'ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o ControlPath=none' local/ USER@data-mover03.hpc.swin.edu.au:/fred/PROJECT/incoming/
 
 A fixed command runs on the host that job connects to, usually a login node::
 
-    ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o BatchMode=yes -o ControlPath=none USER@ozstar.swin.edu.au
+    ssh -i ~/.ssh/automation -o IdentitiesOnly=yes -o ControlPath=none USER@ozstar.swin.edu.au
 
 The first two list files without copying. The last prints the fixed output and
 never a shell.
+
+If one of these asks for a code, the exemption isn't in place yet. Do not add
+``BatchMode=yes``: it disables the keyboard-interactive method that 2FA runs
+through, so even an exempt key is refused.
 
 What the restriction does not do
 --------------------------------
