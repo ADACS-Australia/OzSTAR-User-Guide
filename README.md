@@ -6,9 +6,17 @@ To build and preview the documentation locally:
 
 ```bash
 python3 -m venv venv && source venv/bin/activate
-pip install sphinx==9.1.1 sphinx_rtd_theme==3.1.0
-sphinx-build -b html docs/source build/
+pip install -r requirements.txt
+sphinx-build -b html -W --keep-going docs/source build/
 ```
+
+To test the Docker image and nginx 301 redirects locally on port 8002:
+
+```bash
+docker compose up --build
+```
+
+Or build the image directly with `docker build -t ozstar-user-guide .`.
 
 ## How to deploy:
 

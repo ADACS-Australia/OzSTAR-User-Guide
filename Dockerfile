@@ -1,10 +1,13 @@
 FROM python:3.12-slim AS build
 
-RUN pip install --no-cache-dir sphinx==9.1.1 sphinx_rtd_theme==3.1.0
+COPY requirements.txt /requirements.txt
+RUN pip install --no-cache-dir -r /requirements.txt
 
 COPY docs /docs
 
-RUN sphinx-build docs/source /build/
+RUN sphinx-build -b html -W --keep-going /docs/source /build/
 
 FROM nginx:latest AS prod
+
 COPY --from=build /build/ /usr/share/nginx/html/
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
