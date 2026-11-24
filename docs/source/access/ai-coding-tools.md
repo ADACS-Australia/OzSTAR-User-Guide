@@ -38,7 +38,7 @@ Login nodes, Lustre metadata servers, and the Slurm controller are shared by eve
 - **Keep heavy work off login nodes:** Do not allow an AI tool to run model training, benchmarks, large test suites, or multi-core parallel builds on login nodes. Submit heavy jobs with `sbatch`, or use a short `sinteractive` session for interactive testing ([Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md)).
 - **Do not scan Lustre filesystem roots:** Never point an agent, IDE workspace, file watcher, or recursive search (`find /`, `grep -r`, `du`, `ls -R`) at `/fred`, `/fred/<project>`, `/home`, or `/aphid`. Broad directory walks overload the shared Lustre metadata servers for all users. Open only your specific repository subdirectory (for example, `/fred/<project>/<username>/<repo>`), exclude large data directories via `.gitignore` or your tool's ignore settings, and bound search depth. See [Optimising Lustre I/O](../storage/optimising-lustre.md).
 - **Do not poll Slurm in tight loops:** Never run `watch squeue` or let an agent poll `squeue`, `sacct`, or `sinfo` every few seconds. Use the [Web Job Monitor](https://supercomputing.swin.edu.au/monitor/) or infrequent `squeue --me` checks instead ([Monitoring and Managing Jobs](../jobs/monitoring.md)).
-- **Verify cluster-specific rules:** Check software modules with `module spider <package>` ([Environment Modules and Installing Software](../software/modules.md)), and confirm AI-generated scripts follow Swinburne HPC's Slurm rules (no `--partition`, no `--exclusive`, use `--tmp=` instead of `--gres=tmp:`, keep requested memory strictly under `64 GiB` per core — see [Creating and Submitting Jobs](../jobs/creating-jobs.md) and [Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md)).
+- **Verify cluster-specific rules:** Check software modules with `module spider <package>` ([Environment Modules and Installing Software](../software/modules.md)), and confirm AI-generated scripts follow Swinburne HPC's Slurm rules (no `--partition`, no `--exclusive`, use `--tmp=` instead of `--gres=tmp:`, keep memory-per-core requests modest and never pass `--mem=0` — see [Creating and Submitting Jobs](../jobs/creating-jobs.md) and [Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md)).
 
 ## Protect your data and other users' privacy
 
@@ -50,10 +50,10 @@ Files on `/fred` and `/aphid` are **not backed up** ([Filesystems and Storage](.
 - **Follow institutional AI and IP rules:** Swinburne HPC takes no responsibility for code, datasets, or intellectual property transmitted to third-party AI providers. Confirm your usage complies with the [Swinburne Artificial Intelligence Usage Procedures](https://www.swinburne.edu.au/about/policies-regulations/artificial-intelligence-usage-procedures/) (where applicable) and the AI, privacy, data security, and IP policies of your host institution.
 - **Keep secrets and other users out of AI context:** Never allow an AI tool to inspect `~/.ssh/`, credentials, API keys, or restricted datasets. When checking jobs or processes during an AI-assisted session, scope commands strictly to your own account so other users' usernames, job names, and command lines are not sent to external AI services:
 
-```bash
-squeue --me
-ps -u "$USER"
-```
+  ```bash
+  squeue --me
+  ps -u "$USER"
+  ```
 
 ## Starter AGENTS.md / CLAUDE.md for OzSTAR and NT
 
@@ -64,7 +64,7 @@ Many AI coding assistants automatically read an instruction file (`AGENTS.md`, `
 
 ## Login nodes and compute
 - Run `myhome` to stay on my single assigned login node (`tooarrana1/2` on NT; `farnarkle1/2` on OzSTAR).
-- Never run heavy compute, benchmarks, large test suites, or multi-core builds on login nodes; submit with `sbatch` or test briefly with `sinteractive` (capped at 1,280 core-minutes).
+- Never run heavy compute, benchmarks, large test suites, or multi-core builds on login nodes; submit with `sbatch` or run brief interactive tests with `sinteractive` (interactive walltime decreases as core count increases).
 - Do not open servers, tunnels, or bridges on login nodes for external services.
 
 ## Filesystems and Lustre safety
@@ -81,7 +81,7 @@ Many AI coding assistants automatically read an instruction file (`AGENTS.md`, `
 - Never specify `--partition` (routing is automatic from the submit node).
 - Never specify `--exclusive` on `sbatch` (rejected; request cores with `--cpus-per-task` / `--ntasks`).
 - Use `--tmp=<size>` for `$JOBFS` local scratch (default 250M); never use `--gres=tmp:...` (rejected).
-- Keep requested memory strictly under 64 GiB (maximum 65,535 MiB) per core and never set `--mem=0` or `--mem-per-cpu=0` (rejected); request more cores when more RAM is needed.
+- Keep memory-per-core requests modest and never set `--mem=0` or `--mem-per-cpu=0` (rejected); if Slurm rejects a high memory-per-core request, ask for additional CPU cores or less memory.
 - Explicitly set `OMP_NUM_THREADS` for multithreaded jobs (default is `1`).
 - Multi-node CPU jobs must request exact multiples of 64 cores on NT or 32 cores on OzSTAR.
 - Do not attempt `scontrol update` on queued jobs (disabled for non-root users; `scancel` and resubmit).

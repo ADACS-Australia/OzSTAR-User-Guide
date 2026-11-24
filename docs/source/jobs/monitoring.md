@@ -47,10 +47,11 @@ You can also inspect cluster availability, backfill slots, job priority, and acc
 
 ### Cluster status and backfill
 
-View active and waiting jobs across the cluster:
+Display cluster resource allocation status (detailed with `-v`, or a compact summary with `-s`):
 
 ```bash
-showq
+qinfo -v
+qinfo -s
 ```
 
 List available backfill slots:
@@ -59,26 +60,19 @@ List available backfill slots:
 showbf
 ```
 
-Display cluster resource allocation status:
+Check a compact standard Slurm summary of partition availability, time limits, and node counts (`Allocated/Idle/Other/Total`) with `sinfo -s`:
 
 ```bash
-qinfo -v
-```
-
-Check partition availability, time limits, and node states with `sinfo`:
-
-```bash
-sinfo
+sinfo -s
 ```
 
 Illustrative output on NT (`milan` is marked with `*` as the default partition for NT login nodes; remember that partitions are routed internally and should not be specified with `--partition`):
 
 ```text
-PARTITION   AVAIL  TIMELIMIT  NODES  STATE NODELIST
-milan*         up 7-00:00:00    100  mixed dave[1-100]
-milan*         up 7-00:00:00     20   idle dave[101-120]
-milan-gpu      up 7-00:00:00     16  mixed gina[1-16]
-skylake        up 7-00:00:00     80  mixed john[1-80]
+PARTITION   AVAIL  TIMELIMIT   NODES(A/I/O/T) NODELIST
+milan*         up 7-00:00:00     120/20/0/140 dave[1-140]
+milan-gpu      up 7-00:00:00       16/4/0/20  gina[1-20]
+skylake        up 7-00:00:00       80/20/0/100 john[1-100]
 ```
 
 To inspect per-node core counts, requestable memory ceilings, and GPUs:

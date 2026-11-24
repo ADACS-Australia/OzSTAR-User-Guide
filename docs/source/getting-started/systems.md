@@ -8,7 +8,7 @@ Swinburne operates three compute clusters — **Ngarrgu Tindebeek (NT)**, **OzST
 | --- | --- | --- | --- |
 | **Ngarrgu Tindebeek (NT)** | `nt.swin.edu.au` (`tooarrana1/2`) | AMD EPYC (Milan) CPU, high-memory, and A100 GPU compute | No |
 | **OzSTAR** | `ozstar.swin.edu.au` (`farnarkle1/2`) | Intel Xeon (Skylake) CPU, high-memory, and P100 GPU compute | No |
-| **Trevor** | `trevor` *(jump from NT or OzSTAR)* | Cloud-based Intel (Haswell) nodes for high-throughput small jobs | Yes |
+| **Trevor** | `trevor` *(jump from NT or OzSTAR)* | Private cloud (virtual machine) Intel (Haswell) nodes for low-resource jobs | Yes |
 | **Data-movers** | `data-mover[01-04].hpc.swin.edu.au` | Dedicated nodes for external data transfers | Yes |
 
 All clusters and data-movers share `/home`, `/fred`, and `/aphid` storage as well as the same account and project management system. See [Filesystems and Storage](../storage/filesystems.md) for storage paths and limits.
@@ -32,7 +32,7 @@ OzSTAR provides Intel Xeon compute capacity and NVIDIA P100 GPUs, interconnected
 
 ## Trevor
 
-Trevor is a cloud-based compute cluster built for high-throughput workflows (many small jobs) and tasks that require external internet access from compute nodes. Capacity scales dynamically to meet demand.
+Trevor is a private cloud (virtual machine) compute cluster built for jobs with low resource requirements and tasks that require external internet access from compute nodes.
 
 - **Login / submit node:** `trevor` — reachable only by jumping via SSH from an NT or OzSTAR login node (see [Connecting via SSH](../access/ssh-access.md)).
 - **Compute nodes:** 12-core Intel (Haswell) CPUs with modest RAM, local SSD scratch, and outbound internet access.
@@ -55,11 +55,12 @@ Do not set `--partition` in your Slurm scripts; partition routing is managed aut
 
 Because installed physical RAM includes overhead reserved for the operating system, the requestable memory per node is lower than the installed total. See [Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md) for requestable memory ceilings, core-multiple rules, and walltime limits.
 
-To check live node counts, queue state, and available resources from any login node, run:
+To check live cluster allocation status, backfill slots, and partition summaries from any login node, run:
 
 ```bash
-sinfo
-qinfo -v
+qinfo -v     # detailed cluster allocation status (or qinfo -s for a compact summary)
+showbf       # available backfill slots
+sinfo -s     # compact Slurm partition summary
 ```
 
 ### Internet access on compute nodes

@@ -38,7 +38,7 @@ If you do not know how much memory a workflow needs:
 3. Set your production memory request to roughly **125% of the observed peak** to allow safe headroom without wasting cluster capacity.
 
 :::{warning}
-Slurm rejects jobs that request **64 GiB or more per CPU core**, as well as `--mem=0` or `--mem-per-cpu=0`. If your job requires more than 64 GiB of memory in total, request additional CPU cores so that memory per core stays below 64 GiB.
+Slurm rejects jobs that request an excessively high amount of memory per CPU core, as well as `--mem=0` or `--mem-per-cpu=0`. Keep memory-per-core requests modest; if Slurm rejects a job for exceeding the per-core memory limit, request additional CPU cores or reduce your memory request.
 :::
 
 ### Maximum requestable memory by node tier
@@ -117,7 +117,7 @@ Always specify `--time=<DD-HH:MM:SS>` (or `<HH:MM:SS>`) in every batch script. R
 Per-user and per-project concurrency caps (CPU, GPU, and queued job limits) vary across general-access and MAS projects and can change over time. Inspect live limits directly on the cluster:
 
 ```bash
-qinfo -v
+qinfo -v     # or qinfo -s for a compact summary
 sacctmgr show qos format=Name,MaxTRESPU,MaxSubmitPU
 sacctmgr show assoc where user=<username> format=Account,User,QOS,GrpTRES
 ```
@@ -127,7 +127,7 @@ sacctmgr show assoc where user=<username> format=Account,User,QOS,GrpTRES
 NT and OzSTAR do not have dedicated interactive compute nodes. Instead, request an interactive compute allocation from a login node with a matching CPU architecture (`tooarrana1` or `tooarrana2` for NT; `farnarkle1` or `farnarkle2` for OzSTAR).
 
 :::{important}
-Interactive allocations (`sinteractive` or standalone `srun`) are capped at **1,280 core-minutes** (minimum 5 minutes). For example, you can request ~21 hours on 1 core, ~5 hours on 4 cores, or 40 minutes on 32 cores. For longer runs, submit a batch job with `sbatch`.
+Interactive allocations (`sinteractive` or standalone `srun`) are limited to short sessions based on total core-time — the more CPU cores you request, the shorter the permitted walltime. If Slurm rejects an interactive request for exceeding the interactive time limit, reduce your core count or `--time`, or submit a batch job with `sbatch`.
 :::
 
 ### Open an interactive shell (`sinteractive`)

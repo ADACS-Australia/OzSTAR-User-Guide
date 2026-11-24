@@ -341,7 +341,7 @@ To test or debug interactively on a compute node, run `sinteractive` from the lo
 sinteractive --ntasks=4 --time=00:20:00 --mem=4G
 ```
 
-Interactive sessions are capped at **1,280 core-minutes** (see [Interactive jobs (`sinteractive` and `srun`)](resources-and-interactive.md#interactive-jobs-sinteractive-and-srun)). Run `sinteractive --help` (or `man srun`) to view all supported options.
+Interactive sessions are limited to short core-time allocations (see [Interactive jobs (`sinteractive` and `srun`)](resources-and-interactive.md#interactive-jobs-sinteractive-and-srun)). Run `sinteractive --help` (or `man srun`) to view all supported options.
 
 ## Next steps
 

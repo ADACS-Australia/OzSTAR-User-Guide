@@ -11,10 +11,9 @@ Quick-reference tables of common Slurm commands and `#SBATCH` directives for Nga
 | `sinteractive` | Open an interactive shell on a compute node | `sinteractive --cpus-per-task=4 --time=00:30:00 --mem=4G` |
 | `scancel` | Cancel one, pending, or all of your jobs | `scancel <job_id>` / `scancel -u <username>` / `scancel -u <username> -t PD` |
 | `squeue` | List queued and running jobs (use `--me` for yours) | `squeue --me` |
-| `showq` | Show active and queued jobs across the cluster | `showq` |
+| `qinfo` | Show cluster resource allocation status (detailed or summary) | `qinfo -v` / `qinfo -s` |
 | `showbf` | List available backfill slots | `showbf` |
-| `qinfo` | Show cluster resource allocation status | `qinfo -v` |
-| `sinfo` | Inspect partitions, node states, CPUs, RAM, and GPUs | `sinfo -o "%P %c %m %G"` |
+| `sinfo` | Inspect partition summary, node states, CPUs, RAM, and GPUs | `sinfo -s` / `sinfo -o "%P %c %m %G"` |
 | `sstat` | Check live resource usage of a running job (all steps or `.batch`) | `sstat -a -j <job_id>` / `sstat -j <job_id>.batch` |
 | `sjob` | Display detailed status for a running job | `sjob <job_id>` |
 | `sacct` | Query accounting history for completed or failed jobs | `sacct -j <job_id>` |
@@ -36,8 +35,8 @@ Place `#SBATCH` directives immediately after the shebang line (`#!/bin/bash`) at
 | — | `--ntasks-per-node=<count>` | Place `<count>` tasks on each allocated node. |
 | `-c <count>` | `--cpus-per-task=<count>` | Allocate `<count>` CPU cores per task (for OpenMP or multi-threaded jobs; defaults to `1`). |
 | `-t <time>` | `--time=<DD-HH:MM:SS>` | Maximum walltime (default `00:05:00`; max `7-00:00:00` on NT, OzSTAR, and Trevor). |
-| — | `--mem=<size>` | Maximum total RAM per node (default units MiB; `G` = GiB). Cannot be `0` or `>= 64G` per core. |
-| — | `--mem-per-cpu=<size>` | Maximum RAM per allocated core (default `100M`; must be `< 64G`). |
+| — | `--mem=<size>` | Maximum total RAM per node (default units MiB; `G` = GiB). Cannot be `0`; excessive per-core memory requests are rejected. |
+| — | `--mem-per-cpu=<size>` | Maximum RAM per allocated core (default `100M`; excessive per-core values are rejected). |
 | — | `--tmp=<size>` | Request node-local scratch at `$JOBFS` (default `250M`; do not use `--gres=tmp:...`). |
 | — | `--gres=gpu:<n>` | Request `<n>` GPUs per node (omit `--partition`). |
 | `-A <project>` | `--account=<project>` | Charge usage to `<project>` (required for MAS/ASTAC allocations; applies ASTAC QoS automatically). |

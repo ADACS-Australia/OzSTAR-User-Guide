@@ -73,7 +73,7 @@ The Trevor login node is reachable only by jumping from an NT or OzSTAR login no
 ssh trevor
 ```
 
-Jobs submitted from `trevor` run on the cloud-based, internet-enabled Trevor compute nodes.
+Jobs submitted from `trevor` run on the private-cloud, internet-enabled Trevor compute nodes.
 
 ### Data-movers
 

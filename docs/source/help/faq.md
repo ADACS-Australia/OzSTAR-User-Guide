@@ -55,11 +55,11 @@ Move large data, Conda environments, or build directories out of `/home` into `/
 | Rejection reason | Cause | Fix |
 |---|---|---|
 | `--exclusive` rejected | `--exclusive` is not permitted on `sbatch`. | Remove `--exclusive` and request exact cores with `--cpus-per-task` or `--ntasks`. |
-| Memory per core `>= 64 GiB` or `--mem=0` | Slurm caps memory below `64 GiB` per core and rejects `0`. | Request more CPU cores so memory per core stays below `64 GiB`, and specify an explicit memory limit. |
+| High memory per core or `--mem=0` | Slurm enforces a per-core memory ceiling and rejects `0`. | Request more CPU cores (or less memory) to lower memory per core, and specify an explicit memory limit. |
 | `--gres=tmp:...` rejected | Local scratch (`$JOBFS`) is not requested via `--gres`. | Replace `--gres=tmp:...` with `--tmp=<size>` (default is `250M`). |
 | Internal partition rejected (e.g. `milan-gpu`, `milan-c`) | Partitions are routed internally based on login node and resources. | Remove `#SBATCH --partition=...` and submit from the matching login node (`tooarrana1/2` for NT, `farnarkle1/2` for OzSTAR). |
 | Multi-node core count rejected | Multi-node CPU jobs must request full-node core multiples. | Request exact multiples of **64 cores** on NT or **32 cores** on OzSTAR, with `--cpus-per-task` dividing the node core count. |
-| Interactive job rejected (`sinteractive` / `srun`) | Interactive allocations are capped at **1,280 core-minutes** (min 5 minutes). | Reduce cores or `--time` to stay within 1,280 core-minutes, or submit a batch job with `sbatch`. |
+| Interactive job rejected (`sinteractive` / `srun`) | Interactive allocations have a short core-time walltime limit that scales down with core count. | Reduce cores or `--time`, or submit a batch job with `sbatch`. |
 
 See [Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md) for full scheduler rules and memory ceilings.
 
