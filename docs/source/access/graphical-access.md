@@ -52,7 +52,7 @@ Substitute `ozstar.swin.edu.au` to connect to OzSTAR.
 :::{tab-item} Windows (legacy without WSL)
 On older Windows versions without WSL:
 
-1. Install an X11 server such as [VcXsrv](https://sourceforge.net/projects/vcxsrv/), [Cygwin/X](https://x.cygwin.com/), or [Xming](https://sourceforge.net/projects/xming/files/Xming/) and start it before connecting.
+1. Install and start a third-party Windows X11 server before connecting.
 2. If you connect with [PuTTY](https://www.putty.org/), open **Connection > SSH > X11** and select **Enable X11 forwarding** before opening the session.
 :::
 

@@ -19,17 +19,17 @@ Apptainer `.sif` images are built from plain-text definition (`.def`) files, ana
 The example below packages a Conda environment starting from the [Micromamba Docker image](https://hub.docker.com/r/mambaorg/micromamba). For a `pip`-based Python container example, see [Containerised Python with Apptainer](python.md#containerised-python-with-apptainer); for additional recipes (Astrometry.net, HEASoft, IRAF, SExtractor, and more), see [Apptainer Example Recipes](apptainer-examples.md).
 
 :::{note}
-Base image tags and package versions in these recipes are **illustrative snapshots**. Update versions for your workflow, and check the host GLIBC version (`ldd --version`) if a build encounters fakeroot errors (see [Fakeroot and GLIBC compatibility](#fakeroot-and-glibc-compatibility)).
+Replace `<tag>` and `<version>` with a current Micromamba Docker image tag and Python version for your workflow (pinning explicit tags keeps builds reproducible). Check the host GLIBC version (`ldd --version`) if a build encounters fakeroot errors (see [Fakeroot and GLIBC compatibility](#fakeroot-and-glibc-compatibility)).
 :::
 
 Create a definition file named `bilby.def`:
 
 ```singularity
 BootStrap: docker
-From: mambaorg/micromamba:1.4.6-jammy
+From: mambaorg/micromamba:<tag>
 
 %post
-    micromamba install -qy -n base -c conda-forge python=3.10 bilby gwpy python-lalsimulation
+    micromamba install -qy -n base -c conda-forge python=<version> bilby gwpy python-lalsimulation
 ```
 
 Build the `.sif` image:
@@ -134,13 +134,13 @@ apptainer run -B /fred/<project> "$JOBFS/container.sif" <command>
 
 ## Running 32-bit applications
 
-NT and OzSTAR do not provide 32-bit system libraries. To build or run legacy 32-bit applications, start from an `almalinux:9` container image (matching the host OS family and GLIBC) and install the required `.i686` libraries inside the container.
+NT and OzSTAR do not provide 32-bit system libraries. To build or run legacy 32-bit applications, start from an `almalinux:<major_version>` container image matching the host OS major version (`cat /etc/os-release`) and GLIBC, and install the required `.i686` libraries inside the container.
 
 Illustrative `32bit.def` recipe:
 
 ```singularity
 BootStrap: docker
-From: almalinux:9
+From: almalinux:<major_version>
 
 %post
     dnf update -y

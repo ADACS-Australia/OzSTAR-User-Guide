@@ -30,21 +30,21 @@ Place `#SBATCH` directives immediately after the shebang line (`#!/bin/bash`) at
 
 | Short | Long | Description |
 |---|---|---|
-| `-N <count>` | `--nodes=<count>` | Allocate `<count>` compute nodes (multi-node CPU jobs must match multiples of 64 cores on NT or 32 on OzSTAR). |
+| `-N <count>` | `--nodes=<count>` | Allocate `<count>` compute nodes (multi-node CPU jobs must match full-node core multiples — see [CPU and multi-node rules](resources-and-interactive.md#cpu-and-multi-node-rules)). |
 | `-n <count>` | `--ntasks=<count>` | Request `<count>` tasks (processes, typically MPI ranks). |
 | — | `--ntasks-per-node=<count>` | Place `<count>` tasks on each allocated node. |
 | `-c <count>` | `--cpus-per-task=<count>` | Allocate `<count>` CPU cores per task (for OpenMP or multi-threaded jobs; defaults to `1`). |
-| `-t <time>` | `--time=<DD-HH:MM:SS>` | Maximum walltime (default `00:05:00`; max `7-00:00:00` on NT, OzSTAR, and Trevor). |
+| `-t <time>` | `--time=<DD-HH:MM:SS>` | Maximum walltime (always specify explicitly; check live partition limits with `sinfo -s`). |
 | — | `--mem=<size>` | Maximum total RAM per node (default units MiB; `G` = GiB). Cannot be `0`; excessive per-core memory requests are rejected. |
-| — | `--mem-per-cpu=<size>` | Maximum RAM per allocated core (default `100M`; excessive per-core values are rejected). |
-| — | `--tmp=<size>` | Request node-local scratch at `$JOBFS` (default `250M`; do not use `--gres=tmp:...`). |
+| — | `--mem-per-cpu=<size>` | Maximum RAM per allocated core (always specify explicitly; excessive per-core values are rejected). |
+| — | `--tmp=<size>` | Request node-local scratch at `$JOBFS` (omitting allocates only a minimal default; do not use `--gres=tmp:...`). |
 | — | `--gres=gpu:<n>` | Request `<n>` GPUs per node (omit `--partition`). |
 | `-A <project>` | `--account=<project>` | Charge usage to `<project>` (required for MAS/ASTAC allocations; applies ASTAC QoS automatically). |
 | `-J <name>` | `--job-name=<name>` | Set a short job name shown in queue listings and the Web Job Monitor. |
 | `-o <file>` | `--output=<file>` | Write standard output (and standard error unless `-e` is set) to `<file>` (default `slurm-%j.out`; `%j` = Job ID, `%A_%a` = array ID/task). |
 | `-e <file>` | `--error=<file>` | Write standard error to a separate `<file>`. |
 | `-D <dir>` | `--chdir=<dir>` | Set the working directory before running the batch script. |
-| `-a <spec>` | `--array=<spec>` | Submit a job array (for example, `0-99` or `1-100:2`; `MaxArraySize=2048`, indices `0`–`2047`). |
+| `-a <spec>` | `--array=<spec>` | Submit a job array (for example, `0-99` or `1-100:2`; check live `MaxArraySize` via `scontrol show config`). |
 | — | `--mail-type=<events>` | Email notifications on state changes (for example, `BEGIN,END,FAIL,TIME_LIMIT_90`; applies to job arrays as a whole). |
 | — | `--mail-user=<email>` | Email address for `--mail-type` notifications. |
 | — | `--comment=<text>` | Attach a metadata tag to the job (mandatory for LIGO accounting; see [Tracking LIGO Job Usage](ligo-reporting.md)). |

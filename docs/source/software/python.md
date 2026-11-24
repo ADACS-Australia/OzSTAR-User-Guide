@@ -30,7 +30,7 @@ Check the exact packages and required parent modules for any version with:
 module spider python/<version>
 ```
 
-- `python/<version>` requires loading its parent `gcc/<gcc_version>` module first (listed in the `module spider` output). Minimal `-bare` variants provide Python without extra pre-installed libraries, while standard variants include common packages.
+- `python/<version>` requires loading its parent `gcc/<gcc_version>` module first (listed in the `module spider` output). Some older Python versions also provide a minimal `-bare` variant; run `module spider python/<version>` to inspect included packages.
 - `python-scientific/<version>` loads directly and includes widely used scientific libraries (such as SciPy and IPython) compiled against a cluster toolchain.
 
 Because you do not have write permissions to the central module tree, install extra packages with `pip` inside a [Python virtual environment (`venv`)](https://docs.python.org/3/library/venv.html).
@@ -142,7 +142,7 @@ mamba env create -f ~/environment.yml
 
 ### Using cluster MPI libraries with Conda
 
-Cluster OpenMPI modules are built for NT's InfiniBand and OzSTAR's Omni-Path interconnects. Installing MPI-dependent packages from `conda-forge` pulls in generic Conda MPI binaries by default, which can run poorly or fail across nodes.
+Cluster OpenMPI modules are built specifically for NT and OzSTAR's high-speed interconnects (see [Swinburne HPC Systems](../getting-started/systems.md)). Installing MPI-dependent packages from `conda-forge` pulls in generic Conda MPI binaries by default, which can run poorly or fail across nodes.
 
 Load a cluster OpenMPI module (discover versions with `module spider openmpi`), then install the `conda-forge` external OpenMPI stub matching that version so Conda packages link against the cluster's MPI:
 
@@ -178,7 +178,7 @@ To install CUDA-enabled packages on `tooarrana1` or `tooarrana2`:
 
 Alternatively, create your GPU Conda environment directly on `farnarkle1`/`farnarkle2` or inside an interactive GPU job.
 
-For more detail, see [conda-forge: Installing CUDA-enabled packages](https://conda-forge.org/docs/user/tipsandtricks/#installing-cuda-enabled-packages-like-tensorflow-and-pytorch) and the [conda-forge TensorFlow GPU guide](https://conda-forge.org/blog/2021/11/03/tensorflow-gpu/#installation).
+For more detail, see [conda-forge: Installing CUDA-enabled packages](https://conda-forge.org/docs/user/tipsandtricks/#installing-cuda-enabled-packages-like-tensorflow-and-pytorch).
 
 ## Containerised Python with Apptainer
 
@@ -192,14 +192,14 @@ See [Containers (Apptainer)](apptainer.md) for general Apptainer usage and a Mic
 ### Example: `pip`-based Python container
 
 :::{note}
-The base image tag and package list below are an **illustrative snapshot**. Update versions for your workflow, and check host GLIBC compatibility (`ldd --version`) if a build hits fakeroot errors (see [Fakeroot and GLIBC compatibility](apptainer.md#fakeroot-and-glibc-compatibility)).
+Replace `<version>` with a current pinned Python Docker image tag from [Docker Hub](https://hub.docker.com/_/python) for reproducibility, and check host GLIBC compatibility (`ldd --version`) if a build hits fakeroot errors (see [Fakeroot and GLIBC compatibility](apptainer.md#fakeroot-and-glibc-compatibility)).
 :::
 
 Create a definition file named `my_container.def`:
 
 ```singularity
 BootStrap: docker
-From: python:3.12.7-bookworm
+From: python:<version>-slim
 
 %post
     pip install wheel "tensorflow[and-cuda]" tensorflow-datasets pandas

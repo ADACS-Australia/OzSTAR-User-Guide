@@ -102,18 +102,18 @@ From: debian:12-slim
 
 ## `heasoft.def`
 
-Builds [HEASoft](https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/) from an OzSTAR-local source archive (`/apps/sources/h/heasoft/...`):
+Builds [HEASoft](https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/) from a source archive (check `ls /apps/sources/h/heasoft/` for pre-staged tarballs or download the desired release from HEASARC, and replace `<path/to/heasoft-src.tar.gz>` and version numbers below):
 
 ```singularity
 BootStrap: docker
 From: ubuntu:22.04
 
 %files
-    /apps/sources/h/heasoft/heasoft-6.32.1src.tar.gz /
+    <path/to/heasoft-src.tar.gz> /heasoft-src.tar.gz
 
 %labels
     version "6.32.1"
-    description "HEASoft 6.32.1 https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/"
+    description "HEASoft https://heasarc.gsfc.nasa.gov/docs/software/lheasoft/"
     maintainer "NASA/GSFC/HEASARC https://heasarc.gsfc.nasa.gov/cgi-bin/ftoolshelp"
 
 %post
@@ -141,8 +141,8 @@ From: ubuntu:22.04
     rm -rf /var/lib/apt/lists/*
     mkdir -p /opt/heasoft/caldb
 
-    tar xzf heasoft-6.32.1src.tar.gz
-    rm heasoft-6.32.1src.tar.gz
+    tar xzf /heasoft-src.tar.gz
+    rm /heasoft-src.tar.gz
     pip3 install --only-binary=:all: astropy numpy scipy matplotlib
     cd /heasoft-6.32.1/BUILD_DIR/
     ./configure --prefix=/opt/heasoft 2>&1 | tee /configure.log
@@ -219,20 +219,20 @@ From: debian:12-slim
 
 ## `iraf-2.16_i686.def`
 
-Runs 32-bit IRAF 2.16 on `almalinux:9` with `.i686` libraries using an OzSTAR-local archive (`/apps/sources/i/iraf/...`):
+Runs 32-bit IRAF on `almalinux:<major_version>` (match your host OS major version via `cat /etc/os-release`) with `.i686` libraries. Check `ls /apps/sources/i/iraf/` for pre-staged archives or supply your own tarball in `<path/to/iraf-i686.tar.gz>`:
 
 ```singularity
 BootStrap: docker
-From: almalinux:9
+From: almalinux:<major_version>
 
 %files
-    /apps/sources/i/iraf/2.16-i686_skylake.tar.gz iraf-2.16-i686.tar.gz
+    <path/to/iraf-i686.tar.gz> /iraf-i686.tar.gz
 
 %post
-    yum update -y
-    yum install -y xterm csh gcc make flex libXmu-devel libX11-devel glibc.i686 zlib-devel.i686 libcurl-devel.i686 expat-devel.i686 readline-devel.i686
-    yum clean all
-    mkdir -p /usr/local/i686/gnu && tar -xvzf iraf-2.16-i686.tar.gz -C /usr/local/i686/gnu/ && rm iraf-2.16-i686.tar.gz
+    dnf update -y
+    dnf install -y xterm csh gcc make flex libXmu-devel libX11-devel glibc.i686 zlib-devel.i686 libcurl-devel.i686 expat-devel.i686 readline-devel.i686
+    dnf clean all
+    mkdir -p /usr/local/i686/gnu && tar -xvzf /iraf-i686.tar.gz -C /usr/local/i686/gnu/ && rm /iraf-i686.tar.gz
     cd /usr/local/i686/gnu && mv 2.16-i686 iraf-2.16
     cd /usr/lib && ln -svf libreadline.so libreadline.so.6
 

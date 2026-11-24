@@ -5,7 +5,7 @@ Copy research data between your local computer and Swinburne HPC storage (`/home
 ## Before you start
 
 - Enroll in [Two-Factor Authentication (2FA)](../getting-started/2fa.md) and confirm you can connect via SSH ([Connecting via SSH](../access/ssh-access.md)).
-- **Always use a data-mover node** (`data-mover01.hpc.swin.edu.au` through `data-mover04.hpc.swin.edu.au`) rather than a login node (`tooarrana1`/`tooarrana2` or `farnarkle1`/`farnarkle2`). Login nodes are shared for editing, compiling, and job submission; data-mover nodes are dedicated to file transfers and mount the same cluster filesystems.
+- **Always use a data-mover node** (such as `data-mover01.hpc.swin.edu.au`; inspect live hosts with `sinfo -s -p datamover`) rather than a login node (`tooarrana1`/`tooarrana2` or `farnarkle1`/`farnarkle2`). Login nodes are shared for editing, compiling, and job submission; data-mover nodes are dedicated to file transfers (both interactive `rsync` and Slurm data-transfer jobs) and mount the same cluster filesystems.
 
 :::{tip}
 To avoid repeated 2FA prompts during interactive transfers, set up [Reusing SSH connections (multiplexing)](../access/ssh-access.md#reusing-ssh-connections-multiplexing) for the data-mover node you use. For automated or unattended transfers, see [Restricted SSH Keys for Automated Jobs](../access/restricted-keys.md).
@@ -65,7 +65,7 @@ If you prefer a graphical client on Windows (outside WSL), install [WinSCP](http
 
 1. Open WinSCP and create a **New Site** with:
    - **File protocol:** SFTP
-   - **Host name:** `data-mover01.hpc.swin.edu.au` (or `data-mover02` through `data-mover04`)
+   - **Host name:** `data-mover01.hpc.swin.edu.au` (or another live data-mover node listed by `sinfo -s -p datamover`)
    - **Port number:** `22`
    - **User name:** `<username>`
 2. Click **Login**, enter your password or SSH key passphrase, and enter your 2FA code when prompted.

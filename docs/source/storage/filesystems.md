@@ -7,7 +7,7 @@ Choose the right storage location on Ngarrgu Tindebeek (NT), OzSTAR, and Trevor 
 | `/home/<username>` | Yes | 20 GiB, 200,000 files per user (fixed) | Source code, job scripts, config files, small critical inputs |
 | `/fred/<project>` | **No** | 10 TiB, 1,000,000 files per project (default) | Active job inputs and outputs, large datasets, Conda environments |
 | `/aphid/scratch-3month/<username>` | **No** | No fixed quota; **90-day** last-access expiry | Temporary, I/O-intensive scratch workloads |
-| `$JOBFS` | **No** | Default `250M`; set with `--tmp=<size>`, deleted when job ends | Fast local SSD/NVMe I/O for jobs reading or writing many small files |
+| `$JOBFS` | **No** | Small default; set with `--tmp=<size>`, deleted when job ends | Fast local SSD/NVMe I/O for jobs reading or writing many small files |
 | `/datasets` | Managed (read-only) | Shared read-only host storage | Pre-staged scientific datasets (for example, Gaia, LIGO, LSST) |
 
 ## Checking your quota
@@ -32,7 +32,7 @@ Because `/home`, `/fred`, and `/aphid/scratch-3month` use [transparent compressi
 
 ## Project storage
 
-`/fred/<project>` is the primary cluster-wide Lustre + ZFS storage filesystem (~20 PiB total capacity, >30 GB/s aggregate bandwidth), designed for large data files and active compute job I/O.
+`/fred/<project>` is the primary high-throughput cluster-wide Lustre + ZFS storage filesystem, designed for large data files and active compute job I/O.
 
 :::{warning}
 `/fred` is **not backed up** and is unsuitable for long-term archival storage. Accidentally deleted files cannot be recovered, and data loss from hardware failure — while unlikely — remains possible. You are responsible for backing up important data to an external location (see [Policies](../1-getting_started/Policies.rst)).
@@ -62,7 +62,7 @@ Files under `/aphid/scratch-3month/<username>` expire **90 days** after their la
 It is policy that users must not modify file timestamps or otherwise attempt to circumvent the 90-day (three-month) retention policy. Retaining unnecessary data on the repurposed `/aphid` hardware increases the risk of data loss and degrades filesystem reliability for all users.
 :::
 
-A summary of files approaching expiry is shown in the welcome message when you log in. You can also inspect nightly expiry reports from the command line. Reports are generated only when you have files in `/aphid/scratch-3month/<username>` and are retained for seven days.
+A summary of files approaching expiry is shown in the welcome message when you log in. You can also inspect recent nightly expiry reports from the command line. Reports are generated only when you have files in `/aphid/scratch-3month/<username>`.
 
 View your latest expiry report:
 
@@ -70,7 +70,7 @@ View your latest expiry report:
 scratch-report
 ```
 
-List available reports from the past seven days:
+List available recent reports:
 
 ```bash
 scratch-report list
@@ -90,7 +90,7 @@ Each compute node on NT, OzSTAR, and Trevor has fast local SSD/NVMe storage (for
 `$JOBFS` is created automatically before your job starts and permanently deleted when your job ends (including on timeout or failure). Copy any outputs you need back to `/fred/<project>` before your job exits.
 :::
 
-- **Default size:** **`250M`** unless you request more with `#SBATCH --tmp=<size>` (for example, `#SBATCH --tmp=20G`). Do not use `--gres=tmp:...`; Slurm rejects it.
+- **Requesting space:** Omitting `--tmp` allocates only a minimal default `$JOBFS` space; request what your job needs with `#SBATCH --tmp=<size>` (for example, `#SBATCH --tmp=20G`). Do not use `--gres=tmp:...`; Slurm rejects it.
 - **Typical workflow:** Copy a tarball from `/fred/<project>` to `$JOBFS`, unpack it, process many small files locally at high IOPS, pack the results into a tarball, and move the archive back to `/fred/<project>`.
 
 See [Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md) for `--tmp` sizing details and [Optimising Lustre I/O](optimising-lustre.md) for complete staging scripts.

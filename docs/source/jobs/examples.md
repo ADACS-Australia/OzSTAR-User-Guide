@@ -155,7 +155,7 @@ srun ./my_hybrid_program "$SLURM_ARRAY_TASK_ID"
 
 ## Job arrays (embarrassingly parallel)
 
-Job arrays submit many independent runs of the same script (for example, Monte Carlo ensembles, parameter sweeps, or batch file processing). The cluster limit is `MaxArraySize=2048` tasks per array (maximum array index `2047`, i.e. indices `0`–`2047`; see [Walltime and scheduler limits](resources-and-interactive.md#walltime-and-scheduler-limits)).
+Job arrays submit many independent runs of the same script (for example, Monte Carlo ensembles, parameter sweeps, or batch file processing). Check the live maximum array size (`MaxArraySize`) with `scontrol show config | grep MaxArraySize` (see [Walltime and scheduler limits](resources-and-interactive.md#walltime-and-scheduler-limits)).
 
 ### Integer parameter sweep
 
@@ -308,7 +308,7 @@ I am the master
 
 ## GPU job
 
-Submit GPU jobs from `tooarrana1`/`tooarrana2` (`nt.swin.edu.au`) for NT NVIDIA A100 GPUs, or from `farnarkle1`/`farnarkle2` (`ozstar.swin.edu.au`) for OzSTAR NVIDIA P100 GPUs. Request GPUs with `--gres=gpu:<n>` and do **not** set `--partition`.
+Submit GPU jobs from `tooarrana1`/`tooarrana2` (`nt.swin.edu.au`) for NT GPUs, or from `farnarkle1`/`farnarkle2` (`ozstar.swin.edu.au`) for OzSTAR GPUs (see [Swinburne HPC Systems](../getting-started/systems.md) for GPU hardware details). Request GPUs with `--gres=gpu:<n>` and do **not** set `--partition`.
 
 Save as `gpu.sh`:
 

@@ -21,7 +21,7 @@ or:
 #SBATCH --mem-per-cpu=2G
 ```
 
-- **Default allocation:** `100 MiB` per CPU core (`DefMemPerCPU=100`). This is intentionally small so you supply a realistic estimate.
+- **Default allocation:** Omitting `--mem` and `--mem-per-cpu` gives only a minimal per-core default memory allocation, intentionally small so you supply a realistic estimate.
 - **Units:** Bare numbers are interpreted in **MiB**. Suffix `M` means **MiB** and `G` means **GiB** (`1G` = `1024 MiB`).
 - **Enforcement:** Slurm enforces memory limits using Linux kernel `cgroup` controls. If your job exceeds its requested memory, the kernel terminates a process (out-of-memory kill), which usually causes the job to fail.
 
@@ -41,22 +41,11 @@ If you do not know how much memory a workflow needs:
 Slurm rejects jobs that request an excessively high amount of memory per CPU core, as well as `--mem=0` or `--mem-per-cpu=0`. Keep memory-per-core requests modest; if Slurm rejects a job for exceeding the per-core memory limit, request additional CPU cores or reduce your memory request.
 :::
 
-### Maximum requestable memory by node tier
+### Checking maximum requestable memory
 
-Part of each node's physical RAM is reserved for the operating system, so the maximum requestable memory is slightly below installed RAM. Requesting more memory than standard nodes provide automatically routes your job to high-memory nodes (which have fewer nodes and longer queue times).
+Part of each node's physical RAM is reserved for the operating system, so the maximum memory you can request in Slurm is slightly below the installed physical RAM. Requesting more memory than standard nodes provide automatically routes your job to high-memory nodes (which are fewer in number and generally have longer queue waits).
 
-| Cluster and node tier | Maximum requestable memory (MiB) | Approximate GiB |
-|---|---|---|
-| NT (`milan`) standard | `256,500 MiB` | ~250 GiB |
-| NT (`milan`) high-memory | `1,030,000 MiB` | ~1,005 GiB |
-| NT (`milan`) GPU | `514,500 MiB` | ~502 GiB |
-| NT (`milan`) GPU high-memory | `1,030,000 MiB` | ~1,005 GiB |
-| OzSTAR (`skylake`) standard | `191,000 MiB` | ~186 GiB |
-| OzSTAR (`skylake`) high-memory (384 GB nodes) | `384,000 MiB` | 375 GiB |
-| OzSTAR (`skylake`) high-memory (768 GB nodes) | `768,000 MiB` | 750 GiB |
-| Trevor | `26,000 MiB` | ~25 GiB |
-
-Inspect live node core counts, requestable memory ceilings, and GPU resources at any time:
+Inspect live node core counts, exact requestable memory ceilings (`MEMORY`, shown in MiB), and GPU resources directly from Slurm before submitting large-memory jobs:
 
 ```bash
 sinfo -o "%P %c %m %G"
@@ -67,13 +56,13 @@ sinfo -o "%P %c %m %G"
 Request exact CPU resources using `--ntasks` (MPI processes) and `--cpus-per-task` (threads per task). Slurm enforces the following rules at submission time:
 
 - **`--exclusive` is not permitted on `sbatch`:** Submitting a batch script with `--exclusive` is rejected. Request the exact number of cores your job needs with `--cpus-per-task` or `--ntasks` instead.
-- **OzSTAR per-node CPU limit:** Although OzSTAR (`skylake`) nodes have 36 physical cores, single jobs are limited to **32 cores per node** to leave cores available for system and GPU communication.
-- **Multi-node CPU jobs:** Jobs spanning more than one node must request exact multiples of **64 cores** on NT (`milan`) or **32 cores** on OzSTAR (`skylake`), and `--cpus-per-task` must evenly divide the per-node core count (64 on NT, 32 on OzSTAR).
+- **OzSTAR per-node CPU limit:** Single jobs on OzSTAR are limited to **32 cores per node** (out of 36 physical cores) to leave cores available for system and GPU communication.
+- **Multi-node CPU jobs:** Jobs spanning more than one node must request exact multiples of **64 cores** on NT or **32 cores** on OzSTAR, and `--cpus-per-task` must evenly divide the per-node core count (64 on NT, 32 on OzSTAR).
 - **OpenMP thread count:** `OMP_NUM_THREADS` defaults to `1`. Export `OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK` inside multi-threaded scripts (see [Creating and Submitting Jobs](creating-jobs.md)).
 
 ## Requesting GPUs
 
-Request GPUs with Slurm Generic Resource Scheduling (`--gres`). Do not specify `--partition` — Slurm automatically routes GPU jobs on the cluster of your login node (`tooarrana1/2` for NT A100 GPUs, `farnarkle1/2` for OzSTAR P100 GPUs; see [Swinburne HPC Systems](../getting-started/systems.md)):
+Request GPUs with Slurm Generic Resource Scheduling (`--gres`). Do not specify `--partition` — Slurm automatically routes GPU jobs on the cluster of your login node (`tooarrana1/2` for NT, `farnarkle1/2` for OzSTAR; see [Swinburne HPC Systems](../getting-started/systems.md) for GPU models):
 
 ```bash
 #SBATCH --gres=gpu:1
@@ -82,7 +71,7 @@ Request GPUs with Slurm Generic Resource Scheduling (`--gres`). Do not specify `
 To request two GPUs on each allocated node, use `#SBATCH --gres=gpu:2`. GPU access is isolated with Linux `cgroup` controls so only your job can use its allocated GPUs. For advanced GPU options, see the [Slurm GRES documentation](https://slurm.schedmd.com/gres.html).
 
 :::{note}
-On OzSTAR (`skylake`) nodes, 4 CPU cores per node are reserved for system and GPU communication, and the scheduler does not guarantee optimal CPU-to-GPU locality across allocations. GPU performance on OzSTAR can therefore vary slightly depending on which CPU cores and GPUs are assigned.
+On OzSTAR, 4 CPU cores per node are reserved for system and GPU communication, and the scheduler does not guarantee optimal CPU-to-GPU locality across allocations. GPU performance on OzSTAR can therefore vary slightly depending on which CPU cores and GPUs are assigned.
 :::
 
 ## Requesting local scratch (`$JOBFS`)
@@ -93,7 +82,7 @@ Every job is allocated a private temporary directory on fast node-local storage 
 `$JOBFS` is deleted automatically as soon as your job ends. Copy any output files you need to keep back to `/fred/<project>` before your script finishes.
 :::
 
-By default, every job receives **`250M`** of `$JOBFS` space. Request more with `--tmp=<size>` (for example, 20 GiB per node):
+Omitting `--tmp` allocates only a minimal default `$JOBFS` space. Request the local scratch capacity your job needs with `--tmp=<size>` (for example, 20 GiB per node):
 
 ```bash
 #SBATCH --tmp=20G
@@ -105,19 +94,18 @@ Always use `--tmp=<size>` to request local scratch space. Passing `--gres=tmp:..
 
 ## Walltime and scheduler limits
 
-Always specify `--time=<DD-HH:MM:SS>` (or `<HH:MM:SS>`) in every batch script. Realistic, shorter walltimes help Slurm backfill your job sooner.
+Always specify `--time=<DD-HH:MM:SS>` (or `<HH:MM:SS>`) in every batch script — omitting `--time` assigns only a very short default walltime. Realistic, shorter walltimes help Slurm backfill your job sooner.
 
-| Limit | Applies to | Value |
-|---|---|---|
-| Default walltime (if `--time` is omitted) | All compute clusters | `00:05:00` (5 minutes) |
-| Maximum walltime | NT, OzSTAR, and Trevor | `7-00:00:00` (7 days) |
-| Maximum walltime | Data-mover queue (`datamover`) | `1-00:00:00` (1 day) |
-| Maximum job array size (`MaxArraySize`) | All compute clusters | `2048` tasks per array (indices `0`–`2047`) |
+- **Compute cluster maximum walltime:** **7 days** (`7-00:00:00`) on NT, OzSTAR, and Trevor.
+- **Data-mover batch jobs:** Transfer jobs submitted on the data-mover queue (`datamover`) have a shorter maximum walltime than compute queues.
+- **Job arrays:** Slurm enforces a cluster-wide maximum array index (`MaxArraySize`).
 
-Per-user and per-project concurrency caps (CPU, GPU, and queued job limits) vary across general-access and MAS projects and can change over time. Inspect live limits directly on the cluster:
+Inspect live partition walltime limits, Slurm configuration defaults, and per-user/project concurrency caps directly on the cluster:
 
 ```bash
+sinfo -s
 qinfo -v     # or qinfo -s for a compact summary
+scontrol show config | grep -E 'DefMemPer|MaxArraySize'
 sacctmgr show qos format=Name,MaxTRESPU,MaxSubmitPU
 sacctmgr show assoc where user=<username> format=Account,User,QOS,GrpTRES
 ```

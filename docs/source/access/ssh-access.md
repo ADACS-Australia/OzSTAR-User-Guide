@@ -46,7 +46,7 @@ ssh <username>@tooarrana1.hpc.swin.edu.au
 ssh <username>@tooarrana2.hpc.swin.edu.au
 ```
 
-Jobs submitted from `tooarrana1` or `tooarrana2` run on NT AMD Milan compute nodes.
+Jobs submitted from `tooarrana1` or `tooarrana2` run on NT compute nodes (see [Swinburne HPC Systems](../getting-started/systems.md)).
 
 ### OzSTAR
 
@@ -63,7 +63,7 @@ ssh <username>@farnarkle1.hpc.swin.edu.au
 ssh <username>@farnarkle2.hpc.swin.edu.au
 ```
 
-Jobs submitted from `farnarkle1` or `farnarkle2` run on OzSTAR Intel Skylake compute nodes.
+Jobs submitted from `farnarkle1` or `farnarkle2` run on OzSTAR compute nodes.
 
 ### Trevor
 
@@ -77,7 +77,7 @@ Jobs submitted from `trevor` run on the private-cloud, internet-enabled Trevor c
 
 ### Data-movers
 
-Use the dedicated data-mover nodes (`data-mover01` through `data-mover04`) for transferring files to and from Swinburne HPC storage so transfers do not contend with shared login nodes (see [Transferring Files](../storage/file-transfer.md)):
+Use the dedicated data-mover nodes (such as `data-mover01.hpc.swin.edu.au`; inspect live nodes with `sinfo -s -p datamover`) for transferring files to and from Swinburne HPC storage so transfers do not contend with shared login nodes (see [Transferring Files](../storage/file-transfer.md)):
 
 ```bash
 ssh <username>@data-mover01.hpc.swin.edu.au
@@ -90,7 +90,7 @@ From any Swinburne HPC login node, you can jump to another login node, Trevor, o
 - **NT login nodes:** `t1`, `t2`
 - **OzSTAR login nodes:** `f1`, `f2`
 - **Trevor:** `trevor`
-- **Data-movers:** `dm1`–`dm4` (or `data-mover01`–`data-mover04`)
+- **Data-movers:** `dm1`, `dm2`, ... (or `data-mover01`, `data-mover02`, ...)
 
 For example, from any login node:
 
@@ -109,7 +109,7 @@ Because `nt.swin.edu.au` and `ozstar.swin.edu.au` are round-robin addresses, con
 myhome
 ```
 
-`myhome` deterministically assigns you to login node `1` or `2` (`tooarrana1` or `tooarrana2` on NT; `farnarkle1` or `farnarkle2` on OzSTAR) based on your username so persistent workloads stay balanced across login nodes. Connect directly to that assigned hostname (for example, `tooarrana1.hpc.swin.edu.au`) whenever you run persistent tools.
+`myhome` deterministically returns your assigned login node for the current cluster (for example, `tooarrana1` on NT or `farnarkle1` on OzSTAR) based on your username so persistent workloads stay balanced across login nodes. Connect directly to that assigned hostname (for example, `tooarrana1.hpc.swin.edu.au`) whenever you run persistent tools.
 
 ## Optional: SSH shortcuts and keep-alive
 

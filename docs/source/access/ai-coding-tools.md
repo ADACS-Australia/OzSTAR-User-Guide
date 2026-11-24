@@ -68,22 +68,22 @@ Many AI coding assistants automatically read an instruction file (`AGENTS.md`, `
 - Do not open servers, tunnels, or bridges on login nodes for external services.
 
 ## Filesystems and Lustre safety
-- `/home` has a strict 20 GiB / 200,000-file quota; place project files under `/fred/<project>/<username>/` (not backed up) or temporary scratch under `/aphid/scratch-3month/` (not backed up, 90-day expiry).
+- `/home` has a small fixed quota (check usage and limits with `quota`); place project files under `/fred/<project>/<username>/` (not backed up) or temporary scratch under `/aphid/scratch-3month/` (not backed up, automatically purged after inactivity).
 - Never run broad recursive `find`, `grep -r`, `du`, `ls -R`, or file watchers at `/fred`, `/fred/<project>`, `/home`, or `/aphid` roots. Stay inside this repository directory and exclude large data directories.
 - Never read `~/.ssh/`, credentials, tokens, or restricted datasets.
 
 ## Software modules and shell hygiene
 - Do not guess module names or versions; discover them with `module spider <package>` and `module avail`.
 - Keep `~/.bashrc` free of `module load` statements; load required modules inside batch scripts.
-- Remember NT (AMD Milan), OzSTAR (Intel Skylake), and Trevor (Intel Haswell) have different CPU architectures: recompile binaries and recreate Python/Conda environments per cluster.
+- Remember NT, OzSTAR, and Trevor have different CPU architectures: recompile binaries and recreate Python/Conda environments per cluster.
 
 ## Slurm batch script rules
 - Never specify `--partition` (routing is automatic from the submit node).
 - Never specify `--exclusive` on `sbatch` (rejected; request cores with `--cpus-per-task` / `--ntasks`).
-- Use `--tmp=<size>` for `$JOBFS` local scratch (default 250M); never use `--gres=tmp:...` (rejected).
+- Use `--tmp=<size>` for `$JOBFS` local scratch (omitting it allocates only a minimal default); never use `--gres=tmp:...` (rejected).
 - Keep memory-per-core requests modest and never set `--mem=0` or `--mem-per-cpu=0` (rejected); if Slurm rejects a high memory-per-core request, ask for additional CPU cores or less memory.
 - Explicitly set `OMP_NUM_THREADS` for multithreaded jobs (default is `1`).
-- Multi-node CPU jobs must request exact multiples of 64 cores on NT or 32 cores on OzSTAR.
+- Multi-node CPU jobs must request full-node core multiples for the target cluster (check node core counts with `sinfo -o "%P %c %m %G"`).
 - Do not attempt `scontrol update` on queued jobs (disabled for non-root users; `scancel` and resubmit).
 
 ## Monitoring, privacy, and approval

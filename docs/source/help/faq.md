@@ -10,7 +10,7 @@ Check these three causes in order:
 
 1. **2FA not enrolled:** If you have not enrolled in two-factor authentication, SSH immediately returns `Permission denied` without asking for a code. Complete enrollment in the [Accounts Portal](https://supercomputing.swin.edu.au/account-management/) — see [Two-Factor Authentication (2FA)](../getting-started/2fa.md).
 2. **Wrong credentials or SSH key:** Confirm you are using your OzSTAR username and password (or registered SSH key). OzSTAR accounts are separate from Swinburne university logins.
-3. **Expired account:** Accounts expire after 2 years (see [Account expiry and renewal](../getting-started/accounts.md#account-expiry-and-renewal)). Sign in to the [Accounts Portal](https://supercomputing.swin.edu.au/account-management/) to check your expiry date or request renewal, or contact [User Support](support.md).
+3. **Expired account:** Your account may have expired (see [Account expiry and renewal](../getting-started/accounts.md#account-expiry-and-renewal)). Sign in to the [Accounts Portal](https://supercomputing.swin.edu.au/account-management/) to check your expiry date or request renewal, or contact [User Support](support.md).
 
 ### How do I change or reset my login password?
 
@@ -56,9 +56,9 @@ Move large data, Conda environments, or build directories out of `/home` into `/
 |---|---|---|
 | `--exclusive` rejected | `--exclusive` is not permitted on `sbatch`. | Remove `--exclusive` and request exact cores with `--cpus-per-task` or `--ntasks`. |
 | High memory per core or `--mem=0` | Slurm enforces a per-core memory ceiling and rejects `0`. | Request more CPU cores (or less memory) to lower memory per core, and specify an explicit memory limit. |
-| `--gres=tmp:...` rejected | Local scratch (`$JOBFS`) is not requested via `--gres`. | Replace `--gres=tmp:...` with `--tmp=<size>` (default is `250M`). |
+| `--gres=tmp:...` rejected | Local scratch (`$JOBFS`) is not requested via `--gres`. | Replace `--gres=tmp:...` with `--tmp=<size>`. |
 | Internal partition rejected (e.g. `milan-gpu`, `milan-c`) | Partitions are routed internally based on login node and resources. | Remove `#SBATCH --partition=...` and submit from the matching login node (`tooarrana1/2` for NT, `farnarkle1/2` for OzSTAR). |
-| Multi-node core count rejected | Multi-node CPU jobs must request full-node core multiples. | Request exact multiples of **64 cores** on NT or **32 cores** on OzSTAR, with `--cpus-per-task` dividing the node core count. |
+| Multi-node core count rejected | Multi-node CPU jobs must request full-node core multiples. | Request full-node core multiples for the target cluster with `--cpus-per-task` dividing the node core count (see [CPU and multi-node rules](../jobs/resources-and-interactive.md#cpu-and-multi-node-rules)). |
 | Interactive job rejected (`sinteractive` / `srun`) | Interactive allocations have a short core-time walltime limit that scales down with core count. | Reduce cores or `--time`, or submit a batch job with `sbatch`. |
 
 See [Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md) for full scheduler rules and memory ceilings.
@@ -105,7 +105,7 @@ Explore these external GPU programming resources:
 - [NVIDIA CUDA Developer Zone](https://developer.nvidia.com/cuda) — official CUDA toolkits, documentation, and learning guides.
 - [NVIDIA GTC On-Demand Training](https://www.nvidia.com/gtc/training/) — searchable recordings of past workshops and domain-specific talks.
 
-To submit GPU jobs on NT (A100) or OzSTAR (P100), see [Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md) and [Job Script Examples](../jobs/examples.md).
+To submit GPU jobs on NT or OzSTAR, see [Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md) and [Job Script Examples](../jobs/examples.md).
 
 ## About the clusters
 

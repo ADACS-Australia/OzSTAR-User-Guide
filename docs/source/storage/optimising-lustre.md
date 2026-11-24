@@ -9,7 +9,7 @@ Lustre delivers its best throughput on large sequential transfers and large file
 - **Transfer size:** Reads and writes **larger than 4 MB** are ideal, and **10 MB or larger** is best. Avoid small reads and writes (under 100 kB), especially **4 kB random writes**, which cause heavy disk seeking and poor throughput on the underlying RAID and ZFS arrays. (Small sequential reads occasionally benefit from block-device, Lustre, or ZFS read-ahead, but this should not be relied on.)
 - **File size:** Optimal cluster file sizes are between **10 MB and 100 GB**.
 - **Parallel codes and checkpoints:** Read or write one large `O(GB)` file per process — or, at high process counts, one large file per node. This distributes I/O across the Object Storage Targets (OSTs) in `/fred` for high aggregate bandwidth (see [Project storage](filesystems.md#project-storage), before speed-ups from transparent filesystem compression).
-- **Do not configure Lustre striping:** Each individual OST in `/fred` consists of four large RAID-Z3 vdevs in a ZFS pool and can sustain several GB/s on its own. Because each OST is already large and fast, Lustre striping provides no advantage.
+- **Do not configure Lustre striping:** Each individual OST in `/fred` is backed by fast ZFS storage and can sustain high throughput on its own, so Lustre striping provides no advantage.
 
 ## Avoid high IOPS and metadata storms
 
@@ -20,7 +20,7 @@ High IOPS and small files go hand in hand. When files are smaller than 10 MB, I/
 Avoid these patterns on Lustre:
 
 - **Directories of tens of thousands of small files:** For example, reading or creating 100,000 files under 8 kB each on `/fred` or `/home` performs poorly on any shared parallel filesystem.
-- **Tight `open()`/`close()` loops:** Repeatedly opening and closing files inside an inner loop saturates the shared Lustre Metadata Servers (MDSs). Because the MDS is shared across all users and has a finite capacity (approximately 100,000 operations per second), metadata storms slow down both your job and the entire cluster.
+- **Tight `open()`/`close()` loops:** Repeatedly opening and closing files inside an inner loop saturates the shared Lustre Metadata Servers (MDSs). Because the MDS is shared across all users and has finite metadata capacity, metadata storms slow down both your job and the entire cluster.
 
 ## Avoid multi-node write lock bouncing
 

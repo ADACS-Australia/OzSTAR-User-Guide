@@ -1,6 +1,6 @@
 # Swinburne HPC Systems
 
-Swinburne operates three compute clusters — **Ngarrgu Tindebeek (NT)**, **OzSTAR**, and **Trevor** — plus dedicated **data-mover** nodes for file transfers. All systems run AlmaLinux 9 and share the same accounts, project directories, and Lustre storage.
+Swinburne operates three compute clusters — **Ngarrgu Tindebeek (NT)**, **OzSTAR**, and **Trevor** — plus dedicated **data-mover** nodes for file transfers. All systems run AlmaLinux (run `cat /etc/os-release` to inspect the exact OS version) and share the same accounts, project directories, and Lustre storage.
 
 ## System overview
 
@@ -9,7 +9,7 @@ Swinburne operates three compute clusters — **Ngarrgu Tindebeek (NT)**, **OzST
 | **Ngarrgu Tindebeek (NT)** | `nt.swin.edu.au` (`tooarrana1/2`) | AMD EPYC (Milan) CPU, high-memory, and A100 GPU compute | No |
 | **OzSTAR** | `ozstar.swin.edu.au` (`farnarkle1/2`) | Intel Xeon (Skylake) CPU, high-memory, and P100 GPU compute | No |
 | **Trevor** | `trevor` *(jump from NT or OzSTAR)* | Private cloud (virtual machine) Intel (Haswell) nodes for low-resource jobs | Yes |
-| **Data-movers** | `data-mover[01-04].hpc.swin.edu.au` | Dedicated nodes for external data transfers | Yes |
+| **Data-movers** | `data-mover01.hpc.swin.edu.au`, ... | Dedicated nodes for external data transfers (interactive or batch) | Yes |
 
 All clusters and data-movers share `/home`, `/fred`, and `/aphid` storage as well as the same account and project management system. See [Filesystems and Storage](../storage/filesystems.md) for storage paths and limits.
 
@@ -39,7 +39,7 @@ Trevor is a private cloud (virtual machine) compute cluster built for jobs with 
 
 ## Data-movers
 
-Dedicated data-mover nodes (`data-mover01.hpc.swin.edu.au` through `data-mover04.hpc.swin.edu.au`) handle file transfers to and from Swinburne HPC storage so large transfers do not slow down shared login nodes. See [Transferring Files](../storage/file-transfer.md) for recommended `rsync` commands.
+Dedicated data-mover nodes (such as `data-mover01.hpc.swin.edu.au`; inspect live nodes with `sinfo -s -p datamover`) handle file transfers to and from Swinburne HPC storage — both interactively and via batch transfer jobs — so large transfers do not slow down shared login nodes. See [Transferring Files](../storage/file-transfer.md) for recommended `rsync` commands.
 
 ## Choosing a cluster
 
@@ -69,7 +69,7 @@ Compute nodes on **NT** and **OzSTAR** are isolated from external networks by de
 
 ## Porting between clusters
 
-Although NT, OzSTAR, Trevor, and the data-movers all run **AlmaLinux 9** (binary-compatible with Red Hat Enterprise Linux 9) and share the same `/home` and `/fred` filesystems, each cluster uses a different CPU architecture.
+Although NT, OzSTAR, Trevor, and the data-movers all run **AlmaLinux** (binary-compatible with Red Hat Enterprise Linux) and share the same `/home` and `/fred` filesystems, each cluster uses a different CPU architecture.
 
 :::{important}
 Software modules, compiled binaries, and Python or Conda environments are built specifically for the CPU architecture of each cluster. A binary or environment built on OzSTAR will not reliably run on NT or Trevor (and vice versa).

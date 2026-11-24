@@ -22,7 +22,7 @@ The Job Monitor automatically flags jobs that are not fully utilising their allo
 
 ### Reviewing recent jobs (`Past` tab)
 
-Open the **Past** tab to view a 24-hour timeline of overall cluster usage. Click any point along the timeline to inspect a snapshot of the system at that time, and enter your username in the filter box to see how many of your jobs were running or to find jobs that finished within the past 24 hours.
+Open the **Past** tab to view a timeline of recent overall cluster usage. Click any point along the timeline to inspect a snapshot of the system at that time, and enter your username in the filter box to see how many of your jobs were running or to find recently finished jobs.
 
 ### Finding backfill slots (`Future` tab)
 
