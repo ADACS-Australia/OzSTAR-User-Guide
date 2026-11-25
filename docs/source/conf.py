@@ -40,7 +40,6 @@ html_theme = "furo"
 html_title = "OzSTAR User Guide"
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
-html_js_files = ["sidebar-scroll.js"]
 html_favicon = "_static/favicon.ico"
 html_show_sourcelink = False
 html_show_sphinx = False
