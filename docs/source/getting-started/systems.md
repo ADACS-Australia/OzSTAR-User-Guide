@@ -1,6 +1,6 @@
 # Swinburne HPC Systems
 
-Swinburne operates three compute clusters — **Ngarrgu Tindebeek (NT)**, **OzSTAR**, and **Trevor** — plus dedicated **data-mover** nodes for file transfers. All systems run AlmaLinux (run `cat /etc/os-release` to inspect the exact OS version) and share the same accounts, project directories, and Lustre storage.
+Swinburne operates three compute clusters — **Ngarrgu Tindebeek (NT)**, **OzSTAR**, and **Trevor** — plus dedicated **data-mover** nodes for file transfers. All systems run an Enterprise Linux distribution binary-compatible with Red Hat Enterprise Linux (such as AlmaLinux or Rocky Linux; run `cat /etc/os-release` to inspect the exact OS release) and share the same accounts, project directories, and Lustre storage.
 
 ## System overview
 
@@ -49,7 +49,7 @@ Jobs are automatically queued to the cluster whose login node you submit from:
 - Submit from `farnarkle1` or `farnarkle2` to run on **OzSTAR**.
 - Submit from `trevor` to run on **Trevor**.
 
-Do not set `--partition` in your Slurm scripts; partition routing is managed automatically based on your submit node and resource requests (see [Creating and Submitting Jobs](../jobs/creating-jobs.md)).
+You normally do not need to specify `--partition`; Slurm routes jobs automatically based on your submit node and resource requests (pass `sbatch --partition=<partition>` on the command line when orchestrating multi-cluster workflows from a single node — see [Creating and Submitting Jobs](../jobs/creating-jobs.md)).
 
 ### Checking live capacity and memory ceilings
 
@@ -69,7 +69,7 @@ Compute nodes on **NT** and **OzSTAR** are isolated from external networks by de
 
 ## Porting between clusters
 
-Although NT, OzSTAR, Trevor, and the data-movers all run **AlmaLinux** (binary-compatible with Red Hat Enterprise Linux) and share the same `/home` and `/fred` filesystems, each cluster uses a different CPU architecture.
+Although NT, OzSTAR, Trevor, and the data-movers all run a Red Hat Enterprise Linux-compatible operating system (such as AlmaLinux or Rocky Linux) and share the same `/home` and `/fred` filesystems, each cluster uses a different CPU architecture.
 
 :::{important}
 Software modules, compiled binaries, and Python or Conda environments are built specifically for the CPU architecture of each cluster. A binary or environment built on OzSTAR will not reliably run on NT or Trevor (and vice versa).

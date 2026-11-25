@@ -21,10 +21,6 @@ Email [hpc-support@swin.edu.au](mailto:hpc-support@swin.edu.au) when you:
 Never include passwords, SSH private keys, 2FA setup keys, or 2FA recovery codes in support emails.
 :::
 
-:::{note}
-Support requests are tracked in JIRA. After emailing `hpc-support@swin.edu.au`, you may receive an email with a link to the JIRA web interface. The web interface is only accessible from the Swinburne network or VPN, but web access is not required — replying directly by email updates your ticket from any network.
-:::
-
 ## Ticket templates
 
 Including complete diagnostic details in your first email helps staff resolve your issue faster. Copy and fill in the template matching your request.

@@ -219,7 +219,7 @@ From: debian:12-slim
 
 ## `iraf-2.16_i686.def`
 
-Runs 32-bit IRAF on `almalinux:<major_version>` (match your host OS major version via `cat /etc/os-release`) with `.i686` libraries. Check `ls /apps/sources/i/iraf/` for pre-staged archives or supply your own tarball in `<path/to/iraf-i686.tar.gz>`:
+Runs 32-bit IRAF on an Enterprise Linux base image (such as `almalinux:<major_version>` or `rockylinux:<major_version>`, matching your host OS major version via `cat /etc/os-release`) with `.i686` libraries. Check `ls /apps/sources/i/iraf/` for pre-staged archives or supply your own tarball in `<path/to/iraf-i686.tar.gz>`:
 
 ```singularity
 BootStrap: docker

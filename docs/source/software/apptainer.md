@@ -134,7 +134,7 @@ apptainer run -B /fred/<project> "$JOBFS/container.sif" <command>
 
 ## Running 32-bit applications
 
-NT and OzSTAR do not provide 32-bit system libraries. To build or run legacy 32-bit applications, start from an `almalinux:<major_version>` container image matching the host OS major version (`cat /etc/os-release`) and GLIBC, and install the required `.i686` libraries inside the container.
+NT and OzSTAR do not provide 32-bit system libraries. To build or run legacy 32-bit applications, start from an Enterprise Linux container image (such as `almalinux:<major_version>` or `rockylinux:<major_version>`) matching the host OS major version (`cat /etc/os-release`) and GLIBC, and install the required `.i686` libraries inside the container.
 
 Illustrative `32bit.def` recipe:
 

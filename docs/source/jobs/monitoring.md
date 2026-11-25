@@ -43,7 +43,7 @@ Direct SSH access to a compute node is allowed only while you have an active job
 
 ## Command-line tools
 
-You can also inspect cluster availability, backfill slots, job priority, and accounting history directly from the login nodes.
+You can also inspect cluster availability, backfill slots, job status, and resource-efficiency summaries directly from the login nodes.
 
 ### Cluster status and backfill
 
@@ -66,7 +66,7 @@ Check a compact standard Slurm summary of partition availability, time limits, a
 sinfo -s
 ```
 
-Illustrative output on NT (`milan` is marked with `*` as the default partition for NT login nodes; remember that partitions are routed internally and should not be specified with `--partition`):
+Illustrative output on NT (`milan` is marked with `*` as the default partition for NT login nodes):
 
 ```text
 PARTITION   AVAIL  TIMELIMIT   NODES(A/I/O/T) NODELIST
@@ -83,7 +83,7 @@ sinfo -o "%P %c %m %G"
 
 For detailed node-by-node output (including `CPUS`, `MEMORY`, `TMP_DISK`, `WEIGHT`, `AVAIL_FE`, and `REASON` if a node is offline), run `sinfo -N -l`. See `man sinfo` for custom `--format` fields.
 
-### Job status, priority, and accounting
+### Job status and resource usage summaries
 
 List your own running (`R`) and pending (`PD`) jobs (using `--me` keeps output focused on your account):
 
@@ -102,25 +102,17 @@ JOBID    PARTITION NAME   USER        ST  TIME  NODES NODELIST(REASON)
 
 For running jobs, `NODELIST(REASON)` shows the allocated compute nodes. For pending jobs, it shows why the job is waiting — for example, `(Resources)` when matching free resources are not yet available, or `(Priority)` when higher-priority jobs are ahead in the queue. You can filter `squeue` with flags such as `--states=R`, `--states=PD`, or `--job=<job_id>`.
 
-Check scheduling priority components for a pending job (customisable with `--format`):
+Inspect detailed metadata and status for a specific job with `sjob`:
 
 ```bash
-sprio -j <job_id>
-```
-
-Inspect near-real-time resource usage of a **running** job with `sstat` (see `man sstat` for `--format` fields) or the cluster helper `sjob`. Pass `-a` (`--allsteps`) to include all running steps (including the `.batch` step for jobs that do not use `srun`), or query a specific step ID such as `<job_id>.batch` or `<job_id>.<step_id>`:
-
-```bash
-sstat -a -j <job_id> --format=JobID,MaxRSS,AveCPU,MaxDiskRead,MaxDiskWrite
-sstat -j <job_id>.batch --format=JobID,MaxRSS,AveCPU,MaxDiskRead,MaxDiskWrite
 sjob <job_id>
 ```
 
-Review accounting history, exit codes, and peak memory for **completed or failed** jobs with `sacct` or `jobreport`:
+Print a formatted CPU, memory, and efficiency summary for a job with `jobreport`, or query Slurm accounting history directly with `sacct`:
 
 ```bash
-sacct -j <job_id> --format=JobID,JobName,State,ExitCode,Elapsed,MaxRSS
 jobreport <job_id>
+sacct -j <job_id> --format=JobID,JobName,State,ExitCode,Elapsed,MaxRSS
 ```
 
 ### Cancelling and modifying jobs

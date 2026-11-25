@@ -32,7 +32,7 @@ Replace `<label>` with a short identifier for your job or code (for example, `co
 After submitting a job with `sbatch`, confirm that Slurm recorded your tag:
 
 ```bash
-scontrol show job <job_id> | grep Comment
+sjob <job_id> | grep Comment
 ```
 
 ## Next steps

@@ -38,7 +38,6 @@ Login nodes, Lustre metadata servers, and the Slurm controller are shared by eve
 - **Keep heavy work off login nodes:** Do not allow an AI tool to run model training, benchmarks, large test suites, or multi-core parallel builds on login nodes. Submit heavy jobs with `sbatch`, or use a short `sinteractive` session for interactive testing ([Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md)).
 - **Do not scan Lustre filesystem roots:** Never point an agent, IDE workspace, file watcher, or recursive search (`find /`, `grep -r`, `du`, `ls -R`) at `/fred`, `/fred/<project>`, `/home`, or `/aphid`. Broad directory walks overload the shared Lustre metadata servers for all users. Open only your specific repository subdirectory (for example, `/fred/<project>/<username>/<repo>`), exclude large data directories via `.gitignore` or your tool's ignore settings, and bound search depth. See [Optimising Lustre I/O](../storage/optimising-lustre.md).
 - **Do not poll Slurm in tight loops:** Never run `watch squeue` or let an agent poll `squeue`, `sacct`, or `sinfo` every few seconds. Use the [Web Job Monitor](https://supercomputing.swin.edu.au/monitor/) or infrequent `squeue --me` checks instead ([Monitoring and Managing Jobs](../jobs/monitoring.md)).
-- **Verify cluster-specific rules:** Check software modules with `module spider <package>` ([Environment Modules and Installing Software](../software/modules.md)), and confirm AI-generated scripts follow Swinburne HPC's Slurm rules (no `--partition`, no `--exclusive`, use `--tmp=` instead of `--gres=tmp:`, keep memory-per-core requests modest and never pass `--mem=0` — see [Creating and Submitting Jobs](../jobs/creating-jobs.md) and [Requesting Resources and Interactive Jobs](../jobs/resources-and-interactive.md)).
 
 ## Protect your data and other users' privacy
 
@@ -78,7 +77,6 @@ Many AI coding assistants automatically read an instruction file (`AGENTS.md`, `
 - Remember NT, OzSTAR, and Trevor have different CPU architectures: recompile binaries and recreate Python/Conda environments per cluster.
 
 ## Slurm batch script rules
-- Never specify `--partition` (routing is automatic from the submit node).
 - Never specify `--exclusive` on `sbatch` (rejected; request cores with `--cpus-per-task` / `--ntasks`).
 - Use `--tmp=<size>` for `$JOBFS` local scratch (omitting it allocates only a minimal default); never use `--gres=tmp:...` (rejected).
 - Keep memory-per-core requests modest and never set `--mem=0` or `--mem-per-cpu=0` (rejected); if Slurm rejects a high memory-per-core request, ask for additional CPU cores or less memory.

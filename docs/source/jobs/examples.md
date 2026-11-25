@@ -4,7 +4,7 @@ Copy and adapt tested Slurm batch scripts for serial, MPI, OpenMP, hybrid, job a
 
 ## Before you start
 
-- Review [Creating and Submitting Jobs](creating-jobs.md) for script anatomy and automatic cluster routing (never specify `--partition`).
+- Review [Creating and Submitting Jobs](creating-jobs.md) for script anatomy and cluster routing.
 - Review [Requesting Resources and Interactive Jobs](resources-and-interactive.md) for memory ceilings, multi-node core multiples, GPU flags, and `$JOBFS` (`--tmp`).
 - Use `module spider <package>` on your target login node to look up exact available module versions before replacing `<version>` placeholders below (see [Environment Modules and Installing Software](../software/modules.md)).
 
@@ -54,7 +54,7 @@ Save the batch script as `mpi.sh`:
 
 module load gcc/<version> openmpi/<version>
 
-srun ./hello.mpi
+mpirun ./hello.mpi
 ```
 
 Submit with `sbatch mpi.sh`. Once finished, `mpi_<job_id>.out` contains output similar to:
@@ -128,7 +128,7 @@ Save as `hybrid.sh`:
 module load gcc/<version> openmpi/<version>
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
-srun ./my_hybrid_program
+mpirun ./my_hybrid_program
 ```
 
 ### Job array of hybrid jobs
@@ -150,12 +150,12 @@ To run multiple independent hybrid jobs across a parameter set, add `--array` an
 module load gcc/<version> openmpi/<version>
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
-srun ./my_hybrid_program "$SLURM_ARRAY_TASK_ID"
+mpirun ./my_hybrid_program "$SLURM_ARRAY_TASK_ID"
 ```
 
 ## Job arrays (embarrassingly parallel)
 
-Job arrays submit many independent runs of the same script (for example, Monte Carlo ensembles, parameter sweeps, or batch file processing). Check the live maximum array size (`MaxArraySize`) with `scontrol show config | grep MaxArraySize` (see [Walltime and scheduler limits](resources-and-interactive.md#walltime-and-scheduler-limits)).
+Job arrays submit many independent runs of the same script (for example, Monte Carlo ensembles, parameter sweeps, or batch file processing).
 
 ### Integer parameter sweep
 
@@ -172,7 +172,7 @@ Pass `$SLURM_ARRAY_TASK_ID` directly when your program accepts an integer index:
 #SBATCH --mem-per-cpu=1G
 #SBATCH --array=1-8
 
-srun ./my_program "$SLURM_ARRAY_TASK_ID"
+./my_program "$SLURM_ARRAY_TASK_ID"
 ```
 
 ### Processing files or custom parameter values
@@ -193,7 +193,7 @@ For 8 files in `<path/to/data>`, use `--array=0-7`:
 #SBATCH --array=0-7
 
 FILES=(<path/to/data>/*)
-srun ./my_program "${FILES[$SLURM_ARRAY_TASK_ID]}"
+./my_program "${FILES[$SLURM_ARRAY_TASK_ID]}"
 ```
 
 The same 0-based indexing applies to non-sequential parameter lists (here 7 values → `--array=0-6`):
@@ -210,7 +210,7 @@ The same 0-based indexing applies to non-sequential parameter lists (here 7 valu
 #SBATCH --array=0-6
 
 ARGS=(0.05 0.25 0.5 1 2 5 100)
-srun ./my_program "${ARGS[$SLURM_ARRAY_TASK_ID]}"
+./my_program "${ARGS[$SLURM_ARRAY_TASK_ID]}"
 ```
 
 :::{tip}
@@ -308,7 +308,7 @@ I am the master
 
 ## GPU job
 
-Submit GPU jobs from `tooarrana1`/`tooarrana2` (`nt.swin.edu.au`) for NT GPUs, or from `farnarkle1`/`farnarkle2` (`ozstar.swin.edu.au`) for OzSTAR GPUs (see [Swinburne HPC Systems](../getting-started/systems.md) for GPU hardware details). Request GPUs with `--gres=gpu:<n>` and do **not** set `--partition`.
+Submit GPU jobs from `tooarrana1`/`tooarrana2` (`nt.swin.edu.au`) for NT GPUs, or from `farnarkle1`/`farnarkle2` (`ozstar.swin.edu.au`) for OzSTAR GPUs (see [Swinburne HPC Systems](../getting-started/systems.md) for GPU hardware details). Request GPUs with `--gres=gpu:<n>`.
 
 Save as `gpu.sh`:
 

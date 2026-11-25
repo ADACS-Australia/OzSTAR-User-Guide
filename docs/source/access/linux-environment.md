@@ -1,10 +1,10 @@
 # Linux Environment and Shell
 
-Ngarrgu Tindebeek (NT), OzSTAR, Trevor, and the data-movers all run [AlmaLinux](https://almalinux.org/), which is binary-compatible with [Red Hat Enterprise Linux](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) (run `cat /etc/os-release` on any node to check the exact OS release). Use this guide to learn Linux shell basics, read manual pages, change your login shell, run persistent terminal sessions, and avoid common dotfile issues.
+Ngarrgu Tindebeek (NT), OzSTAR, Trevor, and the data-movers run an Enterprise Linux distribution binary-compatible with [Red Hat Enterprise Linux](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux) (such as [AlmaLinux](https://almalinux.org/) or [Rocky Linux](https://rockylinux.org/); run `cat /etc/os-release` on any node to check the exact OS release). Use this guide to learn Linux shell basics, read manual pages, change your login shell, run persistent terminal sessions, and avoid common dotfile issues.
 
 ## Learning the Linux command line
 
-Because all Swinburne HPC workflows run on AlmaLinux via the command line, spend time becoming comfortable with core Linux commands before submitting production jobs. Most Red Hat Enterprise Linux documentation applies directly to AlmaLinux.
+Because all Swinburne HPC workflows run on Enterprise Linux via the command line, spend time becoming comfortable with core Linux commands before submitting production jobs. Most Red Hat Enterprise Linux documentation applies directly.
 
 Recommended introductory resources:
 

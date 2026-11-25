@@ -1,15 +1,15 @@
 # Python and Conda
 
-Set up isolated, reproducible Python environments on Ngarrgu Tindebeek (NT), OzSTAR, and Trevor using Python modules with `venv`, Conda/Mamba, or Apptainer containers.
+Set up isolated, reproducible Python environments on Ngarrgu Tindebeek (NT), OzSTAR, and Trevor using Python modules with `venv` or Apptainer containers (strongly preferred over bare Conda environments on Lustre).
 
-There are three recommended ways to run Python on Swinburne HPC:
+Choose the method that fits your workflow:
 
-1. **Python module and `venv`** — recommended for most users and beginners; lightweight and built against cluster toolchains.
-2. **Conda / Mamba** — recommended when you need a specific Python version or complex non-Python dependencies.
-3. **Apptainer container** — recommended for large environments to minimise Lustre small-file I/O and ensure portability across systems.
+1. **Python module and `venv` (recommended default)** — lightweight, fast to load on Lustre, and built against cluster toolchains.
+2. **Apptainer container (recommended for large stacks or Conda packages)** — packages an entire `pip` or Micromamba/Conda environment into a single `.sif` file, avoiding Lustre small-file slowdowns and inode exhaustion while ensuring portability.
+3. **Bare Conda / Mamba on Lustre (last resort)** — use directly on the host filesystem only if neither `venv` nor an Apptainer container is feasible for your workflow; bare Conda environments create tens of thousands of tiny files that slow down imports, strain shared Lustre metadata servers, and rapidly consume file-count quotas.
 
 :::{note}
-Avoid using the operating-system Python at `/usr/bin/python`. Choosing one of the three methods above keeps your packages isolated and reproducible.
+Avoid using the operating-system Python at `/usr/bin/python`. Choosing one of the managed methods above keeps your packages isolated and reproducible.
 :::
 
 ## Python modules and virtual environments
@@ -84,9 +84,57 @@ Replace `<version>` with a `python-scientific` version discovered via `module sp
 Always load your required modules *before* activating your virtual environment. Activating a `venv` without loading its matching Python module first leaves Python unable to resolve its shared libraries.
 :::
 
-## Conda and Mamba
+## Containerised Python with Apptainer
 
-[Conda](https://docs.conda.io/en/latest/) is an open-source package and environment manager for Python and non-Python libraries. Load it via the `mamba` module (`conda` and `anaconda` are global aliases for `mamba`):
+Large Python and Conda environments contain tens of thousands of small files, which load slowly on Lustre, consume large numbers of file-count inodes, and increase metadata load across the shared cluster (see [Optimising Lustre I/O](../storage/optimising-lustre.md)). Packaging your environment into an Apptainer `.sif` container is strongly recommended whenever you need Conda packages, custom Python versions, or large machine-learning stacks:
+
+1. **Fast Lustre I/O and minimal inode usage**, because Lustre sees a single read-only [SquashFS](https://docs.kernel.org/filesystems/squashfs.html) file rather than tens of thousands of small files.
+2. **Reproducibility and portability** across different systems.
+
+See [Building a container from a definition file](apptainer.md#building-a-container-from-a-definition-file) for a Micromamba/Conda container recipe (`bilby.def`), and [Containers (Apptainer)](apptainer.md) for bind mounts and GPU usage.
+
+### Example: `pip`-based Python container
+
+:::{note}
+Replace `<version>` with a current pinned Python Docker image tag from [Docker Hub](https://hub.docker.com/_/python) for reproducibility, and check host GLIBC compatibility (`ldd --version`) if a build hits fakeroot errors (see [Fakeroot and GLIBC compatibility](apptainer.md#fakeroot-and-glibc-compatibility)).
+:::
+
+Create a definition file named `my_container.def`:
+
+```singularity
+BootStrap: docker
+From: python:<version>-slim
+
+%post
+    pip install wheel "tensorflow[and-cuda]" tensorflow-datasets pandas
+```
+
+Load Apptainer and build the `.sif` image:
+
+```bash
+module load apptainer
+apptainer build my_container.sif my_container.def
+```
+
+Run a GPU script inside the container (`--nv` enables GPU access; `$PWD` is bind-mounted automatically so `my_tensorflow_script.py` in your current working directory is visible inside the container):
+
+```bash
+apptainer run --nv my_container.sif python my_tensorflow_script.py
+```
+
+:::{warning}
+A `.sif` container is an **immutable, read-only** SquashFS image — you must edit the `.def` file and rebuild the image to change packages.
+
+Do **not** run `pip install` inside a running container (for example, `apptainer run my_container.sif pip install <package_name>`). Because container `site-packages` is read-only and Apptainer bind-mounts `$HOME` at runtime, `pip` silently prints *"Defaulting to user installation because normal site-packages is not writeable"* and installs packages into your host `~/.local` directory. Those host files then bleed into future container runs and cause difficult environment conflicts.
+:::
+
+## Conda and Mamba (last resort)
+
+:::{warning}
+Unpacked [Conda](https://docs.conda.io/en/latest/) and Mamba environments create tens of thousands of small files on disk. On shared Lustre filesystems, this causes slow startup and import times, stresses metadata servers for all users, and rapidly exhausts file-count (inode) quotas. Prefer building a **containerised Micromamba environment with Apptainer** (see [Building a container from a definition file](apptainer.md#building-a-container-from-a-definition-file)) or using a lightweight **`python` module + `venv`** above, and treat bare Conda/Mamba environments on Lustre as a last resort.
+:::
+
+If you must use an unpacked Conda environment directly on the cluster, load it via the `mamba` module (`conda` and `anaconda` are global aliases for `mamba`):
 
 ```bash
 module load mamba
@@ -109,7 +157,7 @@ mamba install -c defaults anaconda
 ### Conda and home directory quota
 
 :::{warning}
-By default, Conda stores environments and package caches in `~/.conda`, which can quickly exhaust your `/home` block and file quotas (see [Filesystems and Storage](../storage/filesystems.md)). Store Conda environments on `/fred/<project>/` instead.
+By default, Conda stores environments and package caches in `~/.conda`, which will quickly exhaust your `/home` block and 200,000-file quotas (see [Filesystems and Storage](../storage/filesystems.md)). Always place bare Conda environments on `/fred/<project>/` — and keep old or unused environments cleaned up so they do not exhaust your project's file-count quota either.
 :::
 
 Configure Conda in your user configuration (`~/.condarc`) to place environments and package caches in your project directory (after running `module load mamba`):
@@ -180,53 +228,9 @@ Alternatively, create your GPU Conda environment directly on `farnarkle1`/`farna
 
 For more detail, see [conda-forge: Installing CUDA-enabled packages](https://conda-forge.org/docs/user/tipsandtricks/#installing-cuda-enabled-packages-like-tensorflow-and-pytorch).
 
-## Containerised Python with Apptainer
-
-Large Python and Conda environments contain tens of thousands of small files, which load slowly on Lustre and increase metadata load across the shared cluster (see [Optimising Lustre I/O](../storage/optimising-lustre.md)). Packaging your environment into an Apptainer `.sif` container provides:
-
-1. **Reproducibility and portability** across different systems.
-2. **Better Lustre I/O**, because Lustre sees a single read-only [SquashFS](https://docs.kernel.org/filesystems/squashfs.html) file rather than thousands of small files.
-
-See [Containers (Apptainer)](apptainer.md) for general Apptainer usage and a Micromamba-based container recipe.
-
-### Example: `pip`-based Python container
-
-:::{note}
-Replace `<version>` with a current pinned Python Docker image tag from [Docker Hub](https://hub.docker.com/_/python) for reproducibility, and check host GLIBC compatibility (`ldd --version`) if a build hits fakeroot errors (see [Fakeroot and GLIBC compatibility](apptainer.md#fakeroot-and-glibc-compatibility)).
-:::
-
-Create a definition file named `my_container.def`:
-
-```singularity
-BootStrap: docker
-From: python:<version>-slim
-
-%post
-    pip install wheel "tensorflow[and-cuda]" tensorflow-datasets pandas
-```
-
-Load Apptainer and build the `.sif` image:
-
-```bash
-module load apptainer
-apptainer build my_container.sif my_container.def
-```
-
-Run a GPU script inside the container (`--nv` enables GPU access; `$PWD` is bind-mounted automatically so `my_tensorflow_script.py` in your current working directory is visible inside the container):
-
-```bash
-apptainer run --nv my_container.sif python my_tensorflow_script.py
-```
-
-:::{warning}
-A `.sif` container is an **immutable, read-only** SquashFS image — you must edit the `.def` file and rebuild the image to change packages.
-
-Do **not** run `pip install` inside a running container (for example, `apptainer run my_container.sif pip install <package_name>`). Because container `site-packages` is read-only and Apptainer bind-mounts `$HOME` at runtime, `pip` silently prints *"Defaulting to user installation because normal site-packages is not writeable"* and installs packages into your host `~/.local` directory. Those host files then bleed into future container runs and cause difficult environment conflicts.
-:::
-
 ## Next steps
 
+- [Containers (Apptainer)](apptainer.md) — package Conda or `pip` environments into single-file `.sif` containers.
 - [Jupyter Notebooks](notebooks.md) — run interactive notebooks from your Python environment.
-- [Containers (Apptainer)](apptainer.md) — learn bind mounts, GPU flags, `$JOBFS` staging, and hybrid MPI.
 - [Environment Modules and Installing Software](modules.md) — explore cluster toolchains and Lmod commands.
 - [Optimising Lustre I/O](../storage/optimising-lustre.md) — avoid small-file bottlenecks on Lustre.

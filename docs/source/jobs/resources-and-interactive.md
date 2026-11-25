@@ -55,14 +55,14 @@ sinfo -o "%P %c %m %G"
 
 Request exact CPU resources using `--ntasks` (MPI processes) and `--cpus-per-task` (threads per task). Slurm enforces the following rules at submission time:
 
-- **`--exclusive` is not permitted on `sbatch`:** Submitting a batch script with `--exclusive` is rejected. Request the exact number of cores your job needs with `--cpus-per-task` or `--ntasks` instead.
-- **OzSTAR per-node CPU limit:** Single jobs on OzSTAR are limited to **32 cores per node** (out of 36 physical cores) to leave cores available for system and GPU communication.
-- **Multi-node CPU jobs:** Jobs spanning more than one node must request exact multiples of **64 cores** on NT or **32 cores** on OzSTAR, and `--cpus-per-task` must evenly divide the per-node core count (64 on NT, 32 on OzSTAR).
+- **OzSTAR per-node CPU limit:** CPU-only jobs on OzSTAR are limited to **32 cores per node** (out of 36 physical cores) to leave cores available for GPU jobs. GPU jobs may request the full **36 cores per node**.
+- **Multi-node CPU jobs:** CPU-only jobs spanning more than one node must request exact multiples of **64 cores** on NT or **32 cores** on OzSTAR, and `--cpus-per-task` must evenly divide the per-node core count (64 on NT, 32 on OzSTAR).
+- **GPU jobs:** Jobs requesting **≤ 2 cores per GPU** on OzSTAR or **≤ 4 cores per GPU** on NT (`milan`) are more likely to find available cores and achieve better queue throughput.
 - **OpenMP thread count:** `OMP_NUM_THREADS` defaults to `1`. Export `OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK` inside multi-threaded scripts (see [Creating and Submitting Jobs](creating-jobs.md)).
 
 ## Requesting GPUs
 
-Request GPUs with Slurm Generic Resource Scheduling (`--gres`). Do not specify `--partition` — Slurm automatically routes GPU jobs on the cluster of your login node (`tooarrana1/2` for NT, `farnarkle1/2` for OzSTAR; see [Swinburne HPC Systems](../getting-started/systems.md) for GPU models):
+Request GPUs with Slurm Generic Resource Scheduling (`--gres`). Slurm automatically routes GPU jobs on the cluster of your login node (`tooarrana1/2` for NT, `farnarkle1/2` for OzSTAR; see [Swinburne HPC Systems](../getting-started/systems.md) for GPU models):
 
 ```bash
 #SBATCH --gres=gpu:1
@@ -97,22 +97,11 @@ Always use `--tmp=<size>` to request local scratch space. Passing `--gres=tmp:..
 Always specify `--time=<DD-HH:MM:SS>` (or `<HH:MM:SS>`) in every batch script — omitting `--time` assigns only a very short default walltime. Realistic, shorter walltimes help Slurm backfill your job sooner.
 
 - **Compute cluster maximum walltime:** **7 days** (`7-00:00:00`) on NT, OzSTAR, and Trevor.
-- **Data-mover batch jobs:** Transfer jobs submitted on the data-mover queue (`datamover`) have a shorter maximum walltime than compute queues.
-- **Job arrays:** Slurm enforces a cluster-wide maximum array index (`MaxArraySize`).
-
-Inspect live partition walltime limits, Slurm configuration defaults, and per-user/project concurrency caps directly on the cluster:
-
-```bash
-sinfo -s
-qinfo -v     # or qinfo -s for a compact summary
-scontrol show config | grep -E 'DefMemPer|MaxArraySize'
-sacctmgr show qos format=Name,MaxTRESPU,MaxSubmitPU
-sacctmgr show assoc where user=<username> format=Account,User,QOS,GrpTRES
-```
+- **Data-mover batch jobs:** Transfer jobs submitted on the data-mover queue (`datamover`) have a shorter maximum walltime than compute queues (check `sinfo -s -p datamover`).
 
 ## Interactive jobs (`sinteractive` and `srun`)
 
-NT and OzSTAR do not have dedicated interactive compute nodes. Instead, request an interactive compute allocation from a login node with a matching CPU architecture (`tooarrana1` or `tooarrana2` for NT; `farnarkle1` or `farnarkle2` for OzSTAR).
+You can request an interactive compute allocation from a login node with a matching CPU architecture (`tooarrana1` or `tooarrana2` for NT; `farnarkle1` or `farnarkle2` for OzSTAR).
 
 :::{important}
 Interactive allocations (`sinteractive` or standalone `srun`) are limited to short sessions based on total core-time — the more CPU cores you request, the shorter the permitted walltime. If Slurm rejects an interactive request for exceeding the interactive time limit, reduce your core count or `--time`, or submit a batch job with `sbatch`.

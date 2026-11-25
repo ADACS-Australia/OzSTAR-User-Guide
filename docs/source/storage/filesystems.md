@@ -39,7 +39,7 @@ Because `/home`, `/fred`, and `/aphid/scratch-3month` use [transparent compressi
 :::
 
 - **Default quota:** **10 TiB** of disk blocks and **1,000,000 files** per project. If your project requires additional storage, email `hpc-support@swin.edu.au` (see [User Support](../help/support.md)).
-- **Directory layout:** Project leaders typically create per-member subdirectories inside the project area (for example, `/fred/<project>/<username>`). If you belong to multiple projects, you can access each project's `/fred/<project>` directory.
+- **Directory layout:** Users typically create their own subdirectory inside their project area (for example, `/fred/<project>/<username>`). If you belong to multiple projects, you can access each project's `/fred/<project>` directory.
 - **Intended use:** Most batch jobs should read inputs from and write outputs to `/fred/<project>`.
 
 ## Three-month scratch

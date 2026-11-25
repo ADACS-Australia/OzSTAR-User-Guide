@@ -1,0 +1,12 @@
+/* Wrap long lines in code blocks visually without altering copied clipboard text */
+.highlight pre,
+pre.literal-block {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
+
+/* Keep the first wrapped line clear of the top-right copy button */
+div.highlight pre {
+    padding-right: 2.5rem;
+}
